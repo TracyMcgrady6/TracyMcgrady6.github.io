@@ -365,7 +365,9 @@
       
         
           
-          TensorFlow分布式全套（原理，部署，实例）TF的实现分为了单机实现和分布式实现，在分布式实现中，需要实现的是对client，master，worker process不在同一台机器上时的支持。数据量很大的情况下，单机跑深度学习程序，过于耗时，所以需要TensorFlow分布式并行。该例子是T
+          TensorFlow分布式全套（原理，部署，实例）TF的实现分为了单机实现和分布式实现，在分布式实现中，需要实现的是对client，master，worker process不在同一台机器上时的支持。数据量很大的情况下，单机跑深度学习程序，过于耗时，所以需要TensorFlow分布式并行。该例子是TF的入门实例手写字体识别MNIST基于分布式的实现，代码都加了中文注释，更加通俗易懂。
+GitHub实例地址：https://github.com/TracyMcgrady6/Distribute_MNIST欢迎大家star！
+Single-Device Execution构建好图后，使用拓扑算法来
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -524,7 +526,8 @@
       
         
           
-          从零开始掌握Python机器学习（附资源）基础篇第一步：基本 Python 技能如果我们打算利用 Python 来执行机器学习，那么对 Python 有一些基本的了解就是至关重要的。幸运的是，因为 Python 是一种得到了广泛使用的通用编程语言，加上其在科学计算和机器学习领域的应用，所以找到一个初
+          从零开始掌握Python机器学习（附资源）基础篇第一步：基本 Python 技能如果我们打算利用 Python 来执行机器学习，那么对 Python 有一些基本的了解就是至关重要的。幸运的是，因为 Python 是一种得到了广泛使用的通用编程语言，加上其在科学计算和机器学习领域的应用，所以找到一个初学者教程并不十分困难。你在 Python 和编程上的经验水平对于起步而言是至关重要的。
+首先，你需要安装 Python。因为我们后面会用到科学计算和机器学习软件包，所以我建议你安装 Anaconda。这是一个可用于 Linux、OS X 和 Windows 上的工业级的 Python 实现，完整包含
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -683,7 +686,7 @@
       
         
           
-          模型融合1.blending&emsp;&emsp; 比如数据分成train和test，对于model_i（比如xgboost） ，即对所有的数据训练模型model_i，预测test数据生成预测向量v_i， 然后对train做CV fold=5，然后对其他4份做训练数据，另外一份作为val数据，得出
+          模型融合1.blending&emsp;&emsp; 比如数据分成train和test，对于model_i（比如xgboost） ，即对所有的数据训练模型model_i，预测test数据生成预测向量v_i， 然后对train做CV fold=5，然后对其他4份做训练数据，另外一份作为val数据，得出模型model_i_j，然后对val预测生成向量t_i_j， 然后将5分向量concat生成t_i，这是对应t_i与v_i对应，每个模型都能生成这样一组向量，然后在顶层的模型比如LR或者线性对t向量进行训练，生成blender模型对v向量进行预测&emsp;&emsp; 也就是需要生成如下的一个表，
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -843,7 +846,7 @@
         
           
           数据库工具类JDBC原理，解析.Properties型配置文件的包等
-数据库连接类123456789101112131415161718192021222324252627package DBHandler;import java.sql.Connection;import java.sql.Dri
+数据库连接类123456789101112131415161718192021222324252627package DBHandler;import java.sql.Connection;import java.sql.DriverManager;import java.sql.SQLException;import java.util.Date;public class DBConnection &#123;	public static final String driver = "com.mysql.jdbc.Dri
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1071,9 +1074,15 @@
 
 
 
+  
+  
 
 
 
+
+
+  
+  
 
 
 
@@ -1107,6 +1116,21 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
   
 
 
