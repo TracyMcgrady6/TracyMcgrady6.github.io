@@ -1,0 +1,982 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="“机器学习”," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="模型融合1.blending&amp;emsp;&amp;emsp; 比如数据分成train和test，对于model_i（比如xgboost） ，即对所有的数据训练模型model_i，预测test数据生成预测向量v_i， 然后对train做CV fold=5，然后对其他4份做训练数据，另外一份作为val数据，得出模型model_i_j，然后对val预测生成向量t_i_j， 然后将5分向量concat生成t_i，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型融合">
+<meta property="og:url" content="http://yoursite.com/2017/04/10/模型融合/index.html">
+<meta property="og:site_name" content="McGrady">
+<meta property="og:description" content="模型融合1.blending&amp;emsp;&amp;emsp; 比如数据分成train和test，对于model_i（比如xgboost） ，即对所有的数据训练模型model_i，预测test数据生成预测向量v_i， 然后对train做CV fold=5，然后对其他4份做训练数据，另外一份作为val数据，得出模型model_i_j，然后对val预测生成向量t_i_j， 然后将5分向量concat生成t_i，">
+<meta property="og:image" content="http://yoursite.com/media/14918055623388/14918064349355.jpg">
+<meta property="og:image" content="http://yoursite.com/media/14918055623388/14918065471980.jpg">
+<meta property="og:image" content="http://yoursite.com/media/14918055623388/14918065640926.jpg">
+<meta property="og:image" content="http://yoursite.com/media/14918055623388/14918065784039.jpg">
+<meta property="og:updated_time" content="2017-04-10T07:11:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模型融合">
+<meta name="twitter:description" content="模型融合1.blending&amp;emsp;&amp;emsp; 比如数据分成train和test，对于model_i（比如xgboost） ，即对所有的数据训练模型model_i，预测test数据生成预测向量v_i， 然后对train做CV fold=5，然后对其他4份做训练数据，另外一份作为val数据，得出模型model_i_j，然后对val预测生成向量t_i_j， 然后将5分向量concat生成t_i，">
+<meta name="twitter:image" content="http://yoursite.com/media/14918055623388/14918064349355.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/10/模型融合/"/>
+
+
+
+
+
+  <title> 模型融合 | McGrady </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ed23de8075b3937075187141966fe2ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">McGrady</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/10/模型融合/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="McGrady">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/haizei.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="McGrady">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="McGrady" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                模型融合
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-10T14:26:02+08:00">
+                2017-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/10/模型融合/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/10/模型融合/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/04/10/模型融合/" class="leancloud_visitors" data-flag-title="模型融合">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="模型融合"><a href="#模型融合" class="headerlink" title="模型融合"></a>模型融合</h1><h2 id="1-blending"><a href="#1-blending" class="headerlink" title="1.blending"></a>1.blending</h2><p>&emsp;&emsp; 比如数据分成train和test，对于model_i（比如xgboost） ，即对所有的数据训练模型model_i，预测test数据生成预测向量v_i， 然后对train做CV fold=5，然后对其他4份做训练数据，另外一份作为val数据，得出模型model_i_j，然后对val预测生成向量t_i_j， 然后将5分向量concat生成t_i，这是对应t_i与v_i对应，每个模型都能生成这样一组向量，然后在顶层的模型比如LR或者线性对t向量进行训练，生成blender模型对v向量进行预测<br>&emsp;&emsp; 也就是需要生成如下的一个表，训练集数据为把数据切分交叉生成，测试集为训练数据全部训练对测试集预测生成</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>model_1</th>
+<th>model_2</th>
+<th>model_3</th>
+<th>model_4</th>
+<th>label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.1</td>
+<td>0.2</td>
+<td>0.14</td>
+<td>0.15</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.2</td>
+<td>0.22</td>
+<td>0.18</td>
+<td>0.3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.8</td>
+<td>0.7</td>
+<td>0.88</td>
+<td>0.6</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.3</td>
+<td>0.3</td>
+<td>0.2</td>
+<td>0.22</td>
+<td>0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.5</td>
+<td>0.3</td>
+<td>0.6</td>
+<td>0.5</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>blending 的优点是：比stacking简单，不会造成数据穿越，generalizers和stackers使用不同的数据，可以随时添加其他模型到blender中。</p>
+<p>与stacking的区别是：<br> stacking在预测 测试集上时直接基于训练数据的<br> blender在预测 测试集上每次cv的子集都会预测下预测集， n次cv取平均</p>
+<p><img src="media/14918055623388/14918064349355.jpg" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> load_data</div><div class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> StratifiedKFold</div><div class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</div><div class="line"><span class="keyword">from</span> utility <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> evaluator <span class="keyword">import</span> *</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">logloss</span><span class="params">(attempt, actual, epsilon=<span class="number">1.0e-15</span>)</span>:</span></div><div class="line">    <span class="string">"""Logloss, i.e. the score of the bioresponse competition.</span></div><div class="line">    """</div><div class="line">    attempt = np.clip(attempt, epsilon, <span class="number">1.0</span>-epsilon)</div><div class="line">    <span class="keyword">return</span> - np.mean(actual * np.log(attempt) + (<span class="number">1.0</span> - actual) * np.log(<span class="number">1.0</span> - attempt))</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line"></div><div class="line">    np.random.seed(<span class="number">0</span>) <span class="comment"># seed to shuffle the train set</span></div><div class="line"></div><div class="line">    <span class="comment"># n_folds = 10</span></div><div class="line">    n_folds = <span class="number">5</span></div><div class="line">    verbose = <span class="keyword">True</span></div><div class="line">    shuffle = <span class="keyword">False</span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment"># X, y, X_submission = load_data.load()</span></div><div class="line"></div><div class="line">    train_x_id, train_x, train_y = preprocess_train_input()</div><div class="line">    val_x_id, val_x, val_y = preprocess_val_input()</div><div class="line"></div><div class="line">    X = train_x</div><div class="line">    y = train_y</div><div class="line">    X_submission = val_x</div><div class="line">    X_submission_y = val_y</div><div class="line"></div><div class="line">    <span class="keyword">if</span> shuffle:</div><div class="line">        idx = np.random.permutation(y.size)</div><div class="line">        X = X[idx]</div><div class="line">        y = y[idx]</div><div class="line"></div><div class="line"></div><div class="line">    skf = list(StratifiedKFold(y, n_folds))</div><div class="line"></div><div class="line">    clfs = [RandomForestClassifier(n_estimators=<span class="number">100</span>, n_jobs=<span class="number">-1</span>, criterion=<span class="string">'gini'</span>),</div><div class="line">            RandomForestClassifier(n_estimators=<span class="number">100</span>, n_jobs=<span class="number">-1</span>, criterion=<span class="string">'entropy'</span>),</div><div class="line">            ExtraTreesClassifier(n_estimators=<span class="number">100</span>, n_jobs=<span class="number">-1</span>, criterion=<span class="string">'gini'</span>),</div><div class="line">            ExtraTreesClassifier(n_estimators=<span class="number">100</span>, n_jobs=<span class="number">-1</span>, criterion=<span class="string">'entropy'</span>),</div><div class="line">            GradientBoostingClassifier(learning_rate=<span class="number">0.05</span>, subsample=<span class="number">0.5</span>, max_depth=<span class="number">6</span>, n_estimators=<span class="number">50</span>)]</div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">"Creating train and test sets for blending."</span></div><div class="line">    </div><div class="line">    dataset_blend_train = np.zeros((X.shape[<span class="number">0</span>], len(clfs)))</div><div class="line">    dataset_blend_test = np.zeros((X_submission.shape[<span class="number">0</span>], len(clfs)))</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> j, clf <span class="keyword">in</span> enumerate(clfs):</div><div class="line">        <span class="keyword">print</span> j, clf</div><div class="line">        dataset_blend_test_j = np.zeros((X_submission.shape[<span class="number">0</span>], len(skf)))</div><div class="line">        <span class="keyword">for</span> i, (train, test) <span class="keyword">in</span> enumerate(skf):</div><div class="line">            <span class="keyword">print</span> <span class="string">"Fold"</span>, i</div><div class="line">            X_train = X[train]</div><div class="line">            y_train = y[train]</div><div class="line">            X_test = X[test]</div><div class="line">            y_test = y[test]</div><div class="line">            clf.fit(X_train, y_train)</div><div class="line">            y_submission = clf.predict_proba(X_test)[:,<span class="number">1</span>]</div><div class="line">            dataset_blend_train[test, j] = y_submission</div><div class="line">            dataset_blend_test_j[:, i] = clf.predict_proba(X_submission)[:,<span class="number">1</span>]</div><div class="line">        dataset_blend_test[:,j] = dataset_blend_test_j.mean(<span class="number">1</span>)</div><div class="line">        print(<span class="string">"val auc Score: %0.5f"</span> % (evaluate2(dataset_blend_test[:,j], X_submission_y)))</div><div class="line"></div><div class="line">    <span class="keyword">print</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"Blending."</span></div><div class="line">    <span class="comment"># clf = LogisticRegression()</span></div><div class="line">    clf = GradientBoostingClassifier(learning_rate=<span class="number">0.02</span>, subsample=<span class="number">0.5</span>, max_depth=<span class="number">6</span>, n_estimators=<span class="number">100</span>)</div><div class="line">    clf.fit(dataset_blend_train, y)</div><div class="line">    y_submission = clf.predict_proba(dataset_blend_test)[:,<span class="number">1</span>]</div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">"Linear stretch of predictions to [0,1]"</span></div><div class="line">    y_submission = (y_submission - y_submission.min()) / (y_submission.max() - y_submission.min())</div><div class="line">    <span class="keyword">print</span> <span class="string">"blend result"</span></div><div class="line">    print(<span class="string">"val auc Score: %0.5f"</span> % (evaluate2(y_submission, X_submission_y)))</div><div class="line">    <span class="keyword">print</span> <span class="string">"Saving Results."</span></div><div class="line">    np.savetxt(fname=<span class="string">'blend_result.csv'</span>, X=y_submission, fmt=<span class="string">'%0.9f'</span>)</div></pre></td></tr></table></figure>
+<p>##2.rank_avg<br>这种融合方法适合排序评估指标，比如auc之类的<br><img src="media/14918055623388/14918065471980.jpg" alt=""><br>其中weight_i为该模型权重，权重为1表示平均融合<br>rank_i表示样本的升序排名 ，也就是越靠前的样本融合后也越靠前<br>能较快的利用排名融合多个模型之间的差异，而不用去加权样本的概率值融合</p>
+<p>##3.weighted<br>加权融合，给模型一个权重weight，然后加权得到最终结果<br>weight为1时为均值融合，result_i为模型i的输出<br><img src="media/14918055623388/14918065640926.jpg" alt=""></p>
+<p>##4.bagging<br>从特征，参数，样本的多样性差异性来做多模型融合，参考随机森林<br><img src="media/14918055623388/14918065784039.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.gif" alt="McGrady WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="McGrady Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/“机器学习”/" rel="tag"># “机器学习”</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/05/数据库工具类/" rel="next" title="数据库工具类">
+                <i class="fa fa-chevron-left"></i> 数据库工具类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/12/从零开始掌握Python机器学习（附资源）/" rel="prev" title="从零开始掌握Python机器学习">
+                从零开始掌握Python机器学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/10/模型融合/"
+           data-title="模型融合" data-url="http://yoursite.com/2017/04/10/模型融合/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/haizei.jpg"
+               alt="McGrady" />
+          <p class="site-author-name" itemprop="name">McGrady</p>
+          <p class="site-description motion-element" itemprop="description">Second place means you're the first loser.</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TracyMcgrady6" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模型融合"><span class="nav-number">1.</span> <span class="nav-text">模型融合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-blending"><span class="nav-number">1.1.</span> <span class="nav-text">1.blending</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">McGrady</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tracymcgrady"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Jih3eStoYY11KFz7FxCnNC1K-gzGzoHsz", "qjPmKkf63OGLNUj8h6waX3po");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
