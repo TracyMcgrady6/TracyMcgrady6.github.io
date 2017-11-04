@@ -81,12 +81,12 @@
 
 <meta name="description" content="Second place means you&apos;re the first loser.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="McGrady">
+<meta property="og:title" content="Rose">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="McGrady">
+<meta property="og:site_name" content="Rose">
 <meta property="og:description" content="Second place means you&apos;re the first loser.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="McGrady">
+<meta name="twitter:title" content="Rose">
 <meta name="twitter:description" content="Second place means you&apos;re the first loser.">
 
 
@@ -123,7 +123,7 @@
 
 
 
-  <title>McGrady</title>
+  <title>Rose</title>
   
 
 
@@ -164,7 +164,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">McGrady</span>
+        <span class="site-title">Rose</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -270,7 +270,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="McGrady">
+      <meta itemprop="name" content="Rose">
     </span>
 
     
@@ -368,7 +368,24 @@
           TensorFlow分布式全套（原理，部署，实例）TF的实现分为了单机实现和分布式实现，在分布式实现中，需要实现的是对client，master，worker process不在同一台机器上时的支持。数据量很大的情况下，单机跑深度学习程序，过于耗时，所以需要TensorFlow分布式并行。该例子是TF的入门实例手写字体识别MNIST基于分布式的实现，代码都加了中文注释，更加通俗易懂。
 GitHub实例地址：https://github.com/TracyMcgrady6/Distribute_MNIST欢迎大家star！
 Single-Device Execution构建好图后，使用拓扑算法来决定执行哪一个节点，即对每个节点使用一个计数，值表示所依赖的未完成的节点数目，当一个节点的运算完成时，将依赖该节点的所有节点的计数减一。如果节点的计数为0，将其放入准备队列待执行。
-单机多GPU训练先简单介绍下单机的多GPU训练，然后再介绍分布式的多机多GPU训练。单机的多GPU训练， tensorflow的官方已经给了一个cifar的例子，已经有比较详细的代码和文档介绍， 这里大致说下多GPU的
+单机多GPU训练先简单介绍下单机的多GPU训练，然后再介绍分布式的多机多GPU训练。单机的多GPU训练， tensorflow的官方已经给了一个cifar的例子，已经有比较详细的代码和文档介绍， 这里大致说下多GPU的过程，以便方便引入到多机多GPU的介绍。单机多GPU的训练过程：
+
+假设你的机器上有3个GPU;
+
+在单机单GPU的训练中，数据是一个batch一个batch的训练。 在单机多GPU中，数据一次处理3个batch(假设是3个GPU训练）， 每个GPU处理一个batch的数据计算。
+
+变量，或者说参数，保存在CPU上
+
+刚开始的时候数据由CPU分发给3个GPU， 在GPU上完成了计算，得到每个batch要更新的梯度。
+
+然后在CPU上收集完了3个GPU上的要更新的梯度， 计算一下平均梯度，然后更新参数。
+
+然后继续循环这个过程。
+
+
+通过这个过程，处理的速度取决于最慢的那个GPU的速度。如果3个GPU的处理速度差不多的话， 处理速度就相当于单机单GPU的速度的3倍减去数据在CPU和GPU之间传输的开销，实际的效率提升看CPU和GPU之间数据的速度和处理数据的大小。
+通俗解释写到这里觉得自己写的还是不同通俗易懂， 下面就打一个更加通俗的比方来解释一下：
+老师给小明和小华布置了10000张纸的乘法题并且把所有的乘法的结果加起来， 每张纸上有128道乘法题。 这里一张纸就是一个batch， b
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -432,7 +449,7 @@ Single-Device Execution构建好图后，使用拓扑算法来决定执行哪一
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="McGrady">
+      <meta itemprop="name" content="Rose">
     </span>
 
     
@@ -530,7 +547,18 @@ Single-Device Execution构建好图后，使用拓扑算法来决定执行哪一
           从零开始掌握Python机器学习（附资源）基础篇第一步：基本 Python 技能如果我们打算利用 Python 来执行机器学习，那么对 Python 有一些基本的了解就是至关重要的。幸运的是，因为 Python 是一种得到了广泛使用的通用编程语言，加上其在科学计算和机器学习领域的应用，所以找到一个初学者教程并不十分困难。你在 Python 和编程上的经验水平对于起步而言是至关重要的。
 首先，你需要安装 Python。因为我们后面会用到科学计算和机器学习软件包，所以我建议你安装 Anaconda。这是一个可用于 Linux、OS X 和 Windows 上的工业级的 Python 实现，完整包含了机器学习所需的软件包，包括 numpy、scikit-learn 和 matplotlib。其也包含了 iPython Notebook，这是一个用在我们许多教程中的交互式环境。我推荐安装 Python 2.7。如果你不懂编程，我建议你从下面的免费在线书籍开始学习，然后再进入后续的材料：
 
-Learn Python the Hard Way，作者 Zed A. Shaw：https://lear
+Learn Python the Hard Way，作者 Zed A. Shaw：https://learnpythonthehardway.org/book/如果你有编程经验，但不懂 Python 或还很初级，我建议你学习下面两个课程：
+
+谷歌开发者 Python 课程（强烈推荐视觉学习者学习）http://suo.im/toMzq 
+
+Python 科学计算入门（来自 UCSB Engineering 的 M. Scott Shell）（一个不错的入门，大约有 60 页）：    http://suo.im/2cXycM 
+
+如果你要 30 分钟上手 Python 的快速课程，看下面：
+
+在 Y 分钟内学会 X（X=Python）：   http://suo.im/zm6qX 
+
+当然，如果你已经是一位经验丰富的 Python 程序员，即便如此，我也建议你常使用 Python 文档了，这一步就可以跳过    https://www.python.org/doc/ 
+第二步：机器学习基础技巧KDnuggets 的 Zachary Lipton 已经指出：现在，人们评价一个「数据科学家」已经有很多不同标准了。这实际上是机器学习领域领域的一个写照，因为数据科学家大部分时间干的事情都牵涉到不同
           ...
           <!--noindex-->
           <div class="post-button text-center">
