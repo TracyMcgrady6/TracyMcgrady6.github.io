@@ -367,7 +367,8 @@
           
           TensorFlow分布式全套（原理，部署，实例）TF的实现分为了单机实现和分布式实现，在分布式实现中，需要实现的是对client，master，worker process不在同一台机器上时的支持。数据量很大的情况下，单机跑深度学习程序，过于耗时，所以需要TensorFlow分布式并行。该例子是TF的入门实例手写字体识别MNIST基于分布式的实现，代码都加了中文注释，更加通俗易懂。
 GitHub实例地址：https://github.com/TracyMcgrady6/Distribute_MNIST欢迎大家star！
-Single-Device Execution构建好图后，使用拓扑算法来
+Single-Device Execution构建好图后，使用拓扑算法来决定执行哪一个节点，即对每个节点使用一个计数，值表示所依赖的未完成的节点数目，当一个节点的运算完成时，将依赖该节点的所有节点的计数减一。如果节点的计数为0，将其放入准备队列待执行。
+单机多GPU训练先简单介绍下单机的多GPU训练，然后再介绍分布式的多机多GPU训练。单机的多GPU训练， tensorflow的官方已经给了一个cifar的例子，已经有比较详细的代码和文档介绍， 这里大致说下多GPU的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -527,330 +528,13 @@ Single-Device Execution构建好图后，使用拓扑算法来
         
           
           从零开始掌握Python机器学习（附资源）基础篇第一步：基本 Python 技能如果我们打算利用 Python 来执行机器学习，那么对 Python 有一些基本的了解就是至关重要的。幸运的是，因为 Python 是一种得到了广泛使用的通用编程语言，加上其在科学计算和机器学习领域的应用，所以找到一个初学者教程并不十分困难。你在 Python 和编程上的经验水平对于起步而言是至关重要的。
-首先，你需要安装 Python。因为我们后面会用到科学计算和机器学习软件包，所以我建议你安装 Anaconda。这是一个可用于 Linux、OS X 和 Windows 上的工业级的 Python 实现，完整包含
+首先，你需要安装 Python。因为我们后面会用到科学计算和机器学习软件包，所以我建议你安装 Anaconda。这是一个可用于 Linux、OS X 和 Windows 上的工业级的 Python 实现，完整包含了机器学习所需的软件包，包括 numpy、scikit-learn 和 matplotlib。其也包含了 iPython Notebook，这是一个用在我们许多教程中的交互式环境。我推荐安装 Python 2.7。如果你不懂编程，我建议你从下面的免费在线书籍开始学习，然后再进入后续的材料：
+
+Learn Python the Hard Way，作者 Zed A. Shaw：https://lear
           ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/04/12/从零开始掌握Python机器学习（附资源）/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/10/模型融合/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="McGrady">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="McGrady">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/04/10/模型融合/" itemprop="url">模型融合</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-10T14:26:02+08:00">
-                2017-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/04/10/模型融合/" class="leancloud_visitors" data-flag-title="模型融合">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          模型融合1.blending&emsp;&emsp; 比如数据分成train和test，对于model_i（比如xgboost） ，即对所有的数据训练模型model_i，预测test数据生成预测向量v_i， 然后对train做CV fold=5，然后对其他4份做训练数据，另外一份作为val数据，得出模型model_i_j，然后对val预测生成向量t_i_j， 然后将5分向量concat生成t_i，这是对应t_i与v_i对应，每个模型都能生成这样一组向量，然后在顶层的模型比如LR或者线性对t向量进行训练，生成blender模型对v向量进行预测&emsp;&emsp; 也就是需要生成如下的一个表，
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/10/模型融合/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/05/数据库工具类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="McGrady">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="McGrady">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/05/数据库工具类/" itemprop="url">数据库工具类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-05T21:20:34+08:00">
-                2017-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/01/05/数据库工具类/" class="leancloud_visitors" data-flag-title="数据库工具类">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          数据库工具类JDBC原理，解析.Properties型配置文件的包等
-数据库连接类123456789101112131415161718192021222324252627package DBHandler;import java.sql.Connection;import java.sql.DriverManager;import java.sql.SQLException;import java.util.Date;public class DBConnection &#123;	public static final String driver = "com.mysql.jdbc.Dri
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/05/数据库工具类/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -938,7 +622,7 @@ Single-Device Execution构建好图后，使用拓扑算法来
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -949,7 +633,7 @@ Single-Device Execution构建好图后，使用拓扑算法来
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -960,7 +644,7 @@ Single-Device Execution构建好图后，使用拓扑算法来
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
