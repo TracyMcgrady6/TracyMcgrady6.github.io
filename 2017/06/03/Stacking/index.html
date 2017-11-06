@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="集成算法,机器学习,stacking," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Stacking
+由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
+总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stacking原理与实践">
+<meta property="og:url" content="http://yoursite.com/2017/06/03/Stacking/index.html">
+<meta property="og:site_name" content="Rose">
+<meta property="og:description" content="Stacking
+由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
+总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.28.17.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.41.25.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984638168731.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984639444125.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984639461476.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984639802954.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984639867173.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984639926263.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984640013939.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984640106032.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984640134690.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984640342353.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984643336714.jpg">
+<meta property="og:updated_time" content="2017-11-06T03:33:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stacking原理与实践">
+<meta name="twitter:description" content="Stacking
+由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
+总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.28.17.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/03/Stacking/"/>
+
+
+
+
+
+  <title>Stacking原理与实践 | Rose</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ed23de8075b3937075187141966fe2ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rose</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/03/Stacking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="McGrady">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rose">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Stacking原理与实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-03T10:26:46+08:00">
+                2017-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/03/Stacking/" class="leancloud_visitors" data-flag-title="Stacking原理与实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Stacking"><a href="#Stacking" class="headerlink" title="Stacking"></a>Stacking</h1><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.28.17.png" alt="屏幕快照 2017-06-03 上午10.28.17"></p>
+<p>由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。</p>
+<p>总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模型的错误率。据论文Feature-Weighted Linear Stacking(Sill, J. and Takacs, G. and Mackey L. and Lin D., 2009, arXiv:0911.0460)而言，Stacking比Bayesian Model Averaging表现要更好！此外在Kaggle上，很多比赛多是通过Stacking获取优秀的结果！</p>
+<p>算法流程：</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.41.25.png" alt="屏幕快照 2017-06-03 上午10.41.25"></p>
+<p>Stacking方法其实弄懂之后应该是比Boosting要简单的，毕竟小几十行代码可以写出一个Stacking算法。我先从一种“错误”但是容易懂的Stacking方法讲起。<br>Stacking模型本质上是<br>一种分层的结构，这里简单起见，只分析二级Stacking.假设我们有3个基模型M1、M2、M3。</p>
+<ol>
+<li><p>基模型M1，对训练集train训练，然后用于预测train和test的标签列，分别是P1，T1<br><img src="http://oyspcrc3p.bkt.clouddn.com/14984638168731.jpg" alt=""><br>对于M2和M3，重复相同的工作，这样也得到P2，T2,P3,T3。</p>
+</li>
+<li><p>分别把P1,P2,P3以及T1,T2,T3合并，得到一个新的训练集和测试集train2,test2.<br><img src="http://oyspcrc3p.bkt.clouddn.com/14984639444125.jpg" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/14984639461476.jpg" alt=""></p>
+</li>
+<li><p>再用第二层的模型M4训练train2,预测test2,得到最终的标签列。</p>
+</li>
+</ol>
+<p>Stacking本质上就是这么直接的思路，但是这样肯定是不行的，问题在于P1的得到是有问题的，用整个训练集训练的模型反过来去预测训练集的标签，毫无疑问过拟合是非常非常严重的，因此现在的问题变成了如何在解决过拟合的前提下得到P1、P2、P3，这就变成了熟悉的节奏——K折交叉验证。我们以2折交叉验证得到P1为例,假设训练集为4行3列<img src="http://oyspcrc3p.bkt.clouddn.com/14984639802954.jpg" alt=""><br>将其划分为2部分</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/14984639867173.jpg" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/14984639926263.jpg" alt=""></p>
+<p>用traina训练模型M1，然后在trainb上进行预测得到preb3和pred4<br><img src="http://oyspcrc3p.bkt.clouddn.com/14984640013939.jpg" alt=""><br>在trainb上训练模型M1，然后在traina上进行预测得到pred1和pred2<br><img src="http://oyspcrc3p.bkt.clouddn.com/14984640106032.jpg" alt=""><br>然后把两个预测集进行拼接<br><img src="http://oyspcrc3p.bkt.clouddn.com/14984640134690.jpg" alt=""></p>
+<p>对于测试集T1的得到，有两种方法。注意到刚刚是2折交叉验证，M1相当于训练了2次，所以一种方法是每一次训练M1，可以直接对整个test进行预测，这样2折交叉验证后测试集相当于预测了2次，然后对这两列求平均得到T1。<br>或者直接对测试集只用M1预测一次直接得到T1。<br>P1、T1得到之后，P2、T2、P3、T3也就是同样的方法。理解了2折交叉验证，对于K折的情况也就理解也就非常顺利了。所以最终的代码是两层循环，第一层循环控制基模型的数目，每一个基模型要这样去得到P1，T1，第二层循环控制的是交叉验证的次数K，对每一个基模型，会训练K次最后拼接得到P1，取平均得到T1。这下再把@Wille博文中的那张图片放出来就很容易看懂了。<img src="http://oyspcrc3p.bkt.clouddn.com/14984640342353.jpg" alt=""><br>该图是一个基模型得到P1和T1的过程，采用的是5折交叉验证，所以循环了5次，拼接得到P1，测试集预测了5次，取平均得到T1。而这仅仅只是第二层输入的一列/一个特征，并不是整个训练集。再分析作者的代码也就很清楚了。也就是刚刚提到的两层循环。</p>
+<h2 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h2><p>用了一个泰坦尼克号的尝试了一下代码，从头到尾都是可以运行的。代码放在Github,针对其中一段关键的稍作分析</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_oof</span><span class="params">(clf, x_train, y_train, x_test)</span>:</span></div><div class="line"> oof_train = np.zeros((ntrain,))  </div><div class="line"> oof_test = np.zeros((ntest,))</div><div class="line"> oof_test_skf = np.empty((NFOLDS, ntest))  <span class="comment">#NFOLDS行，ntest列的二维array</span></div><div class="line"> <span class="keyword">for</span> i, (train_index, test_index) <span class="keyword">in</span> enumerate(kf): <span class="comment">#循环NFOLDS次</span></div><div class="line">     x_tr = x_train[train_index]</div><div class="line">     y_tr = y_train[train_index]</div><div class="line">     x_te = x_train[test_index]</div><div class="line">     clf.fit(x_tr, y_tr)</div><div class="line">     oof_train[test_index] = clf.predict(x_te)</div><div class="line">     oof_test_skf[i, :] = clf.predict(x_test)  <span class="comment">#固定行填充，循环一次，填充一行</span></div><div class="line"> oof_test[:] = oof_test_skf.mean(axis=<span class="number">0</span>)  <span class="comment">#axis=0,按列求平均，最后保留一行</span></div><div class="line"> <span class="keyword">return</span> oof_train.reshape(<span class="number">-1</span>, <span class="number">1</span>), oof_test.reshape(<span class="number">-1</span>, <span class="number">1</span>)  <span class="comment">#转置，从一行变为一列</span></div></pre></td></tr></table></figure>
+<p>这里只实现了针对一个基模型做K折交叉验证，因为P1和T1都是多行一列的结构，这里是先存储为一行多列，最后进行转置。<br>但是Stacking方法其实在R中也有集成好的可以调用。</p>
+<p> <img src="http://oyspcrc3p.bkt.clouddn.com/14984643336714.jpg" alt=""></p>
+<p>##泰坦尼克号例子</p>
+<p>本文以Kaggle的Titanic（泰坦尼克预测）入门比赛来讲解stacking的应用（两层！）。</p>
+<p>数据的行数：train.csv有890行，也就是890个人，test.csv有418行（418个人）。</p>
+<p>而数据的列数就看你保留了多少个feature了，因人而异。我自己的train保留了 7+1（1是预测列）。</p>
+<p>Titanic 栗子：</p>
+<p>Train Data有890行。(请对应图中的上层部分）</p>
+<p>每1次的fold，都会生成 713行 小train， 178行 小test。我们用Model 1来训练 713行的小train，然后预测 178行 小test。预测的结果是长度为 178 的预测值。</p>
+<p>这样的动作走5次！ 长度为178 的预测值 X 5 = 890 预测值，刚好和Train data长度吻合。这个890预测值是Model 1产生的，我们先存着，因为，一会让它将是第二层模型的训练来源。</p>
+<p>重点：这一步产生的预测值我们可以转成 890 X 1 （890 行，1列），记作 P1 (大写P)</p>
+<p>接着说 Test Data 有 418 行。(请对应图中的下层部分，对对对，绿绿的那些框框）</p>
+<p>每1次的fold，713行 小train训练出来的Model 1要去预测我们全部的Test Data（全部！因为Test Data没有加入5-fold，所以每次都是全部！）。此时，Model 1的预测结果是长度为418的预测值。</p>
+<p>这样的动作走5次！我们可以得到一个 5 X 418 的预测值矩阵。然后我们根据行来就平均值，最后得到一个 1 X 418 的平均预测值。</p>
+<p>重点：这一步产生的预测值我们可以转成 418 X 1 （418行，1列），记作 p1 (小写p)</p>
+<p>走到这里，你的第一层的Model 1完成了它的使命。</p>
+<p>第一层还会有其他Model的，比如Model 2，同样的走一遍， 我们有可以得到 890 X 1 (P2) 和 418 X 1 (p2) 列预测值。</p>
+<p>这样吧，假设你第一层有3个模型，这样你就会得到：</p>
+<p>来自5-fold的预测值矩阵 890 X 3，（P1，P2， P3） 和 来自Test Data预测值矩阵 418 X 3， （p1, p2, p3）。</p>
+<hr>
+<p>到第二层了………………</p>
+<p>来自5-fold的预测值矩阵 890 X 3 作为你的Train Data，训练第二层的模型<br>来自Test Data预测值矩阵 418 X 3 就是你的Test Data，用训练好的模型来预测他们吧。</p>
+<p>参考：<a href="https://zhuanlan.zhihu.com/p/26890738" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/26890738</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ensemble</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, n_folds, stacker, base_models)</span>:</span></div><div class="line">        self.n_folds = n_folds</div><div class="line">        self.stacker = stacker</div><div class="line">        self.base_models = base_models</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit_predict</span><span class="params">(self, X, y, T)</span>:</span></div><div class="line">        X = np.array(X)</div><div class="line">        y = np.array(y)</div><div class="line">        T = np.array(T)</div><div class="line">        folds = list(KFold(len(y), n_folds=self.n_folds, shuffle=<span class="keyword">True</span>, random_state=<span class="number">2016</span>))</div><div class="line">        S_train = np.zeros((X.shape[<span class="number">0</span>], len(self.base_models)))</div><div class="line">        S_test = np.zeros((T.shape[<span class="number">0</span>], len(self.base_models)))</div><div class="line">        <span class="keyword">for</span> i, clf <span class="keyword">in</span> enumerate(self.base_models):</div><div class="line">            S_test_i = np.zeros((T.shape[<span class="number">0</span>], len(folds)))</div><div class="line">            <span class="keyword">for</span> j, (train_idx, test_idx) <span class="keyword">in</span> enumerate(folds):</div><div class="line">                X_train = X[train_idx]</div><div class="line">                y_train = y[train_idx]</div><div class="line">                X_holdout = X[test_idx]</div><div class="line">                <span class="comment"># y_holdout = y[test_idx]</span></div><div class="line">                clf.fit(X_train, y_train)</div><div class="line">                y_pred = clf.predict(X_holdout)[:]</div><div class="line">                S_train[test_idx, i] = y_pred</div><div class="line">                S_test_i[:, j] = clf.predict(T)[:]</div><div class="line">            S_test[:, i] = S_test_i.mean(<span class="number">1</span>)</div><div class="line">        self.stacker.fit(S_train, y)</div><div class="line">        y_pred = self.stacker.predict(S_test)[:]</div><div class="line">        <span class="keyword">return</span> y_pred</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢各位大佬！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.gif" alt="McGrady WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="McGrady Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/集成算法/" rel="tag"># 集成算法</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/stacking/" rel="tag"># stacking</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/02/Bagging/" rel="next" title="Bagging原理与实践">
+                <i class="fa fa-chevron-left"></i> Bagging原理与实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/18/Linux命令/" rel="prev" title="Linux命令">
+                Linux命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="McGrady" />
+            
+              <p class="site-author-name" itemprop="name">McGrady</p>
+              <p class="site-description motion-element" itemprop="description">Second place means you're the first loser.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/TracyMcgrady6" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/b81101a5e2ce" target="_blank" title="JianShu">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>JianShu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Stacking"><span class="nav-number">1.</span> <span class="nav-text">Stacking</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python实现"><span class="nav-number">1.1.</span> <span class="nav-text">python实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">McGrady</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2148013"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Jih3eStoYY11KFz7FxCnNC1K-gzGzoHsz", "qjPmKkf63OGLNUj8h6waX3po");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

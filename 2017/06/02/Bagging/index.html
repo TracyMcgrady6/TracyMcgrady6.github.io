@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="bagging,集成算法,机器学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="BaggingBagging是Bootstrap Aggregating的英文缩写，刚接触的童鞋不要误认为bagging是一种算法，Bagging和Boosting都是ensemble learing 中的学习框架，代表着不同的思想。
+
+boosting派系，它的特点是各个弱学习器之间有依赖关系。
+bagging流派，它的特点是各个弱学习器之间没有依赖关系，可以并行拟合。
+
+Bagging原理
+从">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bagging原理与实践">
+<meta property="og:url" content="http://yoursite.com/2017/06/02/Bagging/index.html">
+<meta property="og:site_name" content="Rose">
+<meta property="og:description" content="BaggingBagging是Bootstrap Aggregating的英文缩写，刚接触的童鞋不要误认为bagging是一种算法，Bagging和Boosting都是ensemble learing 中的学习框架，代表着不同的思想。
+
+boosting派系，它的特点是各个弱学习器之间有依赖关系。
+bagging流派，它的特点是各个弱学习器之间没有依赖关系，可以并行拟合。
+
+Bagging原理
+从">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/1042406-20161204200000787-1988863729.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-02 下午5.02.20.png">
+<meta property="og:updated_time" content="2017-11-06T03:35:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bagging原理与实践">
+<meta name="twitter:description" content="BaggingBagging是Bootstrap Aggregating的英文缩写，刚接触的童鞋不要误认为bagging是一种算法，Bagging和Boosting都是ensemble learing 中的学习框架，代表着不同的思想。
+
+boosting派系，它的特点是各个弱学习器之间有依赖关系。
+bagging流派，它的特点是各个弱学习器之间没有依赖关系，可以并行拟合。
+
+Bagging原理
+从">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/1042406-20161204200000787-1988863729.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/02/Bagging/"/>
+
+
+
+
+
+  <title>Bagging原理与实践 | Rose</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ed23de8075b3937075187141966fe2ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rose</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/02/Bagging/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="McGrady">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rose">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Bagging原理与实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-02T16:55:26+08:00">
+                2017-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/02/Bagging/" class="leancloud_visitors" data-flag-title="Bagging原理与实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h1><p><strong>Bagging</strong>是<strong>Bootstrap Aggregating</strong>的英文缩写，刚接触的童鞋不要误认为bagging是一种算法，Bagging和Boosting都是ensemble learing 中的学习框架，代表着不同的思想。</p>
+<ul>
+<li>boosting派系，它的特点是各个弱学习器之间有依赖关系。</li>
+<li>bagging流派，它的特点是各个弱学习器之间没有依赖关系，可以并行拟合。</li>
+</ul>
+<h2 id="Bagging原理"><a href="#Bagging原理" class="headerlink" title="Bagging原理"></a>Bagging原理</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/1042406-20161204200000787-1988863729.png" alt="1042406-20161204200000787-1988863729"></p>
+<p>从上图可以看出，Bagging的弱学习器之间的确没有boosting那样的联系。它的特点在“随机采样”。那么什么是随机采样？</p>
+<p>　　随机采样(bootsrap)就是从我们的训练集里面采集固定个数的样本，但是每采集一个样本后，都将样本放回。也就是说，之前采集到的样本在放回后有可能继续被采集到。对于我们的Bagging算法，<strong>一般会随机采集和训练集样本数m一样个数的样本</strong>。这样得到的采样集和训练集样本的个数相同，但是样本内容不同。如果我们对有m个样本训练集做T次的随机采样，则由于随机性，T个采样集各不相同。</p>
+<blockquote>
+<p>注意到这和GBDT的子采样是不同的。<strong>GBDT的子采样是无放回采样，而Bagging的子采样是放回采样</strong>。</p>
+</blockquote>
+<p>对于一个样本，它在某一次含m个样本的训练集的随机采样中，每次被采集到的概率是$\frac { 1 }{ m } $，不被采集到的概率为1-$\frac { 1 }{ m } $，如果m次都没被采样到的概率为$（{ 1-\frac { 1 }{ m } ） }^{ m }$，当$m\rightarrow \infty  $时，$lim_{ m\rightarrow \infty  }{ (1-\frac { 1 }{ m } ){  }^{ m\  } } $约定于$ \frac { 1 }{ e } $=0.368，也就是说，在bagging的每轮随机采样中，训练集中大约有36.8%的数据没有被采样集采集中。<strong>自助采样会改变数据的初始分布导致引入估计偏差。</strong></p>
+<blockquote>
+<p>对于这部分大约36.8%的没有被采样到的数据，我们常常称之为袋外数据(Out Of Bag, 简称OOB)。这些数据没有参与训练集模型的拟合，因此可以用来检测模型的泛化能力。</p>
+</blockquote>
+<p>　　bagging对于弱学习器没有限制，这和Adaboost一样。但是最常用的一般也是决策树和神经网络。</p>
+<p>　　bagging的集合策略也比较简单，对于分类问题，通常使用简单投票法，得到最多票数的类别或者类别之一为最终的模型输出。对于回归问题，通常使用简单平均法，对T个弱学习器得到的回归结果进行算术平均得到最终的模型输出。</p>
+<p>　　由于Bagging算法每次都进行采样来训练模型，因此泛化能力很强，对于降低模型的方差很有作用。当然对于训练集的拟合程度就会差一些，也就是模型的偏倚会大一些。</p>
+<h2 id="bagging算法流程"><a href="#bagging算法流程" class="headerlink" title="bagging算法流程"></a>bagging算法流程</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-02 下午5.02.20.png" alt="屏幕快照 2017-06-02 下午5.02.20"></p>
+<p>上一节我们对bagging算法的原理做了总结，这里就对bagging算法的流程做一个总结。相对于Boosting系列的Adaboost和GBDT，bagging算法要简单的多。</p>
+<p>　　输入为样本集D={(x,y1),(x2,y2),…(xm,ym  )}      ，弱学习器算法, 弱分类器迭代次数T。</p>
+<p>　　输出为最终的强分类器f(x)</p>
+<ol>
+<li>对于t=1,2…,T:</li>
+</ol>
+<ul>
+<li><p>a)对训练集进行第t次随机采样，共采集m次，得到包含m个样本的采样集Dm</p>
+</li>
+<li><p>b)用采样集Dm训练第m个弱学习器Gm(x)</p>
+</li>
+</ul>
+<ol>
+<li>如果是分类算法预测，则T个弱学习器投出最多票数的类别或者类别之一为最终类别。如果是回归算法，T个弱学习器得到的回归结果进行算术平均得到的值为最终的模型输出。</li>
+</ol>
+<h2 id="随机森林算法"><a href="#随机森林算法" class="headerlink" title="随机森林算法"></a>随机森林算法</h2><p>　　理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　</p>
+<p>　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所有的n个样本特征中选择一个最优的特征来做决策树的左右子树划分，但是RF通过随机选择节点上的一部分样本特征，这个数字小于n，假设为${ <em>{  }{ n }</em>{ sub } } $，然后在这些随机选择的${ <em>{  }{ n }</em>{ sub } } $个样本特征中，选择一个最优的特征来做决策树的左右子树划分。这样进一步增强了模型的泛化能力。<br>　　如果${ <em>{  }{ n }</em>{ sub } } $=n，则此时RF的CART决策树和普通的CART决策树没有区别。${ <em>{  }{ n }</em>{ sub } } $越小，则模型越健壮，当然此时对于训练集的拟合程度会变差。也就是说${ <em>{  }{ n }</em>{ sub } } $越小，模型的方差会减小，但是偏倚会增大。在实际案例中，一般会通过交叉验证调参获取一个合适的${ <em>{  }{ n }</em>{ sub } } $值。<br>　　<br>　　<br>　除了上面两点，RF和普通的bagging算法没有什么不同， 下面简单总结下RF的算法。</p>
+<ul>
+<li><p>输入为样本集D={(x,y1),(x2,y2),…(xm,ym)} ，弱分类器迭代次数T。</p>
+</li>
+<li><p>输出为最终的强分类器f(x)</p>
+</li>
+<li><p>1）对于t=1,2…,T:</p>
+</li>
+</ul>
+<p>　a)对训练集进行第t次随机采样，共采集m次，得到包含m个样本的采样集Dm</p>
+<p>　b)用采样集Dm训练第m个决策树模型Gm(x)，在训练决策树模型的节点的时候， 在节点上所有的样本特征中选择一部分样本特征， 在这些随机选择的部分样本特征中选择一个最优的特征来做决策树的左右子树划分</p>
+<ul>
+<li>2) 如果是分类算法预测，则T个弱学习器投出最多票数的类别或者类别之一为最终类别。如果是回归算法，T个弱学习器得到的回归结果进行算术平均得到的值为最终的模型输出。</li>
+</ul>
+<h2 id="随机森林的推广"><a href="#随机森林的推广" class="headerlink" title="随机森林的推广"></a>随机森林的推广</h2><p>　　　　由于RF在实际应用中的良好特性，基于RF，有很多变种算法，应用也很广泛，不光可以用于分类回归，还可以用于特征转换，异常点检测等。下面对于这些RF家族的算法中有代表性的做一个总结。</p>
+<h3 id="extra-trees"><a href="#extra-trees" class="headerlink" title="extra trees"></a>extra trees</h3><p>　　　　extra trees是RF的一个变种, 原理几乎和RF一模一样，仅有区别有：</p>
+<p>　　　　1） 对于每个决策树的训练集，RF采用的是随机采样bootstrap来选择采样集作为每个决策树的训练集，而extra trees一般不采用随机采样，即每个决策树采用原始训练集。</p>
+<p>　　　　2） 在选定了划分特征后，RF的决策树会基于信息增益，基尼系数，均方差之类的原则，选择一个最优的特征值划分点，这和传统的决策树相同。但是extra trees比较的激进，他会随机的选择一个特征值来划分决策树。</p>
+<p>　　　　从第二点可以看出，由于随机选择了特征值的划分点位，而不是最优点位，这样会导致生成的决策树的规模一般会大于RF所生成的决策树。也就是说，模型的方差相对于RF进一步减少，但是偏倚相对于RF进一步增大。在某些时候，extra trees的泛化能力比RF更好。</p>
+<h3 id="Totally-Random-Trees-Embedding"><a href="#Totally-Random-Trees-Embedding" class="headerlink" title="Totally Random Trees Embedding"></a>Totally Random Trees Embedding</h3><p>　　　　Totally Random Trees Embedding(以下简称 TRTE)是一种非监督学习的数据转化方法。它将低维的数据集映射到高维，从而让映射到高维的数据更好的运用于分类回归模型。我们知道，在支持向量机中运用了核方法来将低维的数据集映射到高维，此处TRTE提供了另外一种方法。</p>
+<p>　　　　TRTE在数据转化的过程也使用了类似于RF的方法，建立T个决策树来拟合数据。当决策树建立完毕以后，数据集里的每个数据在T个决策树中叶子节点的位置也定下来了。比如我们有3颗决策树，每个决策树有5个叶子节点，某个数据特征x划分到第一个决策树的第2个叶子节点，第二个决策树的第3个叶子节点，第三个决策树的第5个叶子节点。则x映射后的特征编码为(0,1,0,0,0,     0,0,1,0,0,     0,0,0,0,1), 有15维的高维特征。这里特征维度之间加上空格是为了强调三颗决策树各自的子编码。</p>
+<p>　　　　映射到高维特征后，可以继续使用监督学习的各种分类回归算法了。</p>
+<h3 id="4-3-Isolation-Forest"><a href="#4-3-Isolation-Forest" class="headerlink" title="4.3 Isolation Forest"></a>4.3 Isolation Forest</h3><p>　　　　Isolation Forest（以下简称IForest）是一种异常点检测的方法。它也使用了类似于RF的方法来检测异常点。</p>
+<p>　　　　对于在T个决策树的样本集，IForest也会对训练集进行随机采样,但是采样个数不需要和RF一样，对于RF，需要采样到采样集样本个数等于训练集个数。但是IForest不需要采样这么多，一般来说，采样个数要远远小于训练集个数？为什么呢？因为我们的目的是异常点检测，只需要部分的样本我们一般就可以将异常点区别出来了。</p>
+<p>　　　　对于每一个决策树的建立， IForest采用随机选择一个划分特征，对划分特征随机选择一个划分阈值。这点也和RF不同。</p>
+<p>　　　　另外，IForest一般会选择一个比较小的最大决策树深度max_depth,原因同样本采集，用少量的异常点检测一般不需要这么大规模的决策树。</p>
+<p>　　　　对于异常点的判断，则是将测试样本点x拟合到T颗决策树。计算在每颗决策树上该样本的叶子节点的深度ht(x)。，从而可以计算出平均高度h(x)。此时我们用下面的公式计算样本点x的异常概率。</p>
+<h2 id="随机森林小结"><a href="#随机森林小结" class="headerlink" title="随机森林小结"></a>随机森林小结</h2><p>　　RF的算法原理也终于讲完了，作为一个可以高度并行化的算法，RF在大数据时候大有可为。 这里也对常规的随机森林算法的优缺点做一个总结。</p>
+<p>RF的主要优点有：</p>
+<ul>
+<li><p>训练可以高度并行化，对于大数据时代的大样本训练速度有优势。个人觉得这是的最主要的优点。</p>
+</li>
+<li><p>由于可以随机选择决策树节点划分特征，这样在样本特征维度很高的时候，仍然能高效的训练模型。</p>
+</li>
+<li><p>在训练后，可以给出各个特征对于输出的重要性</p>
+</li>
+<li><p>由于采用了随机采样，训练出的模型的方差小，泛化能力强。</p>
+</li>
+<li><p>相对于Boosting系列的Adaboost和GBDT， RF实现比较简单。</p>
+</li>
+<li><p>对部分特征缺失不敏感。</p>
+</li>
+</ul>
+<p>RF的主要缺点有：</p>
+<ul>
+<li><p>在某些噪音比较大的样本集上，RF模型容易陷入过拟合。</p>
+</li>
+<li><p>取值划分比较多的特征容易对RF的决策产生更大的影响，从而影响拟合的模型的效果。</p>
+</li>
+</ul>
+<p>###总结起来，使用随机性的三个地方：</p>
+<ul>
+<li>随机有放回的抽取数据，数量可以和原数据相同，也可以略小；</li>
+<li>随机选取N个特征，选择最好的属性进行分裂；</li>
+<li><del>在N个最好的分裂特征中，随机选择一个进行分裂</del>；</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># sklearn_rf.py</span></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</div><div class="line"></div><div class="line">df = pd.read_csv(<span class="string">'sklearn_data.csv'</span>)</div><div class="line">train, test = df.query(<span class="string">"is_date != -1"</span>), df.query(<span class="string">"is_date == -1"</span>)</div><div class="line">y_train, X_train = train[<span class="string">'is_date'</span>], train.drop([<span class="string">'is_date'</span>], axis=<span class="number">1</span>)</div><div class="line">X_test = test.drop([<span class="string">'is_date'</span>], axis=<span class="number">1</span>)</div><div class="line"></div><div class="line">model = RandomForestClassifier(n_estimators=<span class="number">50</span>,</div><div class="line">                               criterion=<span class="string">'gini'</span>,</div><div class="line">                               max_features=<span class="string">"sqrt"</span>,</div><div class="line">                               min_samples_leaf=<span class="number">1</span>,</div><div class="line">                               n_jobs=<span class="number">4</span>,</div><div class="line">                           )</div><div class="line">model.fit(X_train, y_train)</div><div class="line"><span class="keyword">print</span> model.predict(X_test)</div><div class="line"><span class="keyword">print</span> zip(X_train.columns, model.feature_importances_)</div></pre></td></tr></table></figure>
+<p>调用RandomForestClassifier时的参数说明：</p>
+<blockquote>
+<ul>
+<li>n_estimators：指定森林中树的颗数，越多越好，只是不要超过内存；</li>
+<li>criterion：指定在分裂使用的决策算法；</li>
+<li>max_features：指定了在分裂时，随机选取的特征数目，sqrt即为全部特征的平均根；</li>
+<li>min_samples_leaf：指定每颗决策树完全生成，即叶子只包含单一的样本；</li>
+<li>n_jobs：指定并行使用的进程数；</li>
+</ul>
+</blockquote>
+<p>从前面的随机森林构建过程来看，随机森林的每颗树之间是独立构建的，而且尽量往独立的方向靠，不依赖其它树的构建，这一特点，在当前的大数据环境下，尤其被人喜爱，因为它能并行，并行，并行……。</p>
+<p>能完全并行的算法，一定会被人们追捧，在资源够的情况下，可以同时并行构建大量的决策树。scikit-learn虽然是单机版本，不能做分布式，但也可以利用单机的多枋来并行。</p>
+<p>##随机森林之特征选择</p>
+<blockquote>
+<p>摘要：在随机森林介绍中提到了随机森林一个重要特征：能够计算单个特征变量的重要性。并且这一特征在很多方面能够得到应用,例如在银行贷款业务中能否正确的评估一个企业的信用度,关系到是否能够有效地回收贷款。但是信用评估模型的数据特征有很多,其中不乏有很多噪音,所以需要计算出每一个特征的重要性并对这些特征进行一个排序,进而可以从所有特征中选择出重要性靠前的特征。</p>
+</blockquote>
+<p>###一：特征重要性</p>
+<p>在随机森林中某个特征X的重要性的计算方法如下：</p>
+<ol>
+<li><p>对于随机森林中的每一颗决策树,使用相应的OOB(袋外数据)数据来计算它的袋外数据误差,记为errOOB1.</p>
+</li>
+<li><p>随机地对袋外数据OOB所有样本的特征X加入噪声干扰(就可以随机的改变样本在特征X处的值),再次计算它的袋外数据误差,记为errOOB2.</p>
+</li>
+<li><p>假设随机森林中有Ntree棵树,那么对于特征X的重要性=∑(errOOB2-errOOB1)/Ntree,之所以可以用这个表达式来作为相应特征的重要性的度量值是因为：若给某个特征随机加入噪声之后,袋外的准确率大幅度降低,则说明这个特征对于样本的分类结果影响很大,也就是说它的重要程度比较高。</p>
+</li>
+</ol>
+<h3 id="二：特征选择"><a href="#二：特征选择" class="headerlink" title="二：特征选择"></a>二：特征选择</h3><p>在论文 Variable Selection using Random Forests中详细的论述了基于随机森林的特征选择方法,这里我们进行一些回顾。</p>
+<p>首先特征选择的目标有两个：</p>
+<ul>
+<li><p>1：找到与应变量高度相关的特征变量。</p>
+</li>
+<li><p>2：选择出数目较少的特征变量并且能够充分的预测应变量的结果。</p>
+</li>
+</ul>
+<p>其次一般特征选择的步骤为：</p>
+<p>1：初步估计和排序</p>
+<ul>
+<li><p>a)对随机森林中的特征变量按照VI（Variable Importance）降序排序。</p>
+</li>
+<li><p>b)确定删除比例,从当前的特征变量中剔除相应比例不重要的指标，从而得到一个新的特征集。</p>
+</li>
+<li><p>c)用新的特征集建立新的随机森林,并计算特征集中每个特征的VI,并排序。</p>
+</li>
+</ul>
+<p>d)重复以上步骤,直到剩下m个特征。</p>
+<p>2：根据1中得到的每个特征集和它们建立起来的随机森林,计算对应的袋外误差率(OOB err),将袋外误差率最低的特征集作为最后选定的特征集。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢各位大佬！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.gif" alt="McGrady WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="McGrady Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/bagging/" rel="tag"># bagging</a>
+          
+            <a href="/tags/集成算法/" rel="tag"># 集成算法</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/03/Pandas速查手册中文/" rel="next" title="Pandas速查手册中文">
+                <i class="fa fa-chevron-left"></i> Pandas速查手册中文
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/03/Stacking/" rel="prev" title="Stacking原理与实践">
+                Stacking原理与实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="McGrady" />
+            
+              <p class="site-author-name" itemprop="name">McGrady</p>
+              <p class="site-description motion-element" itemprop="description">Second place means you're the first loser.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/TracyMcgrady6" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/b81101a5e2ce" target="_blank" title="JianShu">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>JianShu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Bagging"><span class="nav-number">1.</span> <span class="nav-text">Bagging</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bagging原理"><span class="nav-number">1.1.</span> <span class="nav-text">Bagging原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bagging算法流程"><span class="nav-number">1.2.</span> <span class="nav-text">bagging算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林算法"><span class="nav-number">1.3.</span> <span class="nav-text">随机森林算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林的推广"><span class="nav-number">1.4.</span> <span class="nav-text">随机森林的推广</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extra-trees"><span class="nav-number">1.4.1.</span> <span class="nav-text">extra trees</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Totally-Random-Trees-Embedding"><span class="nav-number">1.4.2.</span> <span class="nav-text">Totally Random Trees Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Isolation-Forest"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 Isolation Forest</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林小结"><span class="nav-number">1.5.</span> <span class="nav-text">随机森林小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二：特征选择"><span class="nav-number">1.5.1.</span> <span class="nav-text">二：特征选择</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">McGrady</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2148013"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Jih3eStoYY11KFz7FxCnNC1K-gzGzoHsz", "qjPmKkf63OGLNUj8h6waX3po");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
