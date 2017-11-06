@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/26/模型集成(Ensemble)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/数据的标准化（normalization）和归一化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="McGrady">
@@ -280,7 +280,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/26/模型集成(Ensemble)/" itemprop="url">模型集成(Ensemble)</a></h1>
+                <a class="post-title-link" href="/2017/06/23/数据的标准化（normalization）和归一化/" itemprop="url">数据的标准化（normalization）和归一化</a></h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-26T10:14:21+08:00">
-                2017-06-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-23T11:14:38+08:00">
+                2017-06-23
               </time>
             
 
@@ -332,7 +332,7 @@
 
           
           
-             <span id="/2017/06/26/模型集成(Ensemble)/" class="leancloud_visitors" data-flag-title="模型集成(Ensemble)">
+             <span id="/2017/06/23/数据的标准化（normalization）和归一化/" class="leancloud_visitors" data-flag-title="数据的标准化（normalization）和归一化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -365,13 +365,14 @@
       
         
           
-          模型集成(Ensemble)曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
-常见的Ensemble方法有Bagging、Boosting、Stacking、Blending。
-BaggingBagging是将多个模型（基学习器）的预测结果简单地加权平均或者投票。Bagging的好处在于可以并行地训练基学习器，
+          数据的标准化（normalization）和归一化数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。
+##归一化好处
+
+提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征，对其进行优化时，会得到一个窄长的椭圆形，导致在梯度下降时，梯度的方向为垂直等高线的方向而走之字形路线，这样会使迭代很慢，相比之下，右图的迭代就会很快
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/06/26/模型集成(Ensemble)/#more" rel="contents">
+            <a class="btn" href="/2017/06/23/数据的标准化（normalization）和归一化/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -422,7 +423,7 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/随机森林Random Forest/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/10/Padans技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="McGrady">
@@ -441,7 +442,7 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/23/随机森林Random Forest/" itemprop="url">随机森林Random Forest</a></h1>
+                <a class="post-title-link" href="/2017/04/10/Padans技巧/" itemprop="url">Padans操作技巧</a></h1>
         
 
         <div class="post-meta">
@@ -453,8 +454,8 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-23T10:43:46+08:00">
-                2017-06-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-10T22:07:11+08:00">
+                2017-04-10
               </time>
             
 
@@ -476,8 +477,8 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/pandas/" itemprop="url" rel="index">
+                    <span itemprop="name">pandas</span>
                   </a>
                 </span>
 
@@ -493,7 +494,7 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
 
           
           
-             <span id="/2017/06/23/随机森林Random Forest/" class="leancloud_visitors" data-flag-title="随机森林Random Forest">
+             <span id="/2017/04/10/Padans技巧/" class="leancloud_visitors" data-flag-title="Padans操作技巧">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -526,12 +527,15 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
       
         
           
-          随机森林Random Forest理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
-　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所有的n个样本特征中选择一个最优的特征来做决策树的左右子树划分，但是RF通过随机选择节点上的一部分样本特征，这个数字小于n，假设为${ {  }{ n }{ sub }
+          Padans技巧1.截取DataFrame类型的列的前10个字符 
+1user_view.time_stamp = user_view.time_stamp.str[:10]
+2.通过groupby统计出客流量customer_flow = user_view.groupby([&#39;shop_id&#39;, &#39;time_stamp&#39;]).size()
+3.向DataFrame添加新列方法：
+123from pandas import Series,DataFramefeature =DataFrame(shop_info,columns=['shop_id','cate
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/06/23/随机森林Random Forest/#more" rel="contents">
+            <a class="btn" href="/2017/04/10/Padans技巧/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
