@@ -95,7 +95,10 @@ LR计算图求导
 
 Mathematical expression of the algorithm:
 For one example $x^{(i)}$:$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$">
-<meta property="og:updated_time" content="2018-01-09T11:30:24.000Z">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.18.25 PM.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.19.20 PM.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/LogReg_kiank.png">
+<meta property="og:updated_time" content="2018-01-09T11:36:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用神经网络思想建立LR模型">
 <meta name="twitter:description" content="用神经网络思想建立LR模型LR回顾
@@ -104,6 +107,7 @@ LR计算图求导
 
 Mathematical expression of the algorithm:
 For one example $x^{(i)}$:$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.18.25 PM.png">
 
 
 
@@ -376,10 +380,10 @@ For one example $x^{(i)}$:$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$">
       
 
       
-        <h1 id="用神经网络思想建立LR模型"><a href="#用神经网络思想建立LR模型" class="headerlink" title="用神经网络思想建立LR模型"></a>用神经网络思想建立LR模型</h1><h2 id="LR回顾"><a href="#LR回顾" class="headerlink" title="LR回顾"></a>LR回顾</h2><p><a href="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.18.25 PM.png" target="_blank" rel="external"></a></p>
-<h2 id="LR计算图求导"><a href="#LR计算图求导" class="headerlink" title="LR计算图求导"></a>LR计算图求导</h2><p><a href="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.19.20 PM.png" target="_blank" rel="external"></a></p>
+        <h1 id="用神经网络思想建立LR模型"><a href="#用神经网络思想建立LR模型" class="headerlink" title="用神经网络思想建立LR模型"></a>用神经网络思想建立LR模型</h1><h2 id="LR回顾"><a href="#LR回顾" class="headerlink" title="LR回顾"></a>LR回顾</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.18.25 PM.png" alt=""></p>
+<h2 id="LR计算图求导"><a href="#LR计算图求导" class="headerlink" title="LR计算图求导"></a>LR计算图求导</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.19.20 PM.png" alt=""></p>
 <h2 id="算法结构"><a href="#算法结构" class="headerlink" title="算法结构"></a>算法结构</h2><p>设计一个简单的算法实现判别是否是猫。<br>用一个神经网络的思想建立一个LR模型，下面这个图解释了为什么<strong>LR事实上是一个简单的神经网。</strong></p>
-<p><a href="http://oyspcrc3p.bkt.clouddn.com/LogReg_kiank.png" target="_blank" rel="external"></a></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/LogReg_kiank.png" alt=""></p>
 <p><strong>Mathematical expression of the algorithm</strong>:</p>
 <p>For one example $x^{(i)}$:<br>$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$<br>$$\hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)})\tag{2}$$<br>$$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(i)} )  \log(1-a^{(i)})\tag{3}$$</p>
 <p>The cost is then computed by summing over all training examples:<br>$$ J = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)})\tag{6}$$</p>
