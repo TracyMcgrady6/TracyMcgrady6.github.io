@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="LR,Deep Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="用神经网络思想建立LR模型LR回顾
+LR计算图求导
+算法结构设计一个简单的算法实现判别是否是猫。用一个神经网络的思想建立一个LR模型，下面这个图解释了为什么LR事实上是一个简单的神经网。
+
+Mathematical expression of the algorithm:
+For one example $x^{(i)}$:$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用神经网络思想建立LR模型">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/用神经网络思想建立LR模型/index.html">
+<meta property="og:site_name" content="McGrady">
+<meta property="og:description" content="用神经网络思想建立LR模型LR回顾
+LR计算图求导
+算法结构设计一个简单的算法实现判别是否是猫。用一个神经网络的思想建立一个LR模型，下面这个图解释了为什么LR事实上是一个简单的神经网。
+
+Mathematical expression of the algorithm:
+For one example $x^{(i)}$:$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$">
+<meta property="og:updated_time" content="2018-01-09T11:30:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用神经网络思想建立LR模型">
+<meta name="twitter:description" content="用神经网络思想建立LR模型LR回顾
+LR计算图求导
+算法结构设计一个简单的算法实现判别是否是猫。用一个神经网络的思想建立一个LR模型，下面这个图解释了为什么LR事实上是一个简单的神经网。
+
+Mathematical expression of the algorithm:
+For one example $x^{(i)}$:$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/09/用神经网络思想建立LR模型/"/>
+
+
+
+
+
+  <title>用神经网络思想建立LR模型 | McGrady</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ed23de8075b3937075187141966fe2ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">McGrady</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/09/用神经网络思想建立LR模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yaphets">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="McGrady">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用神经网络思想建立LR模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-09T18:35:36+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/01/09/用神经网络思想建立LR模型/" class="leancloud_visitors" data-flag-title="用神经网络思想建立LR模型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="用神经网络思想建立LR模型"><a href="#用神经网络思想建立LR模型" class="headerlink" title="用神经网络思想建立LR模型"></a>用神经网络思想建立LR模型</h1><h2 id="LR回顾"><a href="#LR回顾" class="headerlink" title="LR回顾"></a>LR回顾</h2><p><a href="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.18.25 PM.png" target="_blank" rel="external"></a></p>
+<h2 id="LR计算图求导"><a href="#LR计算图求导" class="headerlink" title="LR计算图求导"></a>LR计算图求导</h2><p><a href="http://oyspcrc3p.bkt.clouddn.com/Screen Shot 2018-01-09 at 7.19.20 PM.png" target="_blank" rel="external"></a></p>
+<h2 id="算法结构"><a href="#算法结构" class="headerlink" title="算法结构"></a>算法结构</h2><p>设计一个简单的算法实现判别是否是猫。<br>用一个神经网络的思想建立一个LR模型，下面这个图解释了为什么<strong>LR事实上是一个简单的神经网。</strong></p>
+<p><a href="http://oyspcrc3p.bkt.clouddn.com/LogReg_kiank.png" target="_blank" rel="external"></a></p>
+<p><strong>Mathematical expression of the algorithm</strong>:</p>
+<p>For one example $x^{(i)}$:<br>$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$<br>$$\hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)})\tag{2}$$<br>$$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(i)} )  \log(1-a^{(i)})\tag{3}$$</p>
+<p>The cost is then computed by summing over all training examples:<br>$$ J = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)})\tag{6}$$</p>
+<h2 id="构建算法的各个部分。"><a href="#构建算法的各个部分。" class="headerlink" title="构建算法的各个部分。"></a>构建算法的各个部分。</h2><p>建立神经网络的主要步骤是:</p>
+<ol>
+<li>定义模型结构(例如输入特性的数量)</li>
+<li>初始化模型的参数</li>
+<li><p>循环:</p>
+<ul>
+<li>计算当前损失(正向传播)</li>
+<li>计算当前梯度(向后传播)</li>
+<li>更新参数(梯度下降)</li>
+</ul>
+</li>
+</ol>
+<p>您通常将1-3单独构建并将它们集成到一个我们称为model()的函数中。</p>
+<h3 id="1-工具函数"><a href="#1-工具函数" class="headerlink" title="1.工具函数"></a>1.工具函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: sigmoid</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(z)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Compute the sigmoid of z</div><div class="line"></div><div class="line">    Arguments:</div><div class="line">    z -- A scalar or numpy array of any size.</div><div class="line"></div><div class="line">    Return:</div><div class="line">    s -- sigmoid(z)</div><div class="line">    """</div><div class="line">    s = <span class="number">1</span>/(<span class="number">1</span>+np.exp(-z))</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> s</div></pre></td></tr></table></figure>
+<h3 id="2-初始化参数"><a href="#2-初始化参数" class="headerlink" title="2.初始化参数"></a>2.初始化参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: initialize_with_zeros</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize_with_zeros</span><span class="params">(dim)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    This function creates a vector of zeros of shape (dim, 1) for w and initializes b to 0.</div><div class="line">    </div><div class="line">    Argument:</div><div class="line">    dim -- size of the w vector we want (or number of parameters in this case)</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    w -- initialized vector of shape (dim, 1)</div><div class="line">    b -- initialized scalar (corresponds to the bias)</div><div class="line">    """</div><div class="line">    </div><div class="line">    w = np.zeros((dim,<span class="number">1</span>))</div><div class="line">    b = <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="keyword">assert</span>(w.shape == (dim, <span class="number">1</span>))</div><div class="line">    <span class="keyword">assert</span>(isinstance(b, float) <span class="keyword">or</span> isinstance(b, int))</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> w, b</div></pre></td></tr></table></figure>
+<h3 id="3-向前和向后传播"><a href="#3-向前和向后传播" class="headerlink" title="3.向前和向后传播"></a>3.向前和向后传播</h3><p>现在参数已经初始化，可以执行向前和向后传播步骤来学习参数。</p>
+<p><strong>Exercise:</strong> 实现方法 <code>propagate()</code>计算代价函数和梯度<br><strong>Hints</strong>:</p>
+<p>Forward Propagation:</p>
+<ul>
+<li>You get X</li>
+<li>You compute $A = \sigma(w^T X + b) = (a^{(0)}, a^{(1)}, …, a^{(m-1)}, a^{(m)})$</li>
+<li>You calculate the cost function: $J = -\frac{1}{m}\sum_{i=1}^{m}y^{(i)}\log(a^{(i)})+(1-y^{(i)})\log(1-a^{(i)})$</li>
+</ul>
+<p>Here are the two formulas you will be using: </p>
+<p>$$ \frac{\partial J}{\partial w} = \frac{1}{m}X(A-Y)^T\tag{7}$$<br>$$ \frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^m (a^{(i)}-y^{(i)})\tag{8}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: propagate</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">propagate</span><span class="params">(w, b, X, Y)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Implement the cost function and its gradient for the propagation explained above</div><div class="line"></div><div class="line">    Arguments:</div><div class="line">    w -- weights, a numpy array of size (num_px * num_px * 3, 1)</div><div class="line">    b -- bias, a scalar</div><div class="line">    X -- data of size (num_px * num_px * 3, number of examples)</div><div class="line">    Y -- true "label" vector (containing 0 if non-cat, 1 if cat) of size (1, number of examples)</div><div class="line"></div><div class="line">    Return:</div><div class="line">    cost -- negative log-likelihood cost for logistic regression</div><div class="line">    dw -- gradient of the loss with respect to w, thus same shape as w</div><div class="line">    db -- gradient of the loss with respect to b, thus same shape as b</div><div class="line">    </div><div class="line">    Tips:</div><div class="line">    - Write your code step by step for the propagation. np.log(), np.dot()</div><div class="line">    """</div><div class="line">    </div><div class="line">    m = X.shape[<span class="number">1</span>]</div><div class="line">    </div><div class="line">    <span class="comment"># FORWARD PROPAGATION (FROM X TO COST)</span></div><div class="line">    A = sigmoid(np.dot(w.T,X)+b)                             <span class="comment"># compute activation</span></div><div class="line">    cost = -np.sum((Y*np.log(A)+(<span class="number">1</span>-Y)*np.log(<span class="number">1</span>-A)))/m    <span class="comment"># compute cost</span></div><div class="line">    </div><div class="line">    <span class="comment"># BACKWARD PROPAGATION (TO FIND GRAD)</span></div><div class="line">    dw = np.dot(X,(A-Y).T)/m</div><div class="line">    db = np.sum((A-Y))/m</div><div class="line">    <span class="keyword">assert</span>(dw.shape == w.shape)</div><div class="line">    <span class="keyword">assert</span>(db.dtype == float)</div><div class="line">    cost = np.squeeze(cost)</div><div class="line">    <span class="keyword">assert</span>(cost.shape == ())</div><div class="line">    </div><div class="line">    grads = &#123;<span class="string">"dw"</span>: dw,</div><div class="line">             <span class="string">"db"</span>: db&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> grads, cost</div></pre></td></tr></table></figure>
+<h3 id="4-优化"><a href="#4-优化" class="headerlink" title="4.优化"></a>4.优化</h3><ul>
+<li>已经初始化了参数。</li>
+<li>也可以计算一个成本函数和它的梯度。</li>
+<li>现在，需要使用梯度下降来更新参数。</li>
+</ul>
+<p>目标是通过最小化代价函数$J$来学习$w$ 和 $b$。对于$\theta$，更新规则是 $ \theta = \theta - \alpha \text{ } d\theta$，$\alpha$是学习率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: optimize</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimize</span><span class="params">(w, b, X, Y, num_iterations, learning_rate, print_cost = False)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    This function optimizes w and b by running a gradient descent algorithm</div><div class="line">    </div><div class="line">    Arguments:</div><div class="line">    w -- weights, a numpy array of size (num_px * num_px * 3, 1)</div><div class="line">    b -- bias, a scalar</div><div class="line">    X -- data of shape (num_px * num_px * 3, number of examples)</div><div class="line">    Y -- true "label" vector (containing 0 if non-cat, 1 if cat), of shape (1, number of examples)</div><div class="line">    num_iterations -- number of iterations of the optimization loop</div><div class="line">    learning_rate -- learning rate of the gradient descent update rule</div><div class="line">    print_cost -- True to print the loss every 100 steps</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    params -- dictionary containing the weights w and bias b</div><div class="line">    grads -- dictionary containing the gradients of the weights and bias with respect to the cost function</div><div class="line">    costs -- list of all the costs computed during the optimization, this will be used to plot the learning curve.</div><div class="line">    </div><div class="line">    Tips:</div><div class="line">    You basically need to write down two steps and iterate through them:</div><div class="line">        1) Calculate the cost and the gradient for the current parameters. Use propagate().</div><div class="line">        2) Update the parameters using gradient descent rule for w and b.</div><div class="line">    """</div><div class="line">    </div><div class="line">    costs = []</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num_iterations):</div><div class="line">    </div><div class="line">        <span class="comment"># Cost and gradient calculation (≈ 1-4 lines of code)</span></div><div class="line">        grads, cost = propagate(w, b, X, Y)</div><div class="line">        <span class="comment"># Retrieve derivatives from grads</span></div><div class="line">        dw = grads[<span class="string">"dw"</span>]</div><div class="line">        db = grads[<span class="string">"db"</span>]</div><div class="line">        </div><div class="line">        <span class="comment"># update rule (≈ 2 lines of code)</span></div><div class="line">        w = w-learning_rate*dw</div><div class="line">        b = b-learning_rate*db</div><div class="line">        </div><div class="line">        <span class="comment"># Record the costs</span></div><div class="line">        <span class="keyword">if</span> i % <span class="number">100</span> == <span class="number">0</span>:</div><div class="line">            costs.append(cost)</div><div class="line">        </div><div class="line">        <span class="comment"># Print the cost every 100 training examples</span></div><div class="line">        <span class="keyword">if</span> print_cost <span class="keyword">and</span> i % <span class="number">100</span> == <span class="number">0</span>:</div><div class="line">            <span class="keyword">print</span> (<span class="string">"Cost after iteration %i: %f"</span> %(i, cost))</div><div class="line">    </div><div class="line">    params = &#123;<span class="string">"w"</span>: w,</div><div class="line">              <span class="string">"b"</span>: b&#125;</div><div class="line">    </div><div class="line">    grads = &#123;<span class="string">"dw"</span>: dw,</div><div class="line">             <span class="string">"db"</span>: db&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> params, grads, costs</div></pre></td></tr></table></figure>
+<h3 id="5-预测"><a href="#5-预测" class="headerlink" title="5.预测"></a>5.预测</h3><p>前面的函数将输出学习的w和b，我们可以使用w和b来预测数据集x的标签，实现预测()函数。计算预测有两个步骤:</p>
+<ol>
+<li><p>Calculate $\hat{Y} = A = \sigma(w^T X + b)$</p>
+</li>
+<li><p>Convert the entries of a into 0 (if activation &lt;= 0.5) or 1 (if activation &gt; 0.5), stores the predictions in a vector <code>Y_prediction</code>. If you wish, you can use an <code>if</code>/<code>else</code> statement in a <code>for</code> loop (though there is also a way to vectorize this). </p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: predict</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(w, b, X)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    Predict whether the label is 0 or 1 using learned logistic regression parameters (w, b)</div><div class="line">    </div><div class="line">    Arguments:</div><div class="line">    w -- weights, a numpy array of size (num_px * num_px * 3, 1)</div><div class="line">    b -- bias, a scalar</div><div class="line">    X -- data of size (num_px * num_px * 3, number of examples)</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    Y_prediction -- a numpy array (vector) containing all predictions (0/1) for the examples in X</div><div class="line">    '''</div><div class="line">    </div><div class="line">    m = X.shape[<span class="number">1</span>]</div><div class="line">    Y_prediction = np.zeros((<span class="number">1</span>,m))</div><div class="line">    w = w.reshape(X.shape[<span class="number">0</span>], <span class="number">1</span>)</div><div class="line">    </div><div class="line">    <span class="comment"># Compute vector "A" predicting the probabilities of a cat being present in the picture</span></div><div class="line">    A = sigmoid(np.dot(w.T,X)+b)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(A.shape[<span class="number">1</span>]):</div><div class="line">        </div><div class="line">        <span class="comment"># Convert probabilities A[0,i] to actual predictions p[0,i]</span></div><div class="line">        <span class="keyword">if</span> A[<span class="number">0</span>][i]&gt;<span class="number">0.5</span>:</div><div class="line">            Y_prediction[<span class="number">0</span>][i]=<span class="number">1</span>            </div><div class="line">                </div><div class="line">    <span class="keyword">assert</span>(Y_prediction.shape == (<span class="number">1</span>, m))</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> Y_prediction</div></pre></td></tr></table></figure>
+<h3 id="6-合并各个部分组成模型"><a href="#6-合并各个部分组成模型" class="headerlink" title="6.合并各个部分组成模型"></a>6.合并各个部分组成模型</h3><p>现在，将通过将所有构建块(在前面部分中实现的函数)组合在一起，以正确的顺序将整个模型构建起来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: model</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">model</span><span class="params">(X_train, Y_train, X_test, Y_test, num_iterations = <span class="number">2000</span>, learning_rate = <span class="number">0.5</span>, print_cost = False)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Builds the logistic regression model by calling the function you've implemented previously</div><div class="line">    </div><div class="line">    Arguments:</div><div class="line">    X_train -- training set represented by a numpy array of shape (num_px * num_px * 3, m_train)</div><div class="line">    Y_train -- training labels represented by a numpy array (vector) of shape (1, m_train)</div><div class="line">    X_test -- test set represented by a numpy array of shape (num_px * num_px * 3, m_test)</div><div class="line">    Y_test -- test labels represented by a numpy array (vector) of shape (1, m_test)</div><div class="line">    num_iterations -- hyperparameter representing the number of iterations to optimize the parameters</div><div class="line">    learning_rate -- hyperparameter representing the learning rate used in the update rule of optimize()</div><div class="line">    print_cost -- Set to true to print the cost every 100 iterations</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    d -- dictionary containing information about the model.</div><div class="line">    """</div><div class="line">        </div><div class="line">    <span class="comment"># initialize parameters with zeros (≈ 1 line of code)</span></div><div class="line">    w, b = initialize_with_zeros(X_train.shape[<span class="number">0</span>])</div><div class="line"></div><div class="line">    <span class="comment"># Gradient descent (≈ 1 line of code)</span></div><div class="line">    parameters, grads, costs = optimize(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost = <span class="keyword">False</span>)</div><div class="line">    </div><div class="line">    <span class="comment"># Retrieve parameters w and b from dictionary "parameters"</span></div><div class="line">    w = parameters[<span class="string">"w"</span>]</div><div class="line">    b = parameters[<span class="string">"b"</span>]</div><div class="line">    </div><div class="line">    <span class="comment"># Predict test/train set examples (≈ 2 lines of code)</span></div><div class="line">    Y_prediction_test = predict(w, b, X_test)</div><div class="line">    Y_prediction_train = predict(w, b, X_train)</div><div class="line"></div><div class="line">    <span class="comment"># Print train/test Errors</span></div><div class="line">    print(<span class="string">"train accuracy: &#123;&#125; %"</span>.format(<span class="number">100</span> - np.mean(np.abs(Y_prediction_train - Y_train)) * <span class="number">100</span>))</div><div class="line">    print(<span class="string">"test accuracy: &#123;&#125; %"</span>.format(<span class="number">100</span> - np.mean(np.abs(Y_prediction_test - Y_test)) * <span class="number">100</span>))</div><div class="line"></div><div class="line">    </div><div class="line">    d = &#123;<span class="string">"costs"</span>: costs,</div><div class="line">         <span class="string">"Y_prediction_test"</span>: Y_prediction_test, </div><div class="line">         <span class="string">"Y_prediction_train"</span> : Y_prediction_train, </div><div class="line">         <span class="string">"w"</span> : w, </div><div class="line">         <span class="string">"b"</span> : b,</div><div class="line">         <span class="string">"learning_rate"</span> : learning_rate,</div><div class="line">         <span class="string">"num_iterations"</span>: num_iterations&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> d</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢各位大佬！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.gif" alt="Yaphets WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Yaphets Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LR/" rel="tag"># LR</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/10/微信监控机器学习、深度学习训练过程/" rel="next" title="微信监控机器学习、深度学习训练过程">
+                <i class="fa fa-chevron-left"></i> 微信监控机器学习、深度学习训练过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="Yaphets" />
+            
+              <p class="site-author-name" itemprop="name">Yaphets</p>
+              <p class="site-description motion-element" itemprop="description">Second place means you're the first loser.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/TracyMcgrady6" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/b81101a5e2ce" target="_blank" title="JianShu">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>JianShu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用神经网络思想建立LR模型"><span class="nav-number">1.</span> <span class="nav-text">用神经网络思想建立LR模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LR回顾"><span class="nav-number">1.1.</span> <span class="nav-text">LR回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LR计算图求导"><span class="nav-number">1.2.</span> <span class="nav-text">LR计算图求导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法结构"><span class="nav-number">1.3.</span> <span class="nav-text">算法结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建算法的各个部分。"><span class="nav-number">1.4.</span> <span class="nav-text">构建算法的各个部分。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-工具函数"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.工具函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-初始化参数"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.初始化参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-向前和向后传播"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.向前和向后传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-优化"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-预测"><span class="nav-number">1.4.5.</span> <span class="nav-text">5.预测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-合并各个部分组成模型"><span class="nav-number">1.4.6.</span> <span class="nav-text">6.合并各个部分组成模型</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaphets</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2148013"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Jih3eStoYY11KFz7FxCnNC1K-gzGzoHsz", "qjPmKkf63OGLNUj8h6waX3po");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
