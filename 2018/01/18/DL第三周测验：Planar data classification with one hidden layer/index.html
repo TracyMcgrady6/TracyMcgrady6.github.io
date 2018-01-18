@@ -85,20 +85,20 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/18/DL第三周测验：Planar data classification with one hidden layer/index.html">
 <meta property="og:site_name" content="McGrady">
 <meta property="og:description" content="DL第三周测验：Planar data classification with one hidden layerWelcome to your week 3 programming assignment. It’s time to build your first neural network, which will have a hidden layer. You will see a big">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/output_6_0.png">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/output_13_1.png">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/classification_kiank.png">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/grad_summary.png">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/sgd.gif">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/sgd_bad.gif">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/output_50_2.png">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/output_56_1.png">
-<meta property="og:image" content="http://yoursite.com/media/15162644857479/output_63_0.png">
-<meta property="og:updated_time" content="2018-01-18T08:52:17.000Z">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_6_0.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_13_1.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/classification_kiank.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/grad_summary.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/sgd.gif">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/sgd_bad.gif">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_50_2.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_56_1.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_63_0.png">
+<meta property="og:updated_time" content="2018-01-18T08:59:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DL第三周测验：Planar data classification with one hidden layer">
 <meta name="twitter:description" content="DL第三周测验：Planar data classification with one hidden layerWelcome to your week 3 programming assignment. It’s time to build your first neural network, which will have a hidden layer. You will see a big">
-<meta name="twitter:image" content="http://yoursite.com/media/15162644857479/output_6_0.png">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/output_6_0.png">
 
 
 
@@ -392,7 +392,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">X, Y = load_planar_dataset()</div></pre></td></tr></table></figure>
 <p>Visualize the dataset using matplotlib. The data looks like a “flower” with some red (label y=0) and some blue (y=1) points. Your goal is to build a model to fit this data. </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Visualize the data:</span></div><div class="line">plt.scatter(X[<span class="number">0</span>, :], X[<span class="number">1</span>, :], c=Y, s=<span class="number">40</span>, cmap=plt.cm.Spectral);</div></pre></td></tr></table></figure>
-<p><img src="media/15162644857479/output_6_0.png" alt="output_6_0"></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/output_6_0.png" alt="output_6_0"></p>
 <p>You have:</p>
 <pre><code>- a numpy-array (matrix) X that contains your features (x1, x2)
 - a numpy-array (vector) Y that contains your labels (red:0, blue:1).
@@ -413,7 +413,7 @@ I have m = 400 training examples!
 </code></pre><p>You can now plot the decision boundary of these models. Run the code below.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Plot the decision boundary for logistic regression</span></div><div class="line">plot_decision_boundary(<span class="keyword">lambda</span> x: clf.predict(x), X, Y)</div><div class="line">plt.title(<span class="string">"Logistic Regression"</span>)</div><div class="line"></div><div class="line"><span class="comment"># Print accuracy</span></div><div class="line">LR_predictions = clf.predict(X.T)</div><div class="line"><span class="keyword">print</span> (<span class="string">'Accuracy of logistic regression: %d '</span> % float((np.dot(Y,LR_predictions) + np.dot(<span class="number">1</span>-Y,<span class="number">1</span>-LR_predictions))/float(Y.size)*<span class="number">100</span>) +</div><div class="line">       <span class="string">'% '</span> + <span class="string">"(percentage of correctly labelled datapoints)"</span>)</div></pre></td></tr></table></figure>
 <pre><code>Accuracy of logistic regression: 47 % (percentage of correctly labelled datapoints)
-</code></pre><p><img src="media/15162644857479/output_13_1.png" alt="output_13_1"></p>
+</code></pre><p><img src="http://oyspcrc3p.bkt.clouddn.com/output_13_1.png" alt="output_13_1"></p>
 <p><strong>Expected Output</strong>:</p>
 <table style="width:20%"><br>  <tr><br>    <td><strong>Accuracy</strong></td><br>    <td> 47% </td><br>  </tr><br><br></table>
 
@@ -421,7 +421,7 @@ I have m = 400 training examples!
 <p><strong>Interpretation</strong>: The dataset is not linearly separable, so logistic regression doesn’t perform well. Hopefully a neural network will do better. Let’s try this now! </p>
 <h2 id="4-Neural-Network-model"><a href="#4-Neural-Network-model" class="headerlink" title="4 - Neural Network model"></a>4 - Neural Network model</h2><p>Logistic regression did not work well on the “flower dataset”. You are going to train a Neural Network with a single hidden layer.</p>
 <p><strong>Here is our model</strong>:</p>
-<p><img src="media/15162644857479/classification_kiank.png" alt="classification_kiank"></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/classification_kiank.png" alt="classification_kiank"></p>
 <p><strong>Mathematically</strong>:</p>
 <p>For one example $x^{(i)}$:<br>$$z^{[1] (i)} =  W^{[1]} x^{(i)} + b^{[1] (i)}\tag{1}$$<br>$$a^{[1] (i)} = \tanh(z^{[1] (i)})\tag{2}$$<br>$$z^{[2] (i)} = W^{[2]} a^{[1] (i)} + b^{[2] (i)}\tag{3}$$<br>$$\hat{y}^{(i)} = a^{[2] (i)} = \sigma(z^{ [2] (i)})\tag{4}$$<br>$$y^{(i)}_{prediction} = \begin{cases} 1 &amp; \mbox{if } a^{<a href="i">2</a>} &gt; 0.5 \ 0 &amp; \mbox{otherwise } \end{cases}\tag{5}$$</p>
 <p>Given the predictions on all the examples, you can also compute the cost $J$ as follows:<br>$$J = - \frac{1}{m} \sum\limits_{i = 0}^{m} \large\left(\small y^{(i)}\log\left(a^{[2] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[2] (i)}\right)  \large  \right) \small \tag{6}$$</p>
@@ -514,7 +514,7 @@ b2 = [[ 0.]]
 <p>Using the cache computed during forward propagation, you can now implement backward propagation.</p>
 <p><strong>Question</strong>: Implement the function <code>backward_propagation()</code>.</p>
 <p><strong>Instructions</strong>:<br>Backpropagation is usually the hardest (most mathematical) part in deep learning. To help you, here again is the slide from the lecture on backpropagation. You’ll want to use the six equations on the right of this slide, since you are building a vectorized implementation.  </p>
-<p><img src="media/15162644857479/grad_summary.png" alt="grad_summary"></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/grad_summary.png" alt="grad_summary"></p>
 <!--
 $\frac{\partial \mathcal{J} }{ \partial z_{2}^{(i)} } = \frac{1}{m} (a^{[2](i)} - y^{(i)})$
 
@@ -560,8 +560,8 @@ db2 = [[-0.16655712]]
 <p><strong>Question</strong>: Implement the update rule. Use gradient descent. You have to use (dW1, db1, dW2, db2) in order to update (W1, b1, W2, b2).</p>
 <p><strong>General gradient descent rule</strong>: $ \theta = \theta - \alpha \frac{\partial J }{ \partial \theta }$ where $\alpha$ is the learning rate and $\theta$ represents a parameter.</p>
 <p><strong>Illustration</strong>: The gradient descent algorithm with a good learning rate (converging) and a bad learning rate (diverging). Images courtesy of Adam Harley.</p>
-<p><img src="media/15162644857479/sgd.gif" alt="sgd"></p>
-<p><img src="media/15162644857479/sgd_bad.gif" alt="sgd_bad"></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/sgd.gif" alt="sgd"></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/sgd_bad.gif" alt="sgd_bad"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: update_parameters</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_parameters</span><span class="params">(parameters, grads, learning_rate = <span class="number">1.2</span>)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Updates parameters using the gradient descent update rule given above</div><div class="line">    </div><div class="line">    Arguments:</div><div class="line">    parameters -- python dictionary containing your parameters </div><div class="line">    grads -- python dictionary containing your gradients </div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    parameters -- python dictionary containing your updated parameters </div><div class="line">    """</div><div class="line">    <span class="comment"># Retrieve each parameter from the dictionary "parameters"</span></div><div class="line">    <span class="comment">### START CODE HERE ### (≈ 4 lines of code)</span></div><div class="line">    W1 = parameters[<span class="string">'W1'</span>]</div><div class="line">    b1 = parameters[<span class="string">'b1'</span>]</div><div class="line">    W2 = parameters[<span class="string">'W2'</span>]</div><div class="line">    b2 = parameters[<span class="string">'b2'</span>]</div><div class="line">    <span class="comment">### END CODE HERE ###</span></div><div class="line">    </div><div class="line">    <span class="comment"># Retrieve each gradient from the dictionary "grads"</span></div><div class="line">    <span class="comment">### START CODE HERE ### (≈ 4 lines of code)</span></div><div class="line">    dW1 = grads[<span class="string">'dW1'</span>]</div><div class="line">    db1 = grads[<span class="string">'db1'</span>]</div><div class="line">    dW2 = grads[<span class="string">'dW2'</span>]</div><div class="line">    db2 = grads[<span class="string">'db2'</span>]</div><div class="line">    <span class="comment">## END CODE HERE ###</span></div><div class="line">    </div><div class="line">    <span class="comment"># Update rule for each parameter</span></div><div class="line">    <span class="comment">### START CODE HERE ### (≈ 4 lines of code)</span></div><div class="line">    W1 = W1-learning_rate*dW1</div><div class="line">    b1 = b1-learning_rate*db1</div><div class="line">    W2 = W2-learning_rate*dW2</div><div class="line">    b2 = b2-learning_rate*db2</div><div class="line">    <span class="comment">### END CODE HERE ###</span></div><div class="line">    </div><div class="line">    parameters = &#123;<span class="string">"W1"</span>: W1,</div><div class="line">                  <span class="string">"b1"</span>: b1,</div><div class="line">                  <span class="string">"W2"</span>: W2,</div><div class="line">                  <span class="string">"b2"</span>: b2&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> parameters</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">parameters, grads = update_parameters_test_case()</div><div class="line">parameters = update_parameters(parameters, grads)</div><div class="line"></div><div class="line">print(<span class="string">"W1 = "</span> + str(parameters[<span class="string">"W1"</span>]))</div><div class="line">print(<span class="string">"b1 = "</span> + str(parameters[<span class="string">"b1"</span>]))</div><div class="line">print(<span class="string">"W2 = "</span> + str(parameters[<span class="string">"W2"</span>]))</div><div class="line">print(<span class="string">"b2 = "</span> + str(parameters[<span class="string">"b2"</span>]))</div></pre></td></tr></table></figure>
 <pre><code>W1 = [[-0.00643025  0.01936718]
@@ -630,7 +630,7 @@ Cost after iteration 9000: 0.218612
 
 
 &lt;matplotlib.text.Text at 0x7f5c081700b8&gt;
-</code></pre><p><img src="media/15162644857479/output_50_2.png" alt="output_50_2"></p>
+</code></pre><p><img src="http://oyspcrc3p.bkt.clouddn.com/output_50_2.png" alt="output_50_2"></p>
 <p><strong>Expected Output</strong>:</p>
 <table style="width:40%"><br>  <tr><br>    <td><strong>Cost after iteration 9000</strong></td><br>    <td> 0.218607 </td><br>  </tr><br><br></table>
 
@@ -652,7 +652,7 @@ Accuracy for 4 hidden units: 90.5 %
 Accuracy for 5 hidden units: 91.25 %
 Accuracy for 20 hidden units: 90.0 %
 Accuracy for 50 hidden units: 90.25 %
-</code></pre><p><img src="media/15162644857479/output_56_1.png" alt="output_56_1"></p>
+</code></pre><p><img src="http://oyspcrc3p.bkt.clouddn.com/output_56_1.png" alt="output_56_1"></p>
 <p><strong>Interpretation</strong>:</p>
 <ul>
 <li>The larger models (with more hidden units) are able to fit the training set better, until eventually the largest models overfit the data. </li>
@@ -677,7 +677,7 @@ Accuracy for 50 hidden units: 90.25 %
 <p>Nice work! </p>
 <h2 id="5-Performance-on-other-datasets"><a href="#5-Performance-on-other-datasets" class="headerlink" title="5) Performance on other datasets"></a>5) Performance on other datasets</h2><p>If you want, you can rerun the whole notebook (minus the dataset part) for each of the following datasets.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Datasets</span></div><div class="line">noisy_circles, noisy_moons, blobs, gaussian_quantiles, no_structure = load_extra_datasets()</div><div class="line"></div><div class="line">datasets = &#123;<span class="string">"noisy_circles"</span>: noisy_circles,</div><div class="line">            <span class="string">"noisy_moons"</span>: noisy_moons,</div><div class="line">            <span class="string">"blobs"</span>: blobs,</div><div class="line">            <span class="string">"gaussian_quantiles"</span>: gaussian_quantiles&#125;</div><div class="line"></div><div class="line"><span class="comment">### START CODE HERE ### (choose your dataset)</span></div><div class="line">dataset = <span class="string">"noisy_moons"</span></div><div class="line"><span class="comment">### END CODE HERE ###</span></div><div class="line"></div><div class="line">X, Y = datasets[dataset]</div><div class="line">X, Y = X.T, Y.reshape(<span class="number">1</span>, Y.shape[<span class="number">0</span>])</div><div class="line"></div><div class="line"><span class="comment"># make blobs binary</span></div><div class="line"><span class="keyword">if</span> dataset == <span class="string">"blobs"</span>:</div><div class="line">    Y = Y%<span class="number">2</span></div><div class="line"></div><div class="line"><span class="comment"># Visualize the data</span></div><div class="line">plt.scatter(X[<span class="number">0</span>, :], X[<span class="number">1</span>, :], c=Y, s=<span class="number">40</span>, cmap=plt.cm.Spectral);</div></pre></td></tr></table></figure>
-<p><img src="media/15162644857479/output_63_0.png" alt="output_63_0"></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/output_63_0.png" alt="output_63_0"></p>
 <p>Congrats on finishing this Programming Assignment!</p>
 <p>Reference:</p>
 <ul>
