@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_50_2.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_56_1.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/output_63_0.png">
-<meta property="og:updated_time" content="2018-01-18T08:59:55.000Z">
+<meta property="og:updated_time" content="2018-01-18T09:33:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DL第三周测验：Planar data classification with one hidden layer">
 <meta name="twitter:description" content="DL第三周测验：Planar data classification with one hidden layerWelcome to your week 3 programming assignment. It’s time to build your first neural network, which will have a hidden layer. You will see a big">
@@ -404,8 +404,24 @@
 The shape of Y is: (1, 400)
 I have m = 400 training examples!
 </code></pre><p><strong>Expected Output</strong>:</p>
-<table style="width:20%"><br><br>  <tr><br>    <td><strong>shape of X</strong></td><br>    <td> (2, 400) </td><br>  </tr><br><br>  <tr><br>    <td><strong>shape of Y</strong></td><br>    <td>(1, 400) </td><br>  </tr><br><br>    <tr><br>    <td><strong>m</strong></td><br>    <td> 400 </td><br>  </tr><br><br></table>
-
+<table>
+<thead>
+<tr>
+<th>shape of X</th>
+<th>(2, 400)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>shape of Y</strong></td>
+<td><strong>(1, 400)</strong></td>
+</tr>
+<tr>
+<td><strong>m</strong></td>
+<td><strong>400</strong></td>
+</tr>
+</tbody>
+</table>
 <h2 id="3-Simple-Logistic-Regression"><a href="#3-Simple-Logistic-Regression" class="headerlink" title="3 - Simple Logistic Regression"></a>3 - Simple Logistic Regression</h2><p>Before building a full neural network, lets first see how logistic regression performs on this problem. You can use sklearn’s built-in functions to do that. Run the code below to train a logistic regression classifier on the dataset.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Train the logistic regression classifier</span></div><div class="line">clf = sklearn.linear_model.LogisticRegressionCV();</div><div class="line">clf.fit(X.T, Y.T);</div></pre></td></tr></table></figure>
 <pre><code>/opt/conda/lib/python3.5/site-packages/sklearn/utils/validation.py:515: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
@@ -415,9 +431,19 @@ I have m = 400 training examples!
 <pre><code>Accuracy of logistic regression: 47 % (percentage of correctly labelled datapoints)
 </code></pre><p><img src="http://oyspcrc3p.bkt.clouddn.com/output_13_1.png" alt="output_13_1"></p>
 <p><strong>Expected Output</strong>:</p>
-<table style="width:20%"><br>  <tr><br>    <td><strong>Accuracy</strong></td><br>    <td> 47% </td><br>  </tr><br><br></table>
-
-
+<table>
+<thead>
+<tr>
+<th><strong>Accuracy</strong></th>
+<th>47%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>Interpretation</strong>: The dataset is not linearly separable, so logistic regression doesn’t perform well. Hopefully a neural network will do better. Let’s try this now! </p>
 <h2 id="4-Neural-Network-model"><a href="#4-Neural-Network-model" class="headerlink" title="4 - Neural Network model"></a>4 - Neural Network model</h2><p>Logistic regression did not work well on the “flower dataset”. You are going to train a Neural Network with a single hidden layer.</p>
 <p><strong>Here is our model</strong>:</p>
@@ -445,8 +471,24 @@ I have m = 400 training examples!
 The size of the hidden layer is: n_h = 4
 The size of the output layer is: n_y = 2
 </code></pre><p><strong>Expected Output</strong> (these are not the sizes you will use for your network, they are just used to assess the function you’ve just coded).</p>
-<table style="width:20%"><br>  <tr><br>    <td><strong>n_x</strong></td><br>    <td> 5 </td><br>  </tr><br><br>    <tr><br>    <td><strong>n_h</strong></td><br>    <td> 4 </td><br>  </tr><br><br>    <tr><br>    <td><strong>n_y</strong></td><br>    <td> 2 </td><br>  </tr><br><br></table>
-
+<table>
+<thead>
+<tr>
+<th><strong>n_x</strong></th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>n_h</strong></td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>n_y</strong></td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
 <h3 id="4-2-Initialize-the-model’s-parameters"><a href="#4-2-Initialize-the-model’s-parameters" class="headerlink" title="4.2 - Initialize the model’s parameters"></a>4.2 - Initialize the model’s parameters</h3><p><strong>Exercise</strong>: Implement the function <code>initialize_parameters()</code>.</p>
 <p><strong>Instructions</strong>:</p>
 <ul>
@@ -473,10 +515,28 @@ b1 = [[ 0.]
 W2 = [[-0.01057952 -0.00909008  0.00551454  0.02292208]]
 b2 = [[ 0.]]
 </code></pre><p><strong>Expected Output</strong>:</p>
-<table style="width:90%"><br>  <tr><br>    <td><strong>W1</strong></td><br>    <td> [[-0.00416758 -0.00056267]<br> [-0.02136196  0.01640271]<br> [-0.01793436 -0.00841747]<br> [ 0.00502881 -0.01245288]] </td><br>  </tr><br><br>  <tr><br>    <td><strong>b1</strong></td><br>    <td> [[ 0.]<br> [ 0.]<br> [ 0.]<br> [ 0.]] </td><br>  </tr><br><br>  <tr><br>    <td><strong>W2</strong></td><br>    <td> [[-0.01057952 -0.00909008  0.00551454  0.02292208]]</td><br>  </tr><br><br><br>  <tr><br>    <td><strong>b2</strong></td><br>    <td> [[ 0.]] </td><br>  </tr><br><br></table>
-
-
-
+<table>
+<thead>
+<tr>
+<th><strong>W1</strong></th>
+<th>[[-0.00416758 -0.00056267][-0.02136196  0.01640271][-0.01793436 -0.00841747][ 0.00502881 -0.01245288]]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>b1</strong></td>
+<td><strong>[[ 0.][ 0.][ 0.][ 0.]]</strong></td>
+</tr>
+<tr>
+<td><strong>W2</strong></td>
+<td><strong>[[-0.01057952 -0.00909008 0.00551454  0.02292208]]</strong></td>
+</tr>
+<tr>
+<td><strong>b2</strong></td>
+<td><strong>[[ 0.]]</strong></td>
+</tr>
+</tbody>
+</table>
 <h3 id="4-3-The-Loop"><a href="#4-3-The-Loop" class="headerlink" title="4.3 - The Loop"></a>4.3 - The Loop</h3><p><strong>Question</strong>: Implement <code>forward_propagation()</code>.</p>
 <p><strong>Instructions</strong>:</p>
 <ul>
@@ -494,8 +554,18 @@ b2 = [[ 0.]]
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">X_assess, parameters = forward_propagation_test_case()</div><div class="line">A2, cache = forward_propagation(X_assess, parameters)</div><div class="line"></div><div class="line"><span class="comment"># Note: we use the mean here just to make sure that your output matches ours. </span></div><div class="line">print(np.mean(cache[<span class="string">'Z1'</span>]) ,np.mean(cache[<span class="string">'A1'</span>]),np.mean(cache[<span class="string">'Z2'</span>]),np.mean(cache[<span class="string">'A2'</span>]))</div></pre></td></tr></table></figure>
 <pre><code>0.262818640198 0.091999045227 -1.30766601287 0.212877681719
 </code></pre><p><strong>Expected Output</strong>:</p>
-<table style="width:50%"><br>  <tr><br>    <td> 0.262818640198 0.091999045227 -1.30766601287 0.212877681719 </td><br>  </tr><br></table>
-
+<table>
+<thead>
+<tr>
+<th>0.262818640198 0.091999045227 -1.30766601287 0.212877681719</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>Now that you have computed $A^{[2]}$ (in the Python variable “<code>A2</code>“), which contains $a^{<a href="i">2</a>}$ for every example, you can compute the cost function as follows:</p>
 <p>$$J = - \frac{1}{m} \sum\limits_{i = 0}^{m} \large{(} \small y^{(i)}\log\left(a^{[2] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[2] (i)}\right) \large{)} \small\tag{13}$$</p>
 <p><strong>Exercise</strong>: Implement <code>compute_cost()</code> to compute the value of the cost $J$.</p>
@@ -509,8 +579,19 @@ b2 = [[ 0.]]
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">A2, Y_assess, parameters = compute_cost_test_case()</div><div class="line"></div><div class="line">print(<span class="string">"cost = "</span> + str(compute_cost(A2, Y_assess, parameters)))</div></pre></td></tr></table></figure>
 <pre><code>cost = 0.693058761039
 </code></pre><p><strong>Expected Output</strong>:</p>
-<table style="width:20%"><br>  <tr><br>    <td><strong>cost</strong></td><br>    <td> 0.693058761… </td><br>  </tr><br><br></table>
-
+<table>
+<thead>
+<tr>
+<th><strong>cost</strong></th>
+<th>0.693058761…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>Using the cache computed during forward propagation, you can now implement backward propagation.</p>
 <p><strong>Question</strong>: Implement the function <code>backward_propagation()</code>.</p>
 <p><strong>Instructions</strong>:<br>Backpropagation is usually the hardest (most mathematical) part in deep learning. To help you, here again is the slide from the lecture on backpropagation. You’ll want to use the six equations on the right of this slide, since you are building a vectorized implementation.  </p>
@@ -555,8 +636,28 @@ db1 = [[ 0.00176201]
 dW2 = [[ 0.00078841  0.01765429 -0.00084166 -0.01022527]]
 db2 = [[-0.16655712]]
 </code></pre><p><strong>Expected output</strong>:</p>
-<table style="width:80%"><br>  <tr><br>    <td><strong>dW1</strong></td><br>    <td> [[ 0.00301023 -0.00747267]<br> [ 0.00257968 -0.00641288]<br> [-0.00156892  0.003893  ]<br> [-0.00652037  0.01618243]] </td><br>  </tr><br><br>  <tr><br>    <td><strong>db1</strong></td><br>    <td>  [[ 0.00176201]<br> [ 0.00150995]<br> [-0.00091736]<br> [-0.00381422]] </td><br>  </tr><br><br>  <tr><br>    <td><strong>dW2</strong></td><br>    <td> [[ 0.00078841  0.01765429 -0.00084166 -0.01022527]] </td><br>  </tr><br><br><br>  <tr><br>    <td><strong>db2</strong></td><br>    <td> [[-0.16655712]] </td><br>  </tr><br><br></table>  
-
+<table>
+<thead>
+<tr>
+<th><strong>dW1</strong></th>
+<th>[[ 0.00301023 -0.00747267][ 0.00257968 -0.00641288][-0.00156892  0.003893  ][-0.00652037  0.01618243]]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>db1</strong></td>
+<td><strong>[[ 0.00176201][ 0.00150995][-0.00091736][-0.00381422]]</strong></td>
+</tr>
+<tr>
+<td><strong>dW2</strong></td>
+<td><strong>[[ 0.00078841  0.01765429 -0.00084166 -0.01022527]]</strong></td>
+</tr>
+<tr>
+<td><strong>db2</strong></td>
+<td><strong>[[-0.16655712]]</strong></td>
+</tr>
+</tbody>
+</table>
 <p><strong>Question</strong>: Implement the update rule. Use gradient descent. You have to use (dW1, db1, dW2, db2) in order to update (W1, b1, W2, b2).</p>
 <p><strong>General gradient descent rule</strong>: $ \theta = \theta - \alpha \frac{\partial J }{ \partial \theta }$ where $\alpha$ is the learning rate and $\theta$ represents a parameter.</p>
 <p><strong>Illustration</strong>: The gradient descent algorithm with a good learning rate (converging) and a bad learning rate (diverging). Images courtesy of Adam Harley.</p>
@@ -575,8 +676,28 @@ b1 = [[ -1.02420756e-06]
 W2 = [[-0.01041081 -0.04463285  0.01758031  0.04747113]]
 b2 = [[ 0.00010457]]
 </code></pre><p><strong>Expected Output</strong>:</p>
-<table style="width:80%"><br>  <tr><br>    <td><strong>W1</strong></td><br>    <td> [[-0.00643025  0.01936718]<br> [-0.02410458  0.03978052]<br> [-0.01653973 -0.02096177]<br> [ 0.01046864 -0.05990141]]</td><br>  </tr><br><br>  <tr><br>    <td><strong>b1</strong></td><br>    <td> [[ -1.02420756e-06]<br> [  1.27373948e-05]<br> [  8.32996807e-07]<br> [ -3.20136836e-06]]</td><br>  </tr><br><br>  <tr><br>    <td><strong>W2</strong></td><br>    <td> [[-0.01041081 -0.04463285  0.01758031  0.04747113]] </td><br>  </tr><br><br><br>  <tr><br>    <td><strong>b2</strong></td><br>    <td> [[ 0.00010457]] </td><br>  </tr><br><br></table>  
-
+<table>
+<thead>
+<tr>
+<th><strong>dW1</strong></th>
+<th>[[-0.00643025  0.01936718][-0.02410458  0.03978052][-0.01653973 -0.02096177][ 0.01046864 -0.05990141]]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>db1</strong></td>
+<td><strong>[[ -1.02420756e-06][  1.27373948e-05][  8.32996807e-07][ -3.20136836e-06]]</strong></td>
+</tr>
+<tr>
+<td><strong>dW2</strong></td>
+<td><strong>[[-0.01041081 -0.04463285  0.01758031  0.04747113]]</strong></td>
+</tr>
+<tr>
+<td><strong>db2</strong></td>
+<td><strong>[[ 0.00010457]]</strong></td>
+</tr>
+</tbody>
+</table>
 <h3 id="4-4-Integrate-parts-4-1-4-2-and-4-3-in-nn-model"><a href="#4-4-Integrate-parts-4-1-4-2-and-4-3-in-nn-model" class="headerlink" title="4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()"></a>4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()</h3><p><strong>Question</strong>: Build your neural network model in <code>nn_model()</code>.</p>
 <p><strong>Instructions</strong>: The neural network model has to use the previous functions in the right order.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GRADED FUNCTION: nn_model</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">nn_model</span><span class="params">(X, Y, n_h, num_iterations = <span class="number">10000</span>, print_cost=False)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Arguments:</div><div class="line">    X -- dataset of shape (2, number of examples)</div><div class="line">    Y -- labels of shape (1, number of examples)</div><div class="line">    n_h -- size of the hidden layer</div><div class="line">    num_iterations -- Number of iterations in gradient descent loop</div><div class="line">    print_cost -- if True, print the cost every 1000 iterations</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    parameters -- parameters learnt by the model. They can then be used to predict.</div><div class="line">    """</div><div class="line">    </div><div class="line">    np.random.seed(<span class="number">3</span>)</div><div class="line">    n_x = layer_sizes(X, Y)[<span class="number">0</span>]</div><div class="line">    n_y = layer_sizes(X, Y)[<span class="number">2</span>]</div><div class="line">    </div><div class="line">    <span class="comment"># Initialize parameters, then retrieve W1, b1, W2, b2. Inputs: "n_x, n_h, n_y". Outputs = "W1, b1, W2, b2, parameters".</span></div><div class="line">    <span class="comment">### START CODE HERE ### (≈ 5 lines of code)</span></div><div class="line">    parameters = initialize_parameters(n_x, n_h, n_y)</div><div class="line">    W1 = parameters[<span class="string">'W1'</span>]</div><div class="line">    b1 = parameters[<span class="string">'b1'</span>]</div><div class="line">    W2 = parameters[<span class="string">'W2'</span>]</div><div class="line">    b2 = parameters[<span class="string">'b2'</span>]</div><div class="line">    <span class="comment">### END CODE HERE ###</span></div><div class="line">    </div><div class="line">    <span class="comment"># Loop (gradient descent)</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, num_iterations):</div><div class="line">         </div><div class="line">        <span class="comment">### START CODE HERE ### (≈ 4 lines of code)</span></div><div class="line">        <span class="comment"># Forward propagation. Inputs: "X, parameters". Outputs: "A2, cache".</span></div><div class="line">        A2, cache = forward_propagation(X, parameters)</div><div class="line">        </div><div class="line">        <span class="comment"># Cost function. Inputs: "A2, Y, parameters". Outputs: "cost".</span></div><div class="line">        cost = compute_cost(A2, Y, parameters)</div><div class="line"> </div><div class="line">        <span class="comment"># Backpropagation. Inputs: "parameters, cache, X, Y". Outputs: "grads".</span></div><div class="line">        grads = backward_propagation(parameters, cache, X, Y)</div><div class="line"> </div><div class="line">        <span class="comment"># Gradient descent parameter update. Inputs: "parameters, grads". Outputs: "parameters".</span></div><div class="line">        parameters = update_parameters(parameters, grads)</div><div class="line">        </div><div class="line">        <span class="comment">### END CODE HERE ###</span></div><div class="line">        </div><div class="line">        <span class="comment"># Print the cost every 1000 iterations</span></div><div class="line">        <span class="keyword">if</span> print_cost <span class="keyword">and</span> i % <span class="number">1000</span> == <span class="number">0</span>:</div><div class="line">            <span class="keyword">print</span> (<span class="string">"Cost after iteration %i: %f"</span> %(i, cost))</div><div class="line"></div><div class="line">    <span class="keyword">return</span> parameters</div></pre></td></tr></table></figure>
@@ -602,16 +723,47 @@ b1 = [[ 0.287592  ]
 W2 = [[-2.45566237 -3.27042274  2.00784958  3.36773273]]
 b2 = [[ 0.20459656]]
 </code></pre><p><strong>Expected Output</strong>:</p>
-<table style="width:90%"><br><br><tr><br>    <td><br>        <strong>cost after iteration 0</strong><br>    </td><br>    <td><br>        0.692739<br>    </td><br></tr><br><br><tr><br>    <td><br>        <center> $\vdots$ </center><br>    </td><br>    <td><br>        <center> $\vdots$ </center><br>    </td><br></tr><br><br>  <tr><br>    <td><strong>W1</strong></td><br>    <td> [[-0.65848169  1.21866811]<br> [-0.76204273  1.39377573]<br> [ 0.5792005  -1.10397703]<br> [ 0.76773391 -1.41477129]]</td><br>  </tr><br><br>  <tr><br>    <td><strong>b1</strong></td><br>    <td> [[ 0.287592  ]<br> [ 0.3511264 ]<br> [-0.2431246 ]<br> [-0.35772805]] </td><br>  </tr><br><br>  <tr><br>    <td><strong>W2</strong></td><br>    <td> [[-2.45566237 -3.27042274  2.00784958  3.36773273]] </td><br>  </tr><br><br><br>  <tr><br>    <td><strong>b2</strong></td><br>    <td> [[ 0.20459656]] </td><br>  </tr><br><br></table>  
-
+<table>
+<thead>
+<tr>
+<th><strong>cost after iteration 0</strong></th>
+<th>0.692739</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>db1</strong></td>
+<td><strong>[[ -1.02420756e-06][  1.27373948e-05][  8.32996807e-07][ -3.20136836e-06]]</strong></td>
+</tr>
+<tr>
+<td><strong>dW2</strong></td>
+<td><strong>[[-0.01041081 -0.04463285  0.01758031  0.04747113]]</strong></td>
+</tr>
+<tr>
+<td><strong>db2</strong></td>
+<td><strong>[[ 0.00010457]]</strong></td>
+</tr>
+</tbody>
+</table>
 <h3 id="4-5-Predictions"><a href="#4-5-Predictions" class="headerlink" title="4.5 Predictions"></a>4.5 Predictions</h3><p><strong>Question</strong>: Use your model to predict by building predict().<br>Use forward propagation to predict results.</p>
 <p><strong>Reminder</strong>: predictions = $y_{prediction} = \mathbb 1 \textfalse = \begin{cases}<br>      1 &amp; \text{if}\ activation &gt; 0.5 \<br>      0 &amp; \text{otherwise}<br>    \end{cases}$  </p>
 <p>As an example, if you would like to set the entries of a matrix X to 0 and 1 based on a threshold you would do: <figure class="highlight plain"><figcaption><span>= (X > threshold)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">```python</div><div class="line"># GRADED FUNCTION: predict</div><div class="line"></div><div class="line">def predict(parameters, X):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    Using the learned parameters, predicts a class for each example in X</div><div class="line">    </div><div class="line">    Arguments:</div><div class="line">    parameters -- python dictionary containing your parameters </div><div class="line">    X -- input data of size (n_x, m)</div><div class="line">    </div><div class="line">    Returns</div><div class="line">    predictions -- vector of predictions of our model (red: 0 / blue: 1)</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    </div><div class="line">    # Computes probabilities using forward propagation, and classifies to 0/1 using 0.5 as the threshold.</div><div class="line">    ### START CODE HERE ### (≈ 2 lines of code)</div><div class="line">    A2, cache =  forward_propagation(X, parameters)</div><div class="line">    predictions = np.where(A2&gt;0.5,1,0)</div><div class="line">    ### END CODE HERE ###</div><div class="line">    </div><div class="line">    return predictions</div></pre></td></tr></table></figure></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">parameters, X_assess = predict_test_case()</div><div class="line"></div><div class="line">predictions = predict(parameters, X_assess)</div><div class="line">print(<span class="string">"predictions mean = "</span> + str(np.mean(predictions)))</div></pre></td></tr></table></figure>
 <pre><code>predictions mean = 0.666666666667
 </code></pre><p><strong>Expected Output</strong>: </p>
-<table style="width:40%"><br>  <tr><br>    <td><strong>predictions mean</strong></td><br>    <td> 0.666666666667 </td><br>  </tr><br><br></table>
-
+<table>
+<thead>
+<tr>
+<th>predictions mean</th>
+<th>0.666666666667</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>It is time to run the model and see how it performs on a planar dataset. Run the following code to test your model with a single hidden layer of $n_h$ hidden units.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Build a model with a n_h-dimensional hidden layer</span></div><div class="line">parameters = nn_model(X, Y, n_h = <span class="number">4</span>, num_iterations = <span class="number">10000</span>, print_cost=<span class="keyword">True</span>)</div><div class="line"></div><div class="line"><span class="comment"># Plot the decision boundary</span></div><div class="line">plot_decision_boundary(<span class="keyword">lambda</span> x: predict(parameters, x.T), X, Y)</div><div class="line">plt.title(<span class="string">"Decision Boundary for hidden layer size "</span> + str(<span class="number">4</span>))</div></pre></td></tr></table></figure>
 <pre><code>Cost after iteration 0: 0.693048
@@ -632,15 +784,35 @@ Cost after iteration 9000: 0.218612
 &lt;matplotlib.text.Text at 0x7f5c081700b8&gt;
 </code></pre><p><img src="http://oyspcrc3p.bkt.clouddn.com/output_50_2.png" alt="output_50_2"></p>
 <p><strong>Expected Output</strong>:</p>
-<table style="width:40%"><br>  <tr><br>    <td><strong>Cost after iteration 9000</strong></td><br>    <td> 0.218607 </td><br>  </tr><br><br></table>
-
-
-
+<table>
+<thead>
+<tr>
+<th>Cost after iteration 9000</th>
+<th>0.218607</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Print accuracy</span></div><div class="line">predictions = predict(parameters, X)</div><div class="line"><span class="keyword">print</span> (<span class="string">'Accuracy: %d'</span> % float((np.dot(Y,predictions.T) + np.dot(<span class="number">1</span>-Y,<span class="number">1</span>-predictions.T))/float(Y.size)*<span class="number">100</span>) + <span class="string">'%'</span>)</div></pre></td></tr></table></figure>
 <pre><code>Accuracy: 90%
 </code></pre><p><strong>Expected Output</strong>: </p>
-<table style="width:15%"><br>  <tr><br>    <td><strong>Accuracy</strong></td><br>    <td> 90% </td><br>  </tr><br></table>
-
+<table>
+<thead>
+<tr>
+<th><strong>Accuracy</strong></th>
+<th>90%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>Accuracy is really high compared to Logistic Regression. The model has learnt the leaf patterns of the flower! Neural networks are able to learn even highly non-linear decision boundaries, unlike logistic regression. </p>
 <p>Now, let’s try out several hidden layer sizes.</p>
 <h3 id="4-6-Tuning-hidden-layer-size-optional-ungraded-exercise"><a href="#4-6-Tuning-hidden-layer-size-optional-ungraded-exercise" class="headerlink" title="4.6 - Tuning hidden layer size (optional/ungraded exercise)"></a>4.6 - Tuning hidden layer size (optional/ungraded exercise)</h3><p>Run the following code. It may take 1-2 minutes. You will observe different behaviors of the model for various hidden layer sizes.</p>
