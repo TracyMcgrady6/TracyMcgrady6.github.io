@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="排序," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="排序算法总结冒泡排序(BubbleSort)1.基本思想：两个数比较大小，较大的数下沉，较小的数冒起来。2.过程：
+
+比较相邻的两个数据，如果第二个数小，就交换位置。
+从后向前两两比较，一直到比较最前两个数据。最终最小数被交换到起始的位置，这样第一个最小数的位置就排好了。
+继续重复上述过程，依次将第2.3…n-1个最小数排好位置。
+
+
+3.平均时间复杂度：O(n2)4.优化：针对问题：数据的顺序排">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法总结">
+<meta property="og:url" content="http://yoursite.com/2018/03/11/排序算法总结/index.html">
+<meta property="og:site_name" content="McGrady">
+<meta property="og:description" content="排序算法总结冒泡排序(BubbleSort)1.基本思想：两个数比较大小，较大的数下沉，较小的数冒起来。2.过程：
+
+比较相邻的两个数据，如果第二个数小，就交换位置。
+从后向前两两比较，一直到比较最前两个数据。最终最小数被交换到起始的位置，这样第一个最小数的位置就排好了。
+继续重复上述过程，依次将第2.3…n-1个最小数排好位置。
+
+
+3.平均时间复杂度：O(n2)4.优化：针对问题：数据的顺序排">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207510886400.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207513902121.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207513902121.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207513928482.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207538148615.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207564105133.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207564457951.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15207564775072.jpg">
+<meta property="og:updated_time" content="2018-03-11T08:29:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序算法总结">
+<meta name="twitter:description" content="排序算法总结冒泡排序(BubbleSort)1.基本思想：两个数比较大小，较大的数下沉，较小的数冒起来。2.过程：
+
+比较相邻的两个数据，如果第二个数小，就交换位置。
+从后向前两两比较，一直到比较最前两个数据。最终最小数被交换到起始的位置，这样第一个最小数的位置就排好了。
+继续重复上述过程，依次将第2.3…n-1个最小数排好位置。
+
+
+3.平均时间复杂度：O(n2)4.优化：针对问题：数据的顺序排">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/15207510886400.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/11/排序算法总结/"/>
+
+
+
+
+
+  <title>排序算法总结 | McGrady</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ed23de8075b3937075187141966fe2ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">McGrady</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/11/排序算法总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yaphets">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="McGrady">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">排序算法总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-11T14:49:57+08:00">
+                2018-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/11/排序算法总结/" class="leancloud_visitors" data-flag-title="排序算法总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="排序算法总结"><a href="#排序算法总结" class="headerlink" title="排序算法总结"></a>排序算法总结</h1><h2 id="冒泡排序-BubbleSort"><a href="#冒泡排序-BubbleSort" class="headerlink" title="冒泡排序(BubbleSort)"></a>冒泡排序(BubbleSort)</h2><p>1.基本思想：两个数比较大小，较大的数下沉，较小的数冒起来。<br>2.过程：</p>
+<ul>
+<li>比较相邻的两个数据，如果第二个数小，就交换位置。</li>
+<li>从后向前两两比较，一直到比较最前两个数据。最终最小数被交换到起始的位置，这样第一个最小数的位置就排好了。</li>
+<li>继续重复上述过程，依次将第2.3…n-1个最小数排好位置。</li>
+</ul>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15207510886400.jpg" alt=""></p>
+<p>3.平均时间复杂度：O(n2)<br>4.优化：<br>针对问题：<br>数据的顺序排好之后，冒泡算法仍然会继续进行下一轮的比较，直到arr.length-1次，后面的比较没有意义的。<br>方案：<br>设置标志位flag，如果发生了交换flag设置为true；如果没有交换就设置为false。<br>这样当一轮比较结束后如果flag仍为false，即：这一轮没有发生交换，说明数据的顺序已经排好，没有必要继续进行下去。</p>
+<p>5.Python代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@staticmethod</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arr)</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(arr)):</div><div class="line">        not_change = <span class="keyword">True</span></div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(arr) - <span class="number">1</span>, i - <span class="number">1</span>, <span class="number">-1</span>):</div><div class="line">            <span class="keyword">if</span> arr[j] &lt; arr[j - <span class="number">1</span>]:</div><div class="line">                tmp = arr[j]</div><div class="line">                arr[j] = arr[j - <span class="number">1</span>]</div><div class="line">                arr[j - <span class="number">1</span>] = tmp</div><div class="line">                not_change = <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> not_change:</div><div class="line">            <span class="keyword">break</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> arr</div></pre></td></tr></table></figure>
+<h2 id="选择排序-SelctionSort"><a href="#选择排序-SelctionSort" class="headerlink" title="选择排序(SelctionSort)"></a>选择排序(SelctionSort)</h2><p>1.基本思想：<br>在长度为N的无序数组中，第一次遍历n-1个数，找到最小的数值与第一个元素交换；<br>第二次遍历n-2个数，找到最小的数值与第二个元素交换；<br>。。。<br>第n-1次遍历，找到最小的数值与第n-1个元素交换，排序完成。</p>
+<p>2.过程：</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15207513902121.png" alt=""><br>3.平均时间复杂度：O(n2)<br>4.python代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@staticmethod</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span><span class="params">(arr)</span>:</span></div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(len(arr)):</div><div class="line">        min_index = index</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(index + <span class="number">1</span>, len(arr)):</div><div class="line">            <span class="keyword">if</span> arr[j] &lt; arr[min_index]:</div><div class="line">                min_index = j</div><div class="line"></div><div class="line">        <span class="keyword">if</span> min_index != index:</div><div class="line">            tmp = arr[index]</div><div class="line">            arr[index] = arr[min_index]</div><div class="line">            arr[min_index] = tmp</div><div class="line">    <span class="keyword">return</span> arr</div></pre></td></tr></table></figure>
+<h2 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序(Insertion Sort)"></a>插入排序(Insertion Sort)</h2><p>1.基本思想：<br>在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。</p>
+<p>2.过程：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15207513902121.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/15207513928482.png" alt=""><br>3.平均时间复杂度：O(n2)</p>
+<p>4.python代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@staticmethod</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span><span class="params">(arr)</span>:</span></div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(len(arr) - <span class="number">1</span>):</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(index + <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">            <span class="keyword">if</span> arr[j] &lt; arr[j - <span class="number">1</span>]:</div><div class="line">                tmp = arr[j]</div><div class="line">                arr[j] = arr[j - <span class="number">1</span>]</div><div class="line">                arr[j - <span class="number">1</span>] = tmp</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">break</span></div><div class="line">    <span class="keyword">return</span> arr</div></pre></td></tr></table></figure>
+<h2 id="希尔排序-Shell-Sort"><a href="#希尔排序-Shell-Sort" class="headerlink" title="希尔排序(Shell Sort)"></a>希尔排序(Shell Sort)</h2><p>1.基本思想：<br>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</p>
+<p>2.过程：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15207538148615.png" alt=""></p>
+<p>3.平均时间复杂度：O（n^1.3）</p>
+<p>4.python代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">shell_sort</span><span class="params">(arr)</span>:</span></div><div class="line">    gap = len(arr)</div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        gap = int(gap / <span class="number">2</span>)</div><div class="line">        <span class="keyword">for</span> arr_index <span class="keyword">in</span> range(gap):</div><div class="line">            print(<span class="string">'arr_index:'</span>, arr_index)</div><div class="line">            <span class="keyword">for</span> element <span class="keyword">in</span> range(arr_index, len(arr) - <span class="number">1</span>, gap):</div><div class="line">                print(<span class="string">'element:'</span>, element)</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(element, arr_index, -gap):</div><div class="line">                    <span class="comment"># print('j', j)</span></div><div class="line">                    <span class="keyword">if</span> arr[j] &lt; arr[element - gap]:</div><div class="line">                        tmp = arr[element - gap]</div><div class="line">                        arr[element - gap] = arr[j]</div><div class="line">                        arr[j] = tmp</div><div class="line">                    <span class="keyword">else</span>:</div><div class="line">                        <span class="keyword">break</span></div><div class="line">        <span class="keyword">if</span> gap == <span class="number">1</span>:</div><div class="line">            <span class="keyword">break</span></div><div class="line">    <span class="keyword">return</span> arr</div></pre></td></tr></table></figure>
+<h2 id="快速排序-Quicksort"><a href="#快速排序-Quicksort" class="headerlink" title="快速排序(Quicksort)"></a>快速排序(Quicksort)</h2><p>1.基本思想：（分治）<br>先从数列中取出一个数作为key值；<br>将比这个数小的数全部放在它的左边，大于或等于它的数全部放在它的右边；<br>对左右两个小数列重复第二步，直至各区间只有1个数。</p>
+<p>2.过程</p>
+<ul>
+<li>初始时 i = 0; j = 9; key=72<br>由于已经将a[0]中的数保存到key中，可以理解成在数组a[0]上挖了个坑，可以将其它数据填充到这来。<br>从j开始向前找一个比key小的数。当j=8，符合条件，a[0] = a[8] ; i++ ; 将a[8]挖出再填到上一个坑a[0]中。<br>这样一个坑a[0]就被搞定了，但又形成了一个新坑a[8]，这怎么办了？简单，再找数字来填a[8]这个坑。<br>这次从i开始向后找一个大于key的数，当i=3，符合条件，a[8] = a[3] ; j– ; 将a[3]挖出再填到上一个坑中。</li>
+</ul>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15207564105133.jpg" alt=""></p>
+<ul>
+<li>此时 i = 3; j = 7; key=72<br>再重复上面的步骤，先从后向前找，再从前向后找。<br>从j开始向前找，当j=5，符合条件，将a[5]挖出填到上一个坑中，a[3] = a[5]; i++;<br>从i开始向后找，当i=5时，由于i==j退出。<br>此时，i = j = 5，而a[5]刚好又是上次挖的坑，因此将key填入a[5]。</li>
+</ul>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15207564457951.jpg" alt=""></p>
+<ul>
+<li>可以看出a[5]前面的数字都小于它，a[5]后面的数字都大于它。因此再对a[0…4]和a[6…9]这二个子区间重复上述步骤就可以了。</li>
+</ul>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15207564775072.jpg" alt=""></p>
+<p>3.平均时间复杂度：O(N*logN)</p>
+<p>4.Python代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(self, arr, left, right)</span>:</span></div><div class="line">    <span class="keyword">if</span> left &gt;= right:</div><div class="line">        <span class="keyword">return</span></div><div class="line">    key = arr[left]</div><div class="line">    i = left</div><div class="line">    j = right</div><div class="line">    <span class="keyword">while</span> i &lt; j:</div><div class="line">        <span class="keyword">while</span> i &lt; j <span class="keyword">and</span> arr[j] &gt;= key:</div><div class="line">            j -= <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> i &lt; j:</div><div class="line">            arr[i] = arr[j]</div><div class="line">            i += <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> i &lt; j <span class="keyword">and</span> arr[i] &lt; key:</div><div class="line">            i += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> i &lt; j:</div><div class="line">            arr[j] = arr[i]</div><div class="line">            j -= <span class="number">1</span></div><div class="line"></div><div class="line">    arr[i] = key</div><div class="line">    self.quick_sort(arr, left, i - <span class="number">1</span>)</div><div class="line">    self.quick_sort(arr, i + <span class="number">1</span>, right)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> arr</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢各位大佬！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.gif" alt="Yaphets WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Yaphets Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/排序/" rel="tag"># 排序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/18/DL第三周测验：Planar data classification with one hidden layer/" rel="next" title="DL第三周测验：Planar data classification with one hidden layer">
+                <i class="fa fa-chevron-left"></i> DL第三周测验：Planar data classification with one hidden layer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="Yaphets" />
+            
+              <p class="site-author-name" itemprop="name">Yaphets</p>
+              <p class="site-description motion-element" itemprop="description">Second place means you're the first loser.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/TracyMcgrady6" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/b81101a5e2ce" target="_blank" title="JianShu">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>JianShu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#排序算法总结"><span class="nav-number">1.</span> <span class="nav-text">排序算法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡排序-BubbleSort"><span class="nav-number">1.1.</span> <span class="nav-text">冒泡排序(BubbleSort)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择排序-SelctionSort"><span class="nav-number">1.2.</span> <span class="nav-text">选择排序(SelctionSort)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入排序-Insertion-Sort"><span class="nav-number">1.3.</span> <span class="nav-text">插入排序(Insertion Sort)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希尔排序-Shell-Sort"><span class="nav-number">1.4.</span> <span class="nav-text">希尔排序(Shell Sort)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序-Quicksort"><span class="nav-number">1.5.</span> <span class="nav-text">快速排序(Quicksort)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaphets</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2148013"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Jih3eStoYY11KFz7FxCnNC1K-gzGzoHsz", "qjPmKkf63OGLNUj8h6waX3po");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
