@@ -79,24 +79,24 @@
 
 
 
-<meta name="description" content="逻辑斯蒂回归通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，可以这样进行理解：
+<meta name="description" content="逻辑斯蒂回归通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，通常可以这样进行理解：
 
-模型就是目标函数
-策略就是损失函数
-算法最优化损失函数的最优化方法
+模型：是目标函数、决策函数
+策略：损失函数、对数似然函数等
+算法：最小化损失函数、最大化似然函数的最优化方法
 
-前言LR回归，虽然这个算法从名字上来看，是回归算法，但其实际上是一个分类算法，学术界也叫它logit regression, 或者是the log-linear classifier。在机器学习算法中，有几">
+前言LR回归，虽然这个算法从名字上来看，是回归算法，但其实际上是一个分类算法，学术界也叫它logit regression, 或者是the log-linear">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逻辑斯蒂回归">
 <meta property="og:url" content="http://yoursite.com/2018/03/13/逻辑斯蒂回归/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="逻辑斯蒂回归通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，可以这样进行理解：
+<meta property="og:description" content="逻辑斯蒂回归通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，通常可以这样进行理解：
 
-模型就是目标函数
-策略就是损失函数
-算法最优化损失函数的最优化方法
+模型：是目标函数、决策函数
+策略：损失函数、对数似然函数等
+算法：最小化损失函数、最大化似然函数的最优化方法
 
-前言LR回归，虽然这个算法从名字上来看，是回归算法，但其实际上是一个分类算法，学术界也叫它logit regression, 或者是the log-linear classifier。在机器学习算法中，有几">
+前言LR回归，虽然这个算法从名字上来看，是回归算法，但其实际上是一个分类算法，学术界也叫它logit regression, 或者是the log-linear">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209196152538.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209196526931.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209197089282.png">
@@ -107,16 +107,16 @@
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209207162765.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209207460207.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209208248061.jpg">
-<meta property="og:updated_time" content="2018-03-13T06:21:41.000Z">
+<meta property="og:updated_time" content="2018-03-13T06:25:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑斯蒂回归">
-<meta name="twitter:description" content="逻辑斯蒂回归通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，可以这样进行理解：
+<meta name="twitter:description" content="逻辑斯蒂回归通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，通常可以这样进行理解：
 
-模型就是目标函数
-策略就是损失函数
-算法最优化损失函数的最优化方法
+模型：是目标函数、决策函数
+策略：损失函数、对数似然函数等
+算法：最小化损失函数、最大化似然函数的最优化方法
 
-前言LR回归，虽然这个算法从名字上来看，是回归算法，但其实际上是一个分类算法，学术界也叫它logit regression, 或者是the log-linear classifier。在机器学习算法中，有几">
+前言LR回归，虽然这个算法从名字上来看，是回归算法，但其实际上是一个分类算法，学术界也叫它logit regression, 或者是the log-linear">
 <meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/15209196152538.jpg">
 
 
@@ -390,11 +390,11 @@
       
 
       
-        <h1 id="逻辑斯蒂回归"><a href="#逻辑斯蒂回归" class="headerlink" title="逻辑斯蒂回归"></a>逻辑斯蒂回归</h1><p>通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，可以这样进行理解：</p>
+        <h1 id="逻辑斯蒂回归"><a href="#逻辑斯蒂回归" class="headerlink" title="逻辑斯蒂回归"></a>逻辑斯蒂回归</h1><p>通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，通常可以这样进行理解：</p>
 <ul>
-<li>模型就是目标函数</li>
-<li>策略就是损失函数</li>
-<li>算法最优化损失函数的最优化方法</li>
+<li>模型：是目标函数、决策函数</li>
+<li>策略：损失函数、对数似然函数等</li>
+<li>算法：最小化损失函数、最大化似然函数的最优化方法</li>
 </ul>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>LR回归，虽然这个算法从名字上来看，是回归算法，但其实际上是一个分类算法，学术界也叫它logit regression, 或者是the log-linear classifier。在机器学习算法中，有几十种分类器，LR回归是其中最常用的一个。</p>
 <p>LR回归是在线性回归模型的基础上，使用sigmoid函数，将线性模型 wTx的结果压缩到[0,1]之间，使其拥有概率意义。 其本质仍然是一个线性模型，实现相对简单。在广告计算和推荐系统中使用频率极高，是CTR预估模型的基本算法。同时，LR模型也是深度学习的基本组成单元。</p>
