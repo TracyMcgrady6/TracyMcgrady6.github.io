@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="数据库索引原理前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”">
+<meta name="description" content="前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”。当时我就楞了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库索引原理">
 <meta property="og:url" content="http://yoursite.com/2018/03/20/数据库索引原理/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="数据库索引原理前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”">
+<meta property="og:description" content="前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”。当时我就楞了">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15215334507190.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15215328995654.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15215329360612.jpg">
@@ -92,10 +92,10 @@
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15215329511629.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15215329579292.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15215329759202.jpg">
-<meta property="og:updated_time" content="2018-03-20T08:19:32.000Z">
+<meta property="og:updated_time" content="2018-03-21T02:07:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库索引原理">
-<meta name="twitter:description" content="数据库索引原理前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”">
+<meta name="twitter:description" content="前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”。当时我就楞了">
 <meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/15215334507190.jpg">
 
 
@@ -379,7 +379,7 @@
       
 
       
-        <h1 id="数据库索引原理"><a href="#数据库索引原理" class="headerlink" title="数据库索引原理"></a>数据库索引原理</h1><p><img src="http://oyspcrc3p.bkt.clouddn.com/15215334507190.jpg" alt=""><br>前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”。当时我就楞了一下， 有种强行装逼被拆穿的感觉，在自己的专业领域居然被非专业的同学教育， 面子上真有点挂不住。</p>
+        <p><img src="http://oyspcrc3p.bkt.clouddn.com/15215334507190.jpg" alt=""><br>前段时间，公司一个新上线的网站出现页面响应速度缓慢的问题， 一位负责这个项目的但并不是搞技术的妹子找到我，让我想办法提升网站的访问速度 ，因为已经有很多用户来投诉了。我第一反应觉的是数据库上的问题，假装思索了一下，摆着一副深沉炫酷的模样说：“是不是数据库查询上出问题了， 给表加上索引吧”，然后妹子来了一句：“现在我们网站访问量太大，加索引有可能导致写入数据时性能下降，影响用户使用的”。当时我就楞了一下， 有种强行装逼被拆穿的感觉，在自己的专业领域居然被非专业的同学教育， 面子上真有点挂不住。</p>
 <p>其实， 我说这个例子并不是为展现我们公司的同事们专业能力的强大、做的产品棒、安全性高、性能牛逼， 连非技术的同事也懂得技术上的细节。事实上我只是想说明，「数据库」和「数据库索引」这两个东西是在服务器端开发领域应用最为广泛的两个概念，熟练使用数据库和数据库索引是开发人员在行业内生存的必备技能，而整天和技术人员打交道的非技术人员们，由于耳濡目染久了，自然也就能讲个头头是道了。</p>
 <p>使用索引很简单，只要能写创建表的语句，就肯定能写创建索引的语句，要知道这个世界上是不存在不会创建表的服务器端程序员的。然而， 会使用索引是一回事， 而深入理解索引原理又能恰到好处使用索引又是另一回事，这完全是两个天差地别的境界（我自己也还没有达到这层境界）。很大一部份程序员对索引的了解仅限于到“加索引能使查询变快”这个概念为止。</p>
 <ul>
@@ -672,7 +672,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库索引原理"><span class="nav-number">1.</span> <span class="nav-text">数据库索引原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚集索引"><span class="nav-number">1.1.</span> <span class="nav-text">聚集索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非聚集索"><span class="nav-number">1.2.</span> <span class="nav-text">非聚集索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖索引-复合索引"><span class="nav-number">1.3.</span> <span class="nav-text">覆盖索引(复合索引)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚集索引"><span class="nav-number">1.</span> <span class="nav-text">聚集索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非聚集索"><span class="nav-number">2.</span> <span class="nav-text">非聚集索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖索引-复合索引"><span class="nav-number">3.</span> <span class="nav-text">覆盖索引(复合索引)</span></a></li></ol></div>
             
 
           </div>
