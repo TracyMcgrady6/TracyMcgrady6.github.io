@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="RNN,LSTM," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="RNN LSTM##摘要无数的学习任务需要处理顺序数据。图像字幕、语音合成、音乐生成和视频游戏都需要一个模型生成输出序列。在其他领域，例如时间序列预测、视频分析和音乐信息检索，模型必须从输入序列中学习。此外还有很多更重要的互动任务，如自然语言翻译，参与对话和机器人控制。
+递归神经网络(RNNs)是一种强大的连接模型，它通过图中的循环捕捉时间动态。与前馈神经网络不同，经常网络可以一次处理一个例子，保">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN LSTM">
+<meta property="og:url" content="http://yoursite.com/2017/10/24/RNN LSTM/index.html">
+<meta property="og:site_name" content="McGrady">
+<meta property="og:description" content="RNN LSTM##摘要无数的学习任务需要处理顺序数据。图像字幕、语音合成、音乐生成和视频游戏都需要一个模型生成输出序列。在其他领域，例如时间序列预测、视频分析和音乐信息检索，模型必须从输入序列中学习。此外还有很多更重要的互动任务，如自然语言翻译，参与对话和机器人控制。
+递归神经网络(RNNs)是一种强大的连接模型，它通过图中的循环捕捉时间动态。与前馈神经网络不同，经常网络可以一次处理一个例子，保">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午2.56.44.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.00.16.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.21.07.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.18.39.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.22.09.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.22.51.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.24.20.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.25.19.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.25.37.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.26.06.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.28.13.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.28.49.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.29.32.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.31.16.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.31.41.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.32.16.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.33.21.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.44.10.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.44.36.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.45.27.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.45.31.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.52.57.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.56.25.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午4.39.58.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.07.33.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.04.50.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.05.08.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.10.11.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.10.25.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.17.03.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.20.40.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.25.18.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.26.29.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.26.35.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/20171018094146559.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.30.57.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.31.24.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.31.40.png">
+<meta property="og:updated_time" content="2018-03-21T01:55:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RNN LSTM">
+<meta name="twitter:description" content="RNN LSTM##摘要无数的学习任务需要处理顺序数据。图像字幕、语音合成、音乐生成和视频游戏都需要一个模型生成输出序列。在其他领域，例如时间序列预测、视频分析和音乐信息检索，模型必须从输入序列中学习。此外还有很多更重要的互动任务，如自然语言翻译，参与对话和机器人控制。
+递归神经网络(RNNs)是一种强大的连接模型，它通过图中的循环捕捉时间动态。与前馈神经网络不同，经常网络可以一次处理一个例子，保">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午2.56.44.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/24/RNN LSTM/"/>
+
+
+
+
+
+  <title>RNN LSTM | McGrady</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ed23de8075b3937075187141966fe2ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">McGrady</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/24/RNN LSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yaphets">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="McGrady">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RNN LSTM</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-24T14:00:12+08:00">
+                2017-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DeepLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">DeepLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/24/RNN LSTM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/10/24/RNN LSTM/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/24/RNN LSTM/" class="leancloud_visitors" data-flag-title="RNN LSTM">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="RNN-LSTM"><a href="#RNN-LSTM" class="headerlink" title="RNN LSTM"></a>RNN LSTM</h1><p>##摘要<br>无数的学习任务需要处理顺序数据。图像字幕、语音合成、音乐生成和视频游戏都需要一个模型生成输出序列。在其他领域，例如时间序列预测、视频分析和音乐信息检索，模型必须从输入序列中学习。此外还有很多更重要的互动任务，如自然语言翻译，参与对话和机器人控制。</p>
+<p>递归神经网络(RNNs)是一种强大的连接模型，它通过图中的循环捕捉时间动态。与前馈神经网络不同，经常网络可以一次处理一个例子，保留一个状态或内存，这反映了一个任意长的上下文窗口。虽然这些网络长期以来难以训练，而且常常包含数百万的参数，但最近在网络架构、优化技术和并行计算方面的进步使得训练大规模的网络结构成为可能。</p>
+<h2 id="1介绍"><a href="#1介绍" class="headerlink" title="1介绍"></a>1介绍</h2><p>RNNs是前馈神经网的超集，增强了通过时间步骤传递信息的能力。</p>
+<h3 id="为什么模型中时间明确？"><a href="#为什么模型中时间明确？" class="headerlink" title="为什么模型中时间明确？"></a>为什么模型中时间明确？</h3><p>鉴于时间无关模型的成功和经济价值。支持向量机、逻辑回归和馈向网络在没有明确建模时间的情况下被证明是非常有用的。可以说，正是独立的假设导致了机器学习的最近进展。此外，许多模型通过将每个输入与它的一些直接前序和后续串联起来，隐式捕获时间，以一个关于每个兴趣点的滑动窗口呈现机器学习模型。这种方法已经被Maas用于语音建模的深度信念网络中。</p>
+<p>不幸的是，尽管独立假设有用，但它预先考虑了远程时间依赖的建模。例如，使用长度为5的有限长度的上下文窗口训练的模型永远不能被训练成一个简单的问题:“6个步骤之前的数据点是什么?”对于一个实际的应用程序。</p>
+<p>自最早的人工智能概念以来，我们一直在寻求建立与人类互动的系统。在艾伦·图灵开创性的论文计算机器和智能中，他提出了一种“模仿游戏”，通过它能够根据对话来判断机器的智力。除了对话系统，现代的互动系统还包括自动驾驶汽车和机器人手术。忽略一个显式的时间模型，似乎不太可能将分类器或变量组合在一起来提供这个功能。</p>
+<h3 id="为什么是神经网络而不是马尔可夫模型？"><a href="#为什么是神经网络而不是马尔可夫模型？" class="headerlink" title="为什么是神经网络而不是马尔可夫模型？"></a>为什么是神经网络而不是马尔可夫模型？</h3><p>RNNs不是第一个捕捉时间依赖的模型。马尔可夫链，由数学家Andrey Markov在1906年首次描述，它在状态序列之间的过渡(s(1)，s(2)，…，s(T))。隐马尔可夫模型(HMMs)，模型观测数据(o(1)，o(2)，…，o(T)作为对未观测状态的概率依赖。然而,传统的马尔可夫模型方法是有限的，因为他们的状态必须来自一个适当大小的离散状态空间sj∈ S。Viterbi算法用于对隐马尔可夫模型进行有效推理，时间复杂度大约是O(|S|^2 )。此外，转换表捕捉到相邻两个相邻状态之间转移的概率大小为|S|^2 。因此，当可能隐藏状态的集合大于大约10^6 个状态时，标准操作是不可行的。此外,每个隐藏状态s(t)只能依靠之前状态s(t−1)。虽然可以用更大的上下文窗口扩展任何马尔可夫模型，这个过程状态空间是窗口的大小的指数级，显然马尔科夫模型对远程依赖关系建模不切实际。</p>
+<p>下面解释为什么连接模型（如人工神经网络）效果更好。</p>
+<p>首先，递归神经网络可以捕获长期依赖，克服马尔可夫模型的主要限制。与马尔科夫模型一样，传统的RNN中的任何状态都只依赖于当前的输入以及之前的第一步中网络的状态。但是，任何时候的隐藏状态都可以包含来自任意长的上下文窗口的信息。这是可能的，因为可以在一个隐藏的节点层中表示的不同状态的数目会随着层中的节点数的增加而增长。即使每个节点只接受二进制值，网络也可以表示2^n 个状态，其中N是隐藏层中的节点数。给定实值输出，甚至假设64位数字的bit值，一个隐藏的节点层可以表示2^64^N 个不同的状态。虽然潜在的表达能力与隐含的表示中的节点数成指数增长，但推理和训练的复杂性只会以平方的方式增长。</p>
+<p>其次，一般来说，扩展神经网络来解决任何监督学习的问题都是可取的，因为它们是一种强大的学习模型，能够在广泛的监督学习任务中达到很好的结果。在过去的几年里，存储变得越来越便宜，数据集变得越来越大，并行计算领域也有了很大的进步。在如此大的高维数据集的背景下，简单的线性模型不太合适，而且经常不能充分利用计算资源。深度学习方法，特别是那些基于深度信念网络(DNNs)的方法，这些方法都是由严格条件的Boltzmann机器所构建的，而卷积神经网络利用了视觉信息的局部依赖关系，在许多重要的应用程序中都表现出了创纪录的结果。神经网络特别适合于机器感知任务，在这些任务中，原始的底层特性并不是单独提供信息的。这一成功归功于他们学习分层表示的能力，而传统的算法依赖于手工设计的特性。然而，尽管它们很强大，前馈神经网络也有局限性。最明显的是，它们依赖于数据点之间的独立性假设。此外，这些网络通常依赖于由固定长度向量组成的输入。因此，将这些强大的学习工具扩展为具有时间结构的数据模型是明智的，尤其是在神经网络已经处于这种状态的许多领域中。</p>
+<h3 id="RNN代价昂贵吗？"><a href="#RNN代价昂贵吗？" class="headerlink" title="RNN代价昂贵吗？"></a>RNN代价昂贵吗？</h3><p>正如前面所描述的，有限大小的RNNs和sigmoid都是图灵完成的。RNNs能够很明显地运行任意计算的能力，使其具有表达能力，但有人可能认为C语言同样能够表达任意的程序。然而，没有论文声称C的发明代表了机器学习的万灵药。C没有提供简单的方法来有效地探索程序的空间。没有一种简单的方法来计算任意C程序的梯度，从而最小化损失函数。此外，将C作为一个机器学习模型的家庭来处理程序集的最大问题是，这个集合太大了。给定任何有限大小的数据集，有无数的程序可以过拟合数据，生成所需的输出，但不能泛化到测试数据。</p>
+<p>那么RNN为什么不受类似的问题困扰呢?首先，给定任何固定的架构(节点、边、激活函数集)，本文描述的递归神经网络是完全端到端不同的。损失函数的导数总是可以根据模型中的每一个参数(权值)来计算。其次，尽管有限长度的RNNs的完整性是一个令人印象深刻的属性，但给定任何固定大小的RNN和特定的体系结构，实际上不可能生成任意的程序。此外，不像一个由C组成的任意程序，一个经常使用的神经网络可以通过标准技术来规范，例如:重量衰减、dropout和限制深度。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>很明显，RNNs不局限于索引时间的序列。他们已经成功地应用于非时间序列数据，包括遗传数据。然而，时间仍在计算中内进行，许多重要的应用程序都具有显式或隐式的时间方面。虽然我们在本文中提到时间，但这里描述的方法适用于更广泛的任务系列。</p>
+<h3 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h3><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午2.56.44.png" alt=""></p>
+<h3 id="前馈神经网络"><a href="#前馈神经网络" class="headerlink" title="前馈神经网络"></a>前馈神经网络</h3><p>有了计算的神经模型，就必须确定计算的顺序。馈神经网络是一个受限制的神经网络类，它通过禁止在图中的循环来处理这个问题。因此，所有的节点都可以被安排成层。根据下层的输入，可以计算出每一层的输出。<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.00.16.png" alt=""></p>
+<p>这些网络经常用于监督学习任务，如分类和回归。<br>前馈网络是有限的。在每个例子经过专业处理后，整个网络的状态都消失了。如果每个数据点都是独立取样的，那么就没有问题了。但如果数据点与时间相关，这是不可接受的。从视频、音频片段和从句子中提取的单词的框架，独立假设失败。</p>
+<h4 id="通过BP训练神经网"><a href="#通过BP训练神经网" class="headerlink" title="通过BP训练神经网"></a>通过BP训练神经网</h4><p>训练神经网络最成功的算法是反向传播。反向传播利用链式法则计算网络中损失函数L对每个参数对导数。权重由梯度下降来调整。</p>
+<p><strong>BP算法是用来计算梯度，而随机梯度下降（SGD）来更新参数</strong></p>
+<h4 id="BP算法"><a href="#BP算法" class="headerlink" title="BP算法"></a>BP算法</h4><p>BP 算法是一个迭代算法，它的基本思想为:</p>
+<pre><code>1. 先计算每一层的状态和激活值，直到最后一层(即信号 是前向传播的);
+2. 计算每一层的误差，误差的计算过程是从最后一层向前推进的(这就是反向传播算 法名字的由来);
+3. 更新参数(目标是误差变小)，迭代前面两个步骤，直到满足停止准则(比如相邻两 次迭代的误差的差别很小)。
+</code></pre><p>下面以三层感知器即只含有一个隐藏层的多层感知器为例介绍BP算法。</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.21.07.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.18.39.png" alt=""></p>
+<p>显然，图 1 所示神经网络的第 2 层神经元的状态及激活值可以通过下面的计算得到:</p>
+<h4 id="信息向前传播"><a href="#信息向前传播" class="headerlink" title="信息向前传播"></a>信息向前传播</h4><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.22.09.png" alt=""></p>
+<p>对于 L 层感知器，网络的最终输出为 a(L) 。前馈神经网络中信息的前向传递过程如下:</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.22.51.png" alt=""></p>
+<h4 id="误差反向传播"><a href="#误差反向传播" class="headerlink" title="误差反向传播"></a>误差反向传播</h4><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.24.20.png" alt=""></p>
+<h4 id="输出层的权重参数更新"><a href="#输出层的权重参数更新" class="headerlink" title="输出层的权重参数更新"></a>输出层的权重参数更新</h4><p>把 E 展开到隐藏层，有:<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.25.19.png" alt=""></p>
+<p>由求导的链式法则，对“输出层神经元的权重参数”求偏导，有:<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.25.37.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.26.06.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.28.13.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.28.49.png" alt=""></p>
+<h4 id="BP算法四个核心公式"><a href="#BP算法四个核心公式" class="headerlink" title="BP算法四个核心公式"></a>BP算法四个核心公式</h4><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.29.32.png" alt=""></p>
+<h4 id="BP具体步骤"><a href="#BP具体步骤" class="headerlink" title="BP具体步骤"></a>BP具体步骤</h4><p>第一步，初始化参数 W,b 。<br>第二步，利用下面的“前向传播”公式计算每层的状态和激活值:<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.31.16.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.31.41.png" alt=""></p>
+<p>第四步，按下面公式求这个训练数据的代价函数对参数的偏导数:<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.32.16.png" alt=""></p>
+<h4 id="梯度消散问题"><a href="#梯度消散问题" class="headerlink" title="梯度消散问题"></a>梯度消散问题</h4><p>如果我们使用 σ(x) 或 tanh(x) 做为激活函数，则其导数为:<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.33.21.png" alt=""><br>这样，误差经过每一层传递都会不断地衰减。当网络导数比较 多时，梯度不断地衰减，甚至消失，这使得整个网络很难训练。这就是梯度消失问题 (Vanishing gradient problem)。<br>减轻梯度消失问题的一个方法是使用线性激活函数(比如 rectifier 函数)或近似线性函数(比如 softplus 函数)。这样，激活函数的导数为 1，误差可以很好地传播，训练速度会提高。</p>
+<h4 id="用“梯度下降”更新参数"><a href="#用“梯度下降”更新参数" class="headerlink" title="用“梯度下降”更新参数"></a>用“梯度下降”更新参数</h4><p>SGD<br>AdaGrad<br>AdaDelta<br>RMSprop</p>
+<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.44.10.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.44.36.png" alt=""></p>
+<p>我们可以在两个方程中显示一个简单的递归神经网络中，每次在向前传递的过程中，所有计算都需要进行:<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.45.27.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.45.31.png" alt=""></p>
+<p>图3描述了一个简单的循环网络。通过展开网络可以直观地显示出该网络的动态过程。在这幅图中，模型可以被解释为不循环的，而是作为一个深度的网络，每一步都有一个层，在跨时间的步骤中共享权重。很明显，展开的网络可以通过使用反向传播跨越许多时间步骤进行训练。该算法被称(BPTT)。</p>
+<h3 id="过去的方法"><a href="#过去的方法" class="headerlink" title="过去的方法"></a>过去的方法</h3><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.52.57.png" alt=""></p>
+<p>Jordan网络类似于一个有一个隐藏层的前馈网络，但它被扩展为上下文单元。输出被输入到上下文单元中，然后在接下来的时间进到隐藏节点。此外，上下文单元有自连接的边。直观上，这些自连接的边给了Jordan网络一种方法，它可以跨多个时间步骤发送信息，而不需要在每个中间时间步骤中对输出进行扰动。Sutskever等翻译自然语言句子。当生成文本序列时，在每个时间步骤中选择的单词会在接下来的时间步中输入网络。</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午3.56.25.png" alt=""><br>引入的Elman网络简化了Jordan网络中的结构。与隐藏层中的每个单元相关联的是单个上下文单元。每个上下文单元j′花作为输入的状态对应的隐藏节点j在前面的时间步,沿着边缘的单位重量wj′j = 1。实际上，这整个设置相当于一个简单的RNN，其中每个隐藏节点都有一个自连接的边。</p>
+<h3 id="RNN训练"><a href="#RNN训练" class="headerlink" title="RNN训练"></a>RNN训练</h3><p>问题1：梯度消失和爆炸<br>梯度消失和爆照的问题一直困扰着RNN。W_jj’&gt;1就会梯度爆炸，W<em>jj’&lt;1则会梯度消失，W</em>{jj’}表示从j’到j的连接的权重。<br>解决方法是：<br>1）使用Sigmoid会使该问题恶化。使用ReLU可以使得权重不爆炸也不消失。<br>2）使用Truncated BPTT，能够缓解这一问题（LSTM就是用了BP和TBPTT进行训练的）。<br>3）LSTM是通过设计好的含有回复式的结点以及固定的权重来解决这个问题的。LSTM论文中叫CEC（恒定误差传送）<br>注：LSTM同时用了设定恒定的权重以及TBPTT来缓解梯度爆炸或者消失这个问题并不冲突哈</p>
+<p>问题2：容易陷入到局部极值点<br>有人就研究了，发现在结构较大的网络中，许多关键点是存在于误差表面的，鞍点相对局部极小值点的比例会随着网络的大小的增大而增大。在算法中是可以逃离鞍点的，因此，结构较大的网络不会陷入到局部极值点。</p>
+<h2 id="现代RNN"><a href="#现代RNN" class="headerlink" title="现代RNN"></a>现代RNN</h2><p>主要是LSTM，BRNNs，NTM（神经图灵机）。</p>
+<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午4.39.58.png" alt=""></p>
+<p>“LSTM”这个词零感来源于下：较简单的递归神经网络有长期记忆的权重形式。在对数据的一般知识进行编码时，权重会非常缓慢地变化。它们也有短期的内存，以短暂的激活形式，从每个节点的输出传递到连续的节点。LSTM通过记忆细胞（memory cell）产生一种中间记忆。一个记忆细胞的又一些更简单的节点（node）组成</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.07.33.png" alt=""></p>
+<ul>
+<li>输入节点：这个节点表现为一个普通的神经元，在前一个时间步中的隐藏层和x中激活。通常，线性输入通过一个tanh激活函数运行的。</li>
+<li>输入门：乘法门是LSTM模型的显著特征。一个门是一个sigmoid单元，它像输入节点一样，在前一个步骤中从隐藏层中得到激活，也从x中得到激活。因为它们的输出乘以另一个节点的输出。输入门ic是这样命名的，因为它的值乘以输入节点的值。它是一扇门，如果它输出0，流经门的流量就会被切断。如果门输出1，所有的激活都通过大门。</li>
+<li>内部状态：每一个记忆细胞的心脏都是一个具有线性激活的节点，在最初的论文中称为细胞的“内部状态”。我们用c来表示细胞，因此细胞c的内部状态是sc，内部的状态sc有一个自连接的循环边，重量为1。被称为恒定误差传送。这条边跨越了相邻的时间步骤，其权重不变，确保了错误可以跨时间的步骤而不消失。因此：<img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.04.50.png" alt=""></li>
+</ul>
+<ul>
+<li><p>遗忘门：提供一种方法，使网络能够学习刷新内部状态的内容。这在连续运行的网络中特别有用。带着遗忘门，方程是<img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.05.08.png" alt=""></p>
+</li>
+<li><p>输出门：最后，输出门，我们表示oc是乘以内部状态sc的值，以产生由内存单元输出的vc输出值。习惯上，在乘法运算之前，内部状态是通过tanh激活函数运行的，但我们不知道为什么会这样。在其他的机器学习文献中，整流线性单元的表现优于s形单元，而且这种tanh可能没有必要，因为内部状态的内容在输入中已经高度非线性了。用tanh函数或者ReLU函数</p>
+</li>
+</ul>
+<p>下面给出完整的算法：</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.10.11.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.10.25.png" alt=""></p>
+<p>从直观上来说，在向前的过程中，LSTM可以学习何时让激活进入内部状态。只要输入门值为0，就没有激活能进入。类似地，输出门学习什么时候释放值。当两个门都关闭时，激活被困在LSTM中，既不增加也不减少，也不会影响到中间时间步骤的输出。在向后的情况下，CEC使梯度在许多时间内传播，既不爆炸也不消失。在这个意义上，这些门正在学习什么时候让错误进入，何时释放。在实践中，与简单的RNNs相比，LSTM已经显示出了学习远程依赖性的优越能力。因此，本文所涵盖的大多数应用论文的状态都使用了LSTM模型。</p>
+<p>一个常见的混淆问题是，使用多个记忆单元来组成一个神经网络的隐藏层。为了减轻这种混淆，我们在中描述了一个具有两个内存单元的简单网络。每个内存单元的输出将输入到所有的门，以及在随后的时间步骤中每个内存单元的输入节点。</p>
+<p>如图所示为LSTM在时间上的展开，注意其中的recurrent连接（只有cell的output才会作为输入）。<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.17.03.png" alt=""></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.20.40.png" alt=""></p>
+<h3 id="BRNNs双向的RNN"><a href="#BRNNs双向的RNN" class="headerlink" title="BRNNs双向的RNN"></a>BRNNs双向的RNN</h3><p>与LSTM一起，最常用的RNN设置是双向递归神经网络。在这个架构中，有两层隐藏节点。两个隐藏层都连接到输入和输出。这两个隐藏层的区别在于，前者在向前的时间步骤中有反复的连接，而在第二个过程中，连接的重复方向相反，在时间上向后传递激活。给定一个固定长度序列，可以通过普通BP来学习BRNN。<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.25.18.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.26.29.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.26.35.png" alt=""></p>
+<p>BRNN的一个限制是，不能连续运行，因为它需要一个在未来和过去固定的端点。此外，对于在线设置来说，它并不是一种合适的机器学习算法，因为从未来接收信息是不合理的，序列元素没有被观察到。但是对于序列的固定长度序列预测，通常都要考虑过去和将来的数据。考虑一下词性标注的自然语言任务。在一个句子中给出一个单词，关于前面的单词和那些成功的单词的信息对于预测单词的部分词性是很有用的。Karpathy等人使用这样的网络来生成图像的字幕</p>
+<p>LSTM和BRNN实际上是兼容的。前者引入了一个新的基本单元来组成一个隐藏层，而后者则关注隐藏层的连接，而不管它们包含哪些节点。这种方法被称为BLSTM。</p>
+<h3 id="NLP中RNN例子"><a href="#NLP中RNN例子" class="headerlink" title="NLP中RNN例子"></a>NLP中RNN例子</h3><p><img src="http://oyspcrc3p.bkt.clouddn.com/20171018094146559.png" alt=""></p>
+<h2 id="现代RNN的应用"><a href="#现代RNN的应用" class="headerlink" title="现代RNN的应用"></a>现代RNN的应用</h2><p>最广泛的就是自然语言上的应用，毕竟自然语言是序列。<br>为了处理自然语言，最开始的问题就是一个句子或者一个单词或者一个字母如何表示的问题。<br>1）自然语言的输入和输出的表示</p>
+<ol>
+<li>一般用神经网络学习到一个word embeding（单词的表示）</li>
+<li>用word2vec（单词的表示）</li>
+<li>用GloVe（单词的表示）</li>
+<li>用one of k coding shcema(特别适用于字母的表示)</li>
+<li>用BOW（句子的表示，在Memory Network那篇论文就是这样表示句子的）</li>
+</ol>
+<h3 id="机器翻译"><a href="#机器翻译" class="headerlink" title="机器翻译"></a>机器翻译</h3><h3 id="图像字幕"><a href="#图像字幕" class="headerlink" title="图像字幕"></a>图像字幕</h3><h3 id="一些其他的应用：手写字体识别"><a href="#一些其他的应用：手写字体识别" class="headerlink" title="一些其他的应用：手写字体识别"></a>一些其他的应用：手写字体识别</h3><h3 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h3><h4 id="BLUE"><a href="#BLUE" class="headerlink" title="BLUE"></a>BLUE</h4><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.30.57.png" alt=""></p>
+<h4 id="MENTOR"><a href="#MENTOR" class="headerlink" title="MENTOR"></a>MENTOR</h4><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.31.24.png" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-10-24 下午5.31.40.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们发现它值得注意的是，许多进步来自于新颖的网络架构，而不是根本的新颖的算法。似乎研究探索可能的模型空间，无论是通过遗传算法还是马尔科夫链的蒙特卡洛方法，都应该是有希望的。沿着这条线，我们注意到神经网络似乎是一个广泛的容易迁移的技术。新的激活函数、训练程序、初始化过程等通常可以在网络和任务之间进行转移，通常会带来类似的好处。随着这些技术的数量不断增加，测试所有组合的代价也随之降低。有理由推断，神经网络的用户正在探索模型架构和配置的空间，就像一个遗传算法一样，在固定数据集的评估指标的形式中，混合和匹配技术，探索新的函数。</p>
+<p>当我们构建旨在执行更复杂任务的系统时，我们将从改进的基本功能中获益。为此，在可能的情况下，一种谨慎的做法是在将数据集上的用于具有复杂网络之前，先采用传统的前馈网络对数据集进行测试。</p>
+<p>最后，神经网络在自然语言任务上的快速成功，使我们相信延长这一工作的时间，将会产生更美妙的效果。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢各位大佬！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.gif" alt="Yaphets WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Yaphets Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RNN/" rel="tag"># RNN</a>
+          
+            <a href="/tags/LSTM/" rel="tag"># LSTM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/21/Pycharm Debug/" rel="next" title="Pycharm程序调试">
+                <i class="fa fa-chevron-left"></i> Pycharm程序调试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/06/Python玩微信(超有趣玩法)/" rel="prev" title="Python玩微信(超有趣玩法)">
+                Python玩微信(超有趣玩法) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="Yaphets" />
+            
+              <p class="site-author-name" itemprop="name">Yaphets</p>
+              <p class="site-description motion-element" itemprop="description">Second place means you're the first loser.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/TracyMcgrady6" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/b81101a5e2ce" target="_blank" title="JianShu">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>JianShu</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN-LSTM"><span class="nav-number">1.</span> <span class="nav-text">RNN LSTM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1介绍"><span class="nav-number">1.1.</span> <span class="nav-text">1介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么模型中时间明确？"><span class="nav-number">1.1.1.</span> <span class="nav-text">为什么模型中时间明确？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么是神经网络而不是马尔可夫模型？"><span class="nav-number">1.1.2.</span> <span class="nav-text">为什么是神经网络而不是马尔可夫模型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN代价昂贵吗？"><span class="nav-number">1.1.3.</span> <span class="nav-text">RNN代价昂贵吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.2.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间"><span class="nav-number">1.2.1.</span> <span class="nav-text">时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络"><span class="nav-number">1.2.2.</span> <span class="nav-text">神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前馈神经网络"><span class="nav-number">1.2.3.</span> <span class="nav-text">前馈神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过BP训练神经网"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">通过BP训练神经网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BP算法"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">BP算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息向前传播"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">信息向前传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#误差反向传播"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">误差反向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出层的权重参数更新"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">输出层的权重参数更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BP算法四个核心公式"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">BP算法四个核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BP具体步骤"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">BP具体步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度消散问题"><span class="nav-number">1.2.3.8.</span> <span class="nav-text">梯度消散问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用“梯度下降”更新参数"><span class="nav-number">1.2.3.9.</span> <span class="nav-text">用“梯度下降”更新参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN"><span class="nav-number">1.3.</span> <span class="nav-text">RNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过去的方法"><span class="nav-number">1.3.1.</span> <span class="nav-text">过去的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN训练"><span class="nav-number">1.3.2.</span> <span class="nav-text">RNN训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现代RNN"><span class="nav-number">1.4.</span> <span class="nav-text">现代RNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM"><span class="nav-number">1.4.1.</span> <span class="nav-text">LSTM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BRNNs双向的RNN"><span class="nav-number">1.4.2.</span> <span class="nav-text">BRNNs双向的RNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NLP中RNN例子"><span class="nav-number">1.4.3.</span> <span class="nav-text">NLP中RNN例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现代RNN的应用"><span class="nav-number">1.5.</span> <span class="nav-text">现代RNN的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器翻译"><span class="nav-number">1.5.1.</span> <span class="nav-text">机器翻译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像字幕"><span class="nav-number">1.5.2.</span> <span class="nav-text">图像字幕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些其他的应用：手写字体识别"><span class="nav-number">1.5.3.</span> <span class="nav-text">一些其他的应用：手写字体识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评价指标"><span class="nav-number">1.5.4.</span> <span class="nav-text">评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BLUE"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">BLUE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MENTOR"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">MENTOR</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaphets</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: decodeURI(window.location.pathname), 
+            owner: 'TracyMcgrady6',
+            repo: 'Math',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'bccf62038a10e8c1622d8117d1a5b1ae9ad72f00',
+            
+                client_id: '1369fd6e2bf75c1805cf'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Jih3eStoYY11KFz7FxCnNC1K-gzGzoHsz", "qjPmKkf63OGLNUj8h6waX3po");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

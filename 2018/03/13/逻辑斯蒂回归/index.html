@@ -106,8 +106,9 @@
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209205014517.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209207162765.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209207460207.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15214455991296.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15209208248061.jpg">
-<meta property="og:updated_time" content="2018-03-13T06:25:08.000Z">
+<meta property="og:updated_time" content="2018-03-20T08:36:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑斯蒂回归">
 <meta name="twitter:description" content="逻辑斯蒂回归通过阅读《统计学习方法》，任何学习方法都可以根据：模型+策略+算法的形式得到解释(推导)，通常可以这样进行理解：
@@ -425,7 +426,9 @@
 <p>逻辑斯蒂回归模型的定义式P(Y=1|x)中可以将线性函数w⋅x转换为概率，这时，线性函数的值越接近正无穷，概率值就越接近1；线性函数的值越接近负无穷，概率值就接近0.</p>
 <h3 id="2-模型参数估计-策略-算法"><a href="#2-模型参数估计-策略-算法" class="headerlink" title="2.模型参数估计(策略+算法)"></a>2.模型参数估计(策略+算法)</h3><p>应用极大似然法进行参数估计，从而获得逻辑斯蒂回归模型。极大似然估计的数学原理参考<a href="http://blog.csdn.net/wjlucc/article/details/70893603" target="_blank" rel="external">这里</a>。<br>设P(Y=1|x)=π(x),P(Y=0|x)=1−π(x)</p>
 <p>似然函数为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15209207162765.jpg" alt=""></p>
-<p>上式连乘符号内的两项中，每个样本都只会取到两项中的某一项。若该样本的实际标签yi=1，取样本计算为1的概率值π(xi)；若该样本的实际标签yi=0，取样本计算的为0的概率值1−π(xi)。<br>对数似然函数（策略）为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15209207460207.jpg" alt=""><br>对上式中的L(w)求极大值，得到w的估计值。 问题转化成以对数似然函数为目标函数的无约束最优化问题，通常采用梯度下降法以及拟牛顿法（算法）求解w。 假设w的极大估计值是$\hat { w }$ ，那么学到的逻辑斯蒂回归模型为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15209208248061.jpg" alt=""></p>
+<p>上式连乘符号内的两项中，每个样本都只会取到两项中的某一项。若该样本的实际标签yi=1，取样本计算为1的概率值π(xi)；若该样本的实际标签yi=0，取样本计算的为0的概率值1−π(xi)。<br>对数似然函数（策略）为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15209207460207.jpg" alt=""></p>
+<p><strong>注意：刚好等价于最小化交叉熵，即最小化交叉熵和最大似然的loss函数是一致的</strong><br><img src="http://oyspcrc3p.bkt.clouddn.com/15214455991296.jpg" alt=""></p>
+<p>接上，对上式中的L(w)求极大值，得到w的估计值。 问题转化成以对数似然函数为目标函数的无约束最优化问题，通常采用梯度下降法以及拟牛顿法（算法）求解w。 假设w的极大估计值是$\hat { w }$ ，那么学到的逻辑斯蒂回归模型为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15209208248061.jpg" alt=""></p>
 
       
     </div>
@@ -613,7 +616,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -624,7 +627,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -635,7 +638,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
