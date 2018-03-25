@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="随机森林Random Forest理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
-　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，">
+<meta name="description" content="理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
+　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所">
 <meta property="og:type" content="article">
 <meta property="og:title" content="随机森林Random Forest">
 <meta property="og:url" content="http://yoursite.com/2017/06/23/随机森林Random Forest/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="随机森林Random Forest理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
-　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，">
-<meta property="og:updated_time" content="2017-11-06T05:44:37.000Z">
+<meta property="og:description" content="理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
+　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所">
+<meta property="og:updated_time" content="2018-03-25T14:04:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随机森林Random Forest">
-<meta name="twitter:description" content="随机森林Random Forest理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
-　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，">
+<meta name="twitter:description" content="理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
+　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所">
 
 
 
@@ -374,7 +374,7 @@
       
 
       
-        <h1 id="随机森林Random-Forest"><a href="#随机森林Random-Forest" class="headerlink" title="随机森林Random Forest"></a>随机森林Random Forest</h1><p>理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　</p>
+        <p>理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　</p>
 <p>　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所有的n个样本特征中选择一个最优的特征来做决策树的左右子树划分，但是RF通过随机选择节点上的一部分样本特征，这个数字小于n，假设为${ <em>{  }{ n }</em>{ sub } } $，然后在这些随机选择的${ <em>{  }{ n }</em>{ sub } } $个样本特征中，选择一个最优的特征来做决策树的左右子树划分。这样进一步增强了模型的泛化能力。<br>　　如果${ <em>{  }{ n }</em>{ sub } } $=n，则此时RF的CART决策树和普通的CART决策树没有区别。${ <em>{  }{ n }</em>{ sub } } $越小，则模型越健壮，当然此时对于训练集的拟合程度会变差。也就是说${ <em>{  }{ n }</em>{ sub } } $越小，模型的方差会减小，但是偏倚会增大。在实际案例中，一般会通过交叉验证调参获取一个合适的${ <em>{  }{ n }</em>{ sub } } $值。<br>　　<br>　　<br>　除了上面两点，RF和普通的bagging算法没有什么不同， 下面简单总结下RF的算法。</p>
 <ul>
 <li><p>输入为样本集D={(x,y1),(x2,y2),…(xm,ym)} ，弱分类器迭代次数T。</p>
@@ -696,7 +696,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#随机森林Random-Forest"><span class="nav-number">1.</span> <span class="nav-text">随机森林Random Forest</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三、变量重要性度量"><span class="nav-number">1.1.</span> <span class="nav-text">三、变量重要性度量</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#三、变量重要性度量"><span class="nav-number">1.</span> <span class="nav-text">三、变量重要性度量</span></a></li></ol></div>
             
 
           </div>

@@ -365,9 +365,10 @@
       
         
           
-          Python3 MySQL 数据库操作什么是 PyMySQL？PyMySQL 是在 Python3.x 版本中用于连接 MySQL 服务器的一个库，Python2中则使用mysqldb。PyMySQL 遵循 Python 数据库 API v2.0 规范，并包含了 pure-Python MySQL 客户端库。
+          什么是 PyMySQL？PyMySQL 是在 Python3.x 版本中用于连接 MySQL 服务器的一个库，Python2中则使用mysqldb。PyMySQL 遵循 Python 数据库 API v2.0 规范，并包含了 pure-Python MySQL 客户端库。
 PyMySQL 安装在使用 PyMySQL 之前，我们需要确保 PyMySQL 已安装。PyMySQL 下载地址：https://github.com/PyMySQL/PyMySQL。如果还未安装，我们可以使用以下命令安装最新版的 PyMySQL：
-1pip install PyMySQ
+1pip install PyMySQL
+代码链接：https://gith
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -537,13 +538,13 @@ PyMySQL 安装在使用 PyMySQL 之前，我们需要确保 PyMySQL 已安装。
       
         
           
-          Python玩微信(超有趣玩法)
+          
 项目地址：https://github.com/TracyMcgrady6/wechat
 
 itchat无意间发现的一个有意思的开源项目itchat，相当于微信api，扫码登录后去抓包爬取信息，还可以post去发送信息。GitHub star数量4，非常火，作者是@LittleCoder，已经把微信的接口完成了，大大的方便了我们对微信的挖掘，以下的功能也通过itchat来实现。
 安装itchat这个库
 1pip install itchat
-先来段简单的试用，实现微信的登录，运行下面代码会生成一个二维码，扫码之后手机端确认登录，就会发送一条信息给‘filehe
+先来段简单的试用，实现微信的登录，运行下面代码会生成一个二维码，扫码之后手机端确认登录，就会发送一条信息给‘filehelper’，这个filehelp
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -702,14 +703,14 @@ itchat无意间发现的一个有意思的开源项目itchat，相当于微信ap
       
         
           
-          BaggingBagging是Bootstrap Aggregating的英文缩写，刚接触的童鞋不要误认为bagging是一种算法，Bagging和Boosting都是ensemble learing 中的学习框架，代表着不同的思想。
+          Bagging是Bootstrap Aggregating的英文缩写，刚接触的童鞋不要误认为bagging是一种算法，Bagging和Boosting都是ensemble learing 中的学习框架，代表着不同的思想。
 
 boosting派系，它的特点是各个弱学习器之间有依赖关系。
 bagging流派，它的特点是各个弱学习器之间没有依赖关系，可以并行拟合。
 
 Bagging原理
 从上图可以看出，Bagging的弱学习器之间的确没有boosting那样的联系。它的特点在“随机采样”。那么什么是随机采样？
-　　随机采样(bootsrap)就是从我们的训练集里面采集固定个数的样本，但
+　　随机采样(bootsrap)就是从我们的训练集里面采集固定个数的样本，但是每采集一个样
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -868,8 +869,8 @@ Bagging原理
       
         
           
-          随机森林Random Forest理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
-　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所有的n个样本特征中选择一个最优的特征来做决策树的左右子树划分，但是RF通过随机选择节点上的一部分样本特征，这个数字小于n，假设为${ {  }{ n }{ sub }
+          理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　
+　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所有的n个样本特征中选择一个最优的特征来做决策树的左右子树划分，但是RF通过随机选择节点上的一部分样本特征，这个数字小于n，假设为${ {  }{ n }{ sub } } $，然后在这些随机选择的${
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1028,14 +1029,20 @@ Bagging原理
       
         
           
-          携程比赛：出行产品未来14个月销量预测RMSE：167代码在github：https://github.com/TracyMcgrady6/xiecheng比赛链接
+          RMSE：167代码在github：https://github.com/TracyMcgrady6/xiecheng比赛链接
 身为菜鸟的我第一次完整的做比赛，断断续续的20多天时间左右，虽然结果并不理想，但是也算是收获颇多。最后排名应该是30。
 说明：
 tools.py：工具类，一些方法
 train_processing.py：处理训练集数据特征化
 test_processing_new_feature.py：处理预测数据特征化
 Model.py：各种单模型，RF，xgboost，ExtraTrees等
-model_fit_original：训练，将预测
+model_fit_original：训练，将预测数据写入文件
+
+特征工程：
+
+
+特征
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1194,9 +1201,9 @@ model_fit_original：训练，将预测
       
         
           
-          模型集成(Ensemble)曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
+          曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
 常见的Ensemble方法有Bagging、Boosting、Stacking、Blending。
-BaggingBagging是将多个模型（基学习器）的预测结果简单地加权平均或者投票。Bagging的好处在于可以并行地训练基学习器，
+BaggingBagging是将多个模型（基学习器）的预测结果简单地加权平均或者投票。Bagging的好处在于可以并行地训练基学习器，其中Random Fores
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1355,7 +1362,7 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
       
         
           
-          Linux命令连接远程服务器1ssh ursrname@连接地址
+          连接远程服务器1ssh ursrname@连接地址
 比如：
 1ssh username@219.216.72.194
 查看进程top命令 
@@ -1367,7 +1374,7 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
 重命名文件12rename A B 将目录A重命名为Bmv /a /b/c 将/a目录移动到/b下，并重命名为c
 其实在文本模式中要重命名文件或目录，只需要使用mv命令就可以了，比如说要将一个名为abc的文件重命名为1234：
 1mv abc 1234
-查看
+查看文件大小123
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1526,7 +1533,7 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
       
         
           
-          Pandas速查手册中文
+          
 对于数据科学家，无论是数据分析还是数据挖掘来说，Pandas 是一个非常重要的 Python 包。它不仅提供了很多方法，使得数据处理非常简单，同时在数据处理速度上也做了很多优化，使得和 Python 内置方法相比时有了很大的优势。
 
 关键缩写和包导入在这个速查手册中，我们使用如下缩写：
@@ -1535,7 +1542,7 @@ BaggingBagging是将多个模型（基学习器）的预测结果简单地加权
 12import pandas as pdimport numpy as np
 导入数据
 pd.read_csv(filename)：从CSV文件导入数据
-pd.r
+pd.read_table(fi
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1694,10 +1701,13 @@ pd.r
       
         
           
-          数据的标准化（normalization）和归一化数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。
+          数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。
 ##归一化好处
 
 提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征，对其进行优化时，会得到一个窄长的椭圆形，导致在梯度下降时，梯度的方向为垂直等高线的方向而走之字形路线，这样会使迭代很慢，相比之下，右图的迭代就会很快
+
+
+2.提升模型的精度归一化的另一好处是提高精度
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1856,11 +1866,11 @@ pd.r
       
         
           
-          Padans技巧1.截取DataFrame类型的列的前10个字符 
+          1.截取DataFrame类型的列的前10个字符 
 1user_view.time_stamp = user_view.time_stamp.str[:10]
 2.通过groupby统计出客流量customer_flow = user_view.groupby([&#39;shop_id&#39;, &#39;time_stamp&#39;]).size()
 3.向DataFrame添加新列方法：
-123from pandas import Series,DataFramefeature =DataFrame(shop_info,columns=['shop_id','cate
+123from pandas import Series,DataFramefeature =DataFrame(shop_info,columns=['shop_id','cate_1_name'
           ...
           <!--noindex-->
           <div class="post-button text-center">

@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="模型集成(Ensemble)曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
-常见的Ensemble方法有Bag">
+<meta name="description" content="曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
+常见的Ensemble方法有Bagging、Boosting、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模型集成(Ensemble)">
 <meta property="og:url" content="http://yoursite.com/2017/06/26/模型集成(Ensemble)/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="模型集成(Ensemble)曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
-常见的Ensemble方法有Bag">
+<meta property="og:description" content="曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
+常见的Ensemble方法有Bagging、Boosting、">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984432850618.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984433211174.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984433270336.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984433739436.jpg">
-<meta property="og:updated_time" content="2017-11-06T05:44:44.000Z">
+<meta property="og:updated_time" content="2018-03-25T14:03:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模型集成(Ensemble)">
-<meta name="twitter:description" content="模型集成(Ensemble)曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
-常见的Ensemble方法有Bag">
+<meta name="twitter:description" content="曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。
+常见的Ensemble方法有Bagging、Boosting、">
 <meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/14984432850618.png">
 
 
@@ -379,7 +379,7 @@
       
 
       
-        <h1 id="模型集成-Ensemble"><a href="#模型集成-Ensemble" class="headerlink" title="模型集成(Ensemble)"></a>模型集成(Ensemble)</h1><p>曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。</p>
+        <p>曾经听过一句话，”Feature为主，Ensemble为后”。Feature决定了模型效果的上限，而Ensemble就是让你更接近这个上限。Ensemble讲究“好而不同”，不同是指模型的学习到的侧重面不一样。举个直观的例子，比如数学考试，A的函数题做的比B好，B的几何题做的比A好，那么他们合作完成的分数通常比他们各自单独完成的要高。</p>
 <p>常见的Ensemble方法有Bagging、Boosting、Stacking、Blending。</p>
 <h2 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h2><p>Bagging是将多个模型（基学习器）的预测结果简单地加权平均或者投票。Bagging的好处在于可以并行地训练基学习器，其中Random Forest就用到了Bagging的思想。举个通俗的例子，如下图：<img src="http://oyspcrc3p.bkt.clouddn.com/14984432850618.png" alt=""></p>
 <p>老师出了两道加法题，A同学和B同学答案的加权要比A和B各自回答的要精确。</p>
@@ -665,7 +665,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模型集成-Ensemble"><span class="nav-number">1.</span> <span class="nav-text">模型集成(Ensemble)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bagging"><span class="nav-number">1.1.</span> <span class="nav-text">Bagging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boosting"><span class="nav-number">1.2.</span> <span class="nav-text">Boosting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stacking"><span class="nav-number">1.3.</span> <span class="nav-text">Stacking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blending"><span class="nav-number">1.4.</span> <span class="nav-text">Blending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后处理"><span class="nav-number">1.5.</span> <span class="nav-text">后处理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bagging"><span class="nav-number">1.</span> <span class="nav-text">Bagging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boosting"><span class="nav-number">2.</span> <span class="nav-text">Boosting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stacking"><span class="nav-number">3.</span> <span class="nav-text">Stacking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blending"><span class="nav-number">4.</span> <span class="nav-text">Blending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后处理"><span class="nav-number">5.</span> <span class="nav-text">后处理</span></a></li></ol></div>
             
 
           </div>

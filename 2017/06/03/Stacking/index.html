@@ -79,16 +79,14 @@
 
 
 
-<meta name="description" content="Stacking
-由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
-总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模">
+<meta name="description" content="由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
+总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模型的错误率。据论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Stacking原理与实践">
 <meta property="og:url" content="http://yoursite.com/2017/06/03/Stacking/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="Stacking
-由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
-总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模">
+<meta property="og:description" content="由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
+总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模型的错误率。据论">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.28.17.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.41.25.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984638168731.jpg">
@@ -102,12 +100,11 @@
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984640134690.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984640342353.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/14984643336714.jpg">
-<meta property="og:updated_time" content="2017-11-06T05:38:25.000Z">
+<meta property="og:updated_time" content="2018-03-25T14:03:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Stacking原理与实践">
-<meta name="twitter:description" content="Stacking
-由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
-总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模">
+<meta name="twitter:description" content="由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。
+总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模型的错误率。据论">
 <meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.28.17.png">
 
 
@@ -391,7 +388,7 @@
       
 
       
-        <h1 id="Stacking"><a href="#Stacking" class="headerlink" title="Stacking"></a>Stacking</h1><p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.28.17.png" alt="屏幕快照 2017-06-03 上午10.28.17"></p>
+        <p><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-03 上午10.28.17.png" alt="屏幕快照 2017-06-03 上午10.28.17"></p>
 <p>由许多基础分类器组成，将这些分类器的输出再作为训练集输入，用一个分类器（SVM，LR，神经网络等等）训练得到每个基础分类器的参数（权重），得出训练模型。实际中，我们通常使用单层logistic回归作为组合模型。</p>
 <p>总的来说，Stacking 方法比任何单一模型的效果都要好，而且不仅成功应用在了监督式学习中，也成功应用在了非监督式(概率密度估计)学习中。甚至应用于估计bagging模型的错误率。据论文Feature-Weighted Linear Stacking(Sill, J. and Takacs, G. and Mackey L. and Lin D., 2009, arXiv:0911.0460)而言，Stacking比Bayesian Model Averaging表现要更好！此外在Kaggle上，很多比赛多是通过Stacking获取优秀的结果！</p>
 <p>算法流程：</p>
@@ -695,7 +692,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Stacking"><span class="nav-number">1.</span> <span class="nav-text">Stacking</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python实现"><span class="nav-number">1.1.</span> <span class="nav-text">python实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python实现"><span class="nav-number">1.</span> <span class="nav-text">python实现</span></a></li></ol></div>
             
 
           </div>
