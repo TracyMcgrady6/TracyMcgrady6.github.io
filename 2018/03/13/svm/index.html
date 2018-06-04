@@ -81,20 +81,18 @@
 
 <meta name="description" content="对于二类分类问题，训练集T=
 {({x}_{1} , { y }_{ 1 } ),( { x }_{ 2 } ,{ y }_{ 2 }),...,( { x }_{ n }  , { y }_{ n } )}，其类别
-{ y }_{ n }\in {-1，1}$$ ，线性SVM通过学习得到分离超平面：
-$ w\bullet x+b=0 $
-以及相应的分类决策函数：
-$$ f\left( x \ri">
+{ y }_{ n }\in  $$ {-1，1}，线性SVM通过学习得到分离超平面：
+$$w\bullet x+b=0以及相应的分类决策函数：
+f\left( x \right)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVM理论及推导">
 <meta property="og:url" content="http://yoursite.com/2018/03/13/svm/index.html">
 <meta property="og:site_name" content="McGrady">
 <meta property="og:description" content="对于二类分类问题，训练集T=
 {({x}_{1} , { y }_{ 1 } ),( { x }_{ 2 } ,{ y }_{ 2 }),...,( { x }_{ n }  , { y }_{ n } )}，其类别
-{ y }_{ n }\in {-1，1}$$ ，线性SVM通过学习得到分离超平面：
-$ w\bullet x+b=0 $
-以及相应的分类决策函数：
-$$ f\left( x \ri">
+{ y }_{ n }\in  $$ {-1，1}，线性SVM通过学习得到分离超平面：
+$$w\bullet x+b=0以及相应的分类决策函数：
+f\left( x \right)">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276668807555.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276672551469.jpg">
@@ -117,15 +115,14 @@ $$ f\left( x \ri">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278216426134.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278215979270.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278216835465.jpg">
-<meta property="og:updated_time" content="2018-06-04T03:51:34.000Z">
+<meta property="og:updated_time" content="2018-06-04T03:55:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVM理论及推导">
 <meta name="twitter:description" content="对于二类分类问题，训练集T=
 {({x}_{1} , { y }_{ 1 } ),( { x }_{ 2 } ,{ y }_{ 2 }),...,( { x }_{ n }  , { y }_{ n } )}，其类别
-{ y }_{ n }\in {-1，1}$$ ，线性SVM通过学习得到分离超平面：
-$ w\bullet x+b=0 $
-以及相应的分类决策函数：
-$$ f\left( x \ri">
+{ y }_{ n }\in  $$ {-1，1}，线性SVM通过学习得到分离超平面：
+$$w\bullet x+b=0以及相应的分类决策函数：
+f\left( x \right)">
 <meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png">
 
 
@@ -411,10 +408,9 @@ $$ f\left( x \ri">
       
         <p>对于二类分类问题，训练集T=</p>
 <script type="math/tex; mode=display">{({x}_{1} , { y }_{ 1 } ),( { x }_{ 2 } ,{ y }_{ 2 }),...,( { x }_{ n }  , { y }_{ n } )}</script><p>，其类别</p>
-<script type="math/tex; mode=display">{ y }_{ n }\in {-1，1}$$ ，线性SVM通过学习得到分离超平面：
-$ w\bullet x+b=0 $
-以及相应的分类决策函数：
-$$ f\left( x \right) =sign(w\bullet x+b)</script><p>有如下图所示的分离超平面，哪一个超平面的分类效果更好呢？</p>
+<script type="math/tex; mode=display">{ y }_{ n }\in  $$ {-1，1}，线性SVM通过学习得到分离超平面：
+$$w\bullet x+b=0</script><p>以及相应的分类决策函数：</p>
+<script type="math/tex; mode=display">f\left( x \right) =sign(w\bullet x+b)</script><p>有如下图所示的分离超平面，哪一个超平面的分类效果更好呢？</p>
 <p><img src="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png" alt=""></p>
 <h2 id="Margin"><a href="#Margin" class="headerlink" title="Margin"></a>Margin</h2><p>直观上，超平面B1的分类效果更好一些。将距离分离超平面最近的两个不同类别的样本点称为支持向量（support vector）的，构成了两条平行于分离超平面的长带，二者之间的距离称之为margin。显然，margin更大，则分类正确的确信度更高（与超平面的距离表示分类的确信度，距离越远则分类正确的确信度越高）。</p>
 <p><img src="http://oyspcrc3p.bkt.clouddn.com/15276668807555.jpg" alt=""></p>
