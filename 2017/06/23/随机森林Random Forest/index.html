@@ -375,7 +375,7 @@
 
       
         <p>理解了bagging算法，随机森林(Random Forest,以下简称RF)就好理解了。它是Bagging算法的进化版，也就是说，它的思想仍然是bagging,但是进行了独有的改进。我们现在就来看看RF算法改进了什么。　　　</p>
-<p>　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所有的n个样本特征中选择一个最优的特征来做决策树的左右子树划分，但是RF通过随机选择节点上的一部分样本特征，这个数字小于n，假设为${ <em>{  }{ n }</em>{ sub } } $，然后在这些随机选择的${ <em>{  }{ n }</em>{ sub } } $个样本特征中，选择一个最优的特征来做决策树的左右子树划分。这样进一步增强了模型的泛化能力。<br>　　如果${ <em>{  }{ n }</em>{ sub } } $=n，则此时RF的CART决策树和普通的CART决策树没有区别。${ <em>{  }{ n }</em>{ sub } } $越小，则模型越健壮，当然此时对于训练集的拟合程度会变差。也就是说${ <em>{  }{ n }</em>{ sub } } $越小，模型的方差会减小，但是偏倚会增大。在实际案例中，一般会通过交叉验证调参获取一个合适的${ <em>{  }{ n }</em>{ sub } } $值。<br>　　<br>　　<br>　除了上面两点，RF和普通的bagging算法没有什么不同， 下面简单总结下RF的算法。</p>
+<p>　　首先，RF使用了CART决策树作为弱学习器，这让我们想到了梯度提升树GBDT。第二，在使用决策树的基础上，RF对决策树的建立做了改进，对于普通的决策树，我们会在节点上所有的n个样本特征中选择一个最优的特征来做决策树的左右子树划分，但是RF通过随机选择节点上的一部分样本特征，这个数字小于n，假设为${ _{  }{ n }_{ sub } } $，然后在这些随机选择的${ _{  }{ n }_{ sub } } $个样本特征中，选择一个最优的特征来做决策树的左右子树划分。这样进一步增强了模型的泛化能力。<br>　　如果${ _{  }{ n }_{ sub } } $=n，则此时RF的CART决策树和普通的CART决策树没有区别。${ _{  }{ n }_{ sub } } $越小，则模型越健壮，当然此时对于训练集的拟合程度会变差。也就是说${ _{  }{ n }_{ sub } } $越小，模型的方差会减小，但是偏倚会增大。在实际案例中，一般会通过交叉验证调参获取一个合适的${ _{  }{ n }_{ sub } } $值。<br>　　<br>　　<br>　除了上面两点，RF和普通的bagging算法没有什么不同， 下面简单总结下RF的算法。</p>
 <ul>
 <li><p>输入为样本集D={(x,y1),(x2,y2),…(xm,ym)} ，弱分类器迭代次数T。</p>
 </li>
@@ -389,8 +389,7 @@
 <ul>
 <li>2) 如果是分类算法预测，则T个弱学习器投出最多票数的类别或者类别之一为最终类别。如果是回归算法，T个弱学习器得到的回归结果进行算术平均得到的值为最终的模型输出。</li>
 </ul>
-<p>##二、随机森林生成步骤</p>
-<p>1、从原始训练数据集中，应用bootstrap方法有放回地随机抽取k个新的自助样本集，并由此构建k棵分类回归树，每次未被抽到的样本组成了Ｋ个袋外数据（out-of-bag,BBB）。</p>
+<h2 id="二、随机森林生成步骤"><a href="#二、随机森林生成步骤" class="headerlink" title="二、随机森林生成步骤"></a>二、随机森林生成步骤</h2><p>1、从原始训练数据集中，应用bootstrap方法有放回地随机抽取k个新的自助样本集，并由此构建k棵分类回归树，每次未被抽到的样本组成了Ｋ个袋外数据（out-of-bag,BBB）。</p>
 <p>2、设有n个特征，则在每一棵树的每个节点处随机抽取mtry个特征，通过计算每个特征蕴含的信息量，特征中选择一个最具有分类能力的特征进行节点分裂。</p>
 <p>3、每棵树最大限度地生长， 不做任何剪裁</p>
 <p>4、将生成的多棵树组成随机森林， 用随机森林对新的数据进行分类， 分类结果按树分类器投票多少而定。</p>
@@ -400,8 +399,7 @@
 <p>（1）：对于每棵决策树，利用袋外数据进行预测，将袋外数据的预测误差将记录下来。其每棵树的误差是：vote1，vote2····，voteb；</p>
 <p>（2）：随机变换每个预测变量，从而形成新的袋外数据，再利用袋外数据进行验证，其每个变量的误差是：vote11，vote12，···，vote1b。</p>
 <p>（3）：对于某预测变量来说，计算其重要性是变换后的预测误差与原来相比的差的均值。</p>
-<p>##随机森林优点</p>
-<p>随机森林是一个最近比较火的算法，它有很多的优点：</p>
+<h2 id="随机森林优点"><a href="#随机森林优点" class="headerlink" title="随机森林优点"></a>随机森林优点</h2><p>随机森林是一个最近比较火的算法，它有很多的优点：</p>
 <ul>
 <li><p>在数据集上表现良好，两个随机性的引入，使得随机森林不容易陷入过拟合</p>
 </li>
@@ -422,12 +420,10 @@
 <li><p>实现比较简单</p>
 </li>
 </ul>
-<p>##缺点</p>
-<p>（1）对小量数据集和低维数据集的分类不一定可以得到很好的效果。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>（1）对小量数据集和低维数据集的分类不一定可以得到很好的效果。</p>
 <p>（2）执行速度虽然比Boosting等快，但是比单个的决策树慢很多。</p>
 <p>（3）可能会出现一些差异度非常小的树，淹没了一些正确的决策。</p>
-<p>##调用RandomForestClassifier时的参数说明：</p>
-<blockquote>
+<h2 id="调用RandomForestClassifier时的参数说明："><a href="#调用RandomForestClassifier时的参数说明：" class="headerlink" title="调用RandomForestClassifier时的参数说明："></a>调用RandomForestClassifier时的参数说明：</h2><blockquote>
 <ul>
 <li>n_estimators：指定森林中树的颗数，越多越好，只是不要超过内存；</li>
 <li>criterion：指定在分裂使用的决策算法；</li>
@@ -696,7 +692,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#三、变量重要性度量"><span class="nav-number">1.</span> <span class="nav-text">三、变量重要性度量</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二、随机森林生成步骤"><span class="nav-number">1.</span> <span class="nav-text">二、随机森林生成步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、变量重要性度量"><span class="nav-number">2.</span> <span class="nav-text">三、变量重要性度量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林优点"><span class="nav-number">3.</span> <span class="nav-text">随机森林优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用RandomForestClassifier时的参数说明："><span class="nav-number">5.</span> <span class="nav-text">调用RandomForestClassifier时的参数说明：</span></a></li></ol></div>
             
 
           </div>

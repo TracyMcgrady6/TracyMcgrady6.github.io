@@ -526,10 +526,13 @@
       
         
           
-          对于二类分类问题，训练集T=$$ {({x}{1} , { y }{ 1 } ),( { x }{ 2 } ,{ y }{ 2 }),…,( { x }{ n }  , { y }{ n } )}$$，其类别$$ { y }_{ n }\in {-1，1} $$ ，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$ f\left( x \right) =sign(w\bullet x+b)$$
-有如下图所示的分离超平面，哪一个超平面的分类效果更好呢？
+          对于二类分类问题，训练集T=
+{({x}_{1} , { y }_{ 1 } ),( { x }_{ 2 } ,{ y }_{ 2 }),...,( { x }_{ n }  , { y }_{ n } )}，其类别
+{ y }_{ n }\in {-1，1} $$ ，线性SVM通过学习得到分离超平面：
+$$w\bullet x+b=0以及相应的分类决策函数：
+f\left( x \right) =sign(w\bullet x+b)有如下图所示的分离超平面，哪一个超平面的分类效果更好呢？
 
-Margin直观上，超平面B1的分类效果更好一些。将距离分离超平面最近的两个不同类别的样本点称
+Margin直观上，超平面B1的分类效果更好一些。将距离分离超平面最近的两个不同类别的样本点称为支持向
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1532,7 +1535,8 @@ LR计算图求导
 算法结构设计一个简单的算法实现判别是否是猫。用一个神经网络的思想建立一个LR模型，下面这个图解释了为什么LR事实上是一个简单的神经网。
 
 Mathematical expression of the algorithm:
-For one example $x^{(i)}$:$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$$$\hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)})\tag{2}$$$$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)})
+For one example $x^{(i)}$:
+z^{(i)} = w^T x^{(i)} + b \tag{1}\hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)})\tag{2}\mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(
           ...
           <!--noindex-->
           <div class="post-button text-center">

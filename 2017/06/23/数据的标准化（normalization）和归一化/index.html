@@ -80,17 +80,15 @@
 
 
 <meta name="description" content="数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。
-##归一化好处
-
-提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征">
+归一化好处
+提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征，对其">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据的标准化（normalization）和归一化">
 <meta property="og:url" content="http://yoursite.com/2017/06/23/数据的标准化（normalization）和归一化/index.html">
 <meta property="og:site_name" content="McGrady">
 <meta property="og:description" content="数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。
-##归一化好处
-
-提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征">
+归一化好处
+提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征，对其">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/743682-20151108152327539-2039269197.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/20161116133809577.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/323808-20160307152657304-486322487.png">
@@ -101,9 +99,8 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据的标准化（normalization）和归一化">
 <meta name="twitter:description" content="数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。
-##归一化好处
-
-提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征">
+归一化好处
+提升模型的收敛速度如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征，对其">
 <meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/743682-20151108152327539-2039269197.png">
 
 
@@ -388,19 +385,16 @@
 
       
         <p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
-<p>##归一化好处</p>
-<ol>
+<h2 id="归一化好处"><a href="#归一化好处" class="headerlink" title="归一化好处"></a>归一化好处</h2><ol>
 <li>提升模型的收敛速度<br>如下图，x1的取值为0-2000，而x2的取值为1-5，假如只有这两个特征，对其进行优化时，会得到一个窄长的椭圆形，导致在梯度下降时，梯度的方向为垂直等高线的方向而走之字形路线，这样会使迭代很慢，相比之下，右图的迭代就会很快</li>
 </ol>
 <p><img src="http://oyspcrc3p.bkt.clouddn.com/743682-20151108152327539-2039269197.png" alt=""></p>
 <p>2.提升模型的精度<br>归一化的另一好处是提高精度，这在涉及到一些距离计算的算法时效果显著，比如算法要计算欧氏距离，上图中x2的取值范围比较小，涉及到距离计算时其对结果的影响远比x1带来的小，所以这就会造成精度的损失。所以归一化很有必要，他可以让各个特征对结果做出的贡献相同。<br>    在多指标评价体系中，由于各评价指标的性质不同，通常具有不同的量纲和数量级。当各指标间的水平相差很大时，如果直接用原始指标值进行分析，就会突出数值较高的指标在综合分析中的作用，相对削弱数值水平较低指标的作用。因此，为了保证结果的可靠性，需要对原始指标数据进行标准化处理。<br>    在数据分析之前，我们通常需要先将数据标准化（normalization），利用标准化后的数据进行数据分析。数据标准化也就是统计数据的指数化。数据标准化处理主要包括数据同趋化处理和无量纲化处理两个方面。数据同趋化处理主要解决不同性质数据问题，对不同性质指标直接加总不能正确反映不同作用力的综合结果，须先考虑改变逆指标数据性质，使所有指标对测评方案的作用力同趋化，再加总才能得出正确结果。数据无量纲化处理主要解决数据的可比性。经过上述标准化处理，原始数据均转换为无量纲化指标测评值，即各指标值都处于同一个数量级别上，可以进行综合测评分析。<br>从经验上说，归一化是让不同维度之间的特征在数值上有一定比较性，可以大大提高分类器的准确性。<br><img src="http://oyspcrc3p.bkt.clouddn.com/20161116133809577.png" alt=""></p>
 <p>3.为了使得正则化起作用，需要确保所有特征的衡量标准保持统一。</p>
-<p>##需要归一化的模型：<br>有些模型在各个维度进行不均匀伸缩后，最优解与原来不等价，例如SVM（距离分界面远的也拉近了，支持向量变多？）。对于这样的模型，除非本来各维数据的分布范围就比较接近，否则必须进行标准化，以免模型参数被分布范围较大或较小的数据dominate。<br>有些模型在各个维度进行不均匀伸缩后，最优解与原来等价，例如logistic regression（因为θ的大小本来就自学习出不同的feature的重要性吧？）。对于这样的模型，是否标准化理论上不会改变最优解。但是，由于实际求解往往使用迭代算法，如果目标函数的形状太“扁”，迭代算法可能收敛得很慢甚至不收敛。所以对于具有伸缩不变性的模型，最好也进行数据标准化。</p>
-<p>##常见的数据归一化方法</p>
-<p>也叫离差标准化，是对原始数据的线性变换。<br>使结果落到[0,1]区间，转换函数如下：<br><img src="http://oyspcrc3p.bkt.clouddn.com/323808-20160307152657304-486322487.png" alt=""><br>其中max为样本数据的最大值，min为样本数据的最小值。</p>
-<p>###log函数转换<br>通过以10为底的log函数转换的方法同样可以实现归一下，具体方法如下：<br><img src="http://oyspcrc3p.bkt.clouddn.com/323808-20160307152838663-1519807797.png" alt="323808-20160307152838663-1519807797"><br>看了下网上很多介绍都是x*=log10(x)，其实是有问题的，这个结果并非一定落到[0,1]区间上，应该还要除以log10(max)，max为样本数据最大值，并且所有的数据都要大于等于1。</p>
-<p>###z-score 标准化(zero-mean normalization)</p>
-<p>最常见的标准化方法就是Z标准化，也是SPSS中最为常用的标准化方法，spss默认的标准化方法就是z-score标准化。<br>也叫标准差标准化，这种方法给予原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。<br>经过处理的数据符合标准正态分布，即均值为0，标准差为1，其转化函数为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-23 上午11.19.16.png" alt="屏幕快照 2017-06-23 上午11.19.16"></p>
+<h2 id="需要归一化的模型："><a href="#需要归一化的模型：" class="headerlink" title="需要归一化的模型："></a>需要归一化的模型：</h2><p>有些模型在各个维度进行不均匀伸缩后，最优解与原来不等价，例如SVM（距离分界面远的也拉近了，支持向量变多？）。对于这样的模型，除非本来各维数据的分布范围就比较接近，否则必须进行标准化，以免模型参数被分布范围较大或较小的数据dominate。<br>有些模型在各个维度进行不均匀伸缩后，最优解与原来等价，例如logistic regression（因为θ的大小本来就自学习出不同的feature的重要性吧？）。对于这样的模型，是否标准化理论上不会改变最优解。但是，由于实际求解往往使用迭代算法，如果目标函数的形状太“扁”，迭代算法可能收敛得很慢甚至不收敛。所以对于具有伸缩不变性的模型，最好也进行数据标准化。</p>
+<h2 id="常见的数据归一化方法"><a href="#常见的数据归一化方法" class="headerlink" title="常见的数据归一化方法"></a>常见的数据归一化方法</h2><p>也叫离差标准化，是对原始数据的线性变换。<br>使结果落到[0,1]区间，转换函数如下：<br><img src="http://oyspcrc3p.bkt.clouddn.com/323808-20160307152657304-486322487.png" alt=""><br>其中max为样本数据的最大值，min为样本数据的最小值。</p>
+<h3 id="log函数转换"><a href="#log函数转换" class="headerlink" title="log函数转换"></a>log函数转换</h3><p>通过以10为底的log函数转换的方法同样可以实现归一下，具体方法如下：<br><img src="http://oyspcrc3p.bkt.clouddn.com/323808-20160307152838663-1519807797.png" alt="323808-20160307152838663-1519807797"><br>看了下网上很多介绍都是x*=log10(x)，其实是有问题的，这个结果并非一定落到[0,1]区间上，应该还要除以log10(max)，max为样本数据最大值，并且所有的数据都要大于等于1。</p>
+<h3 id="z-score-标准化-zero-mean-normalization"><a href="#z-score-标准化-zero-mean-normalization" class="headerlink" title="z-score 标准化(zero-mean normalization)"></a>z-score 标准化(zero-mean normalization)</h3><p>最常见的标准化方法就是Z标准化，也是SPSS中最为常用的标准化方法，spss默认的标准化方法就是z-score标准化。<br>也叫标准差标准化，这种方法给予原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。<br>经过处理的数据符合标准正态分布，即均值为0，标准差为1，其转化函数为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/屏幕快照 2017-06-23 上午11.19.16.png" alt="屏幕快照 2017-06-23 上午11.19.16"></p>
 <p>其中μ为所有样本数据的均值，σ为所有样本数据的标准差。<br>z-score标准化方法适用于属性A的最大值和最小值未知的情况，或有超出取值范围的离群数据的情况。<br>标准化的公式很简单，步骤如下<br>　　1.求出各变量（指标）的算术平均值（数学期望）xi和标准差si ；<br>　　2.进行标准化处理：<br>　　zij=（xij－xi）/si<br>　　其中：zij为标准化后的变量值；xij为实际变量值。<br>　　3.将逆指标前的正负号对调。<br>　　标准化后的变量值围绕0上下波动，大于0说明高于平均水平，小于0说明低于平均水平。</p>
 <blockquote>
 <p>为什么z-score 标准化后的数据标准差为1?<br>x-μ只改变均值，标准差不变，所以均值变为0<br>(x-μ)/σ只会使标准差除以σ倍，所以标准差变为1</p>
@@ -564,8 +558,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -645,6 +648,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#归一化好处"><span class="nav-number">1.</span> <span class="nav-text">归一化好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要归一化的模型："><span class="nav-number">2.</span> <span class="nav-text">需要归一化的模型：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的数据归一化方法"><span class="nav-number">3.</span> <span class="nav-text">常见的数据归一化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log函数转换"><span class="nav-number">3.1.</span> <span class="nav-text">log函数转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#z-score-标准化-zero-mean-normalization"><span class="nav-number">3.2.</span> <span class="nav-text">z-score 标准化(zero-mean normalization)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
