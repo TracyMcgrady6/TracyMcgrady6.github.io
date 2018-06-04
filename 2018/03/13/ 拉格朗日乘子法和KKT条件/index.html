@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277377523814.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277379640433.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277490989851.jpg">
-<meta property="og:updated_time" content="2018-06-04T13:30:28.000Z">
+<meta property="og:updated_time" content="2018-06-04T13:34:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拉格朗日乘子法和KKT条件">
 <meta name="twitter:description" content="在求解最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。在有等式约束时使用拉格朗日乘子法，在有不等约束时使用KKT条件。一般情况下，最优化问题会碰到一下三种情况：（1）无约束条件　　这是最简单的情况，解决方法通常是函数对变量求导，令求导函数等于0的点可能是极值点。将结果带回原函数进行验证即可。（2）等式约束">
@@ -388,9 +388,9 @@
 <h3 id="直观理解"><a href="#直观理解" class="headerlink" title="直观理解"></a>直观理解</h3><p>想象一下，目标函数f(x,y)是一座山的高度，约束g(x,y)=C是镶嵌在山上的一条曲线如下图。<img src="http://oyspcrc3p.bkt.clouddn.com/15277370679749.jpg" alt=""></p>
 <p>你为了找到曲线上的最低点，就从最低的等高线（0那条）开始网上数。数到第三条，等高线终于和曲线有交点了（如上图所示）。因为比这条等高线低的地方都不在约束范围内，所以这肯定是这条约束曲线的最低点了。</p>
 <p>而且约束曲线在这里不可能和等高线相交，一定是相切。因为如果是相交的话，如下图所示，那么曲线一定会有一部分在B区域，但是B区域比等高线低，这是不可能的。<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277370872538.jpg" alt=""></p>
-<p>两条曲线相切，意味着他们在这点的法线平行，<strong>因此可得函数f(x,y)与g(x,y)在切点处的梯度（gradient）成正比</strong>，也就是法向量只差一个任意的常数乘子（取为$-\lambda）：\nabla f(x,y)=-\lambda \nabla g(x,y)$, 我们把这个式子的右边移到左边，并把常数移进微分算子，就得到$\nabla (f(x,y)+\lambda g(x,y))=0$。<br>把这个式子重新解释一下，这个就是函数$f(x,y)+\lambda g(x,y)$无约束情况下极值点的充分条件。</p>
+<p>两条曲线相切，意味着他们在这点的法线平行，<strong>因此可得函数f(x,y)与g(x,y)在切点处的梯度（gradient）成正比</strong>，也就是法向量只差一个任意的常数乘子（取为<script type="math/tex">-\lambda）：\nabla f(x,y)=-\lambda \nabla g(x,y)</script>, 我们把这个式子的右边移到左边，并把常数移进微分算子，就得到<script type="math/tex">\nabla (f(x,y)+\lambda g(x,y))=0</script>。<br>把这个式子重新解释一下，这个就是函数<script type="math/tex">f(x,y)+\lambda g(x,y)</script>无约束情况下极值点的充分条件。</p>
 <h2 id="KKT条件"><a href="#KKT条件" class="headerlink" title="KKT条件"></a>KKT条件</h2><p>给定优化问题：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277377523814.jpg" alt=""></p>
-<p>自变量${ x }$是一个${ n }$维向量，要最大化一个目标函数${ f }$，满足若干等式和不等式约束。KKT条件指，如果有一个点${ x }^{ <em> }$，则<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277379640433.jpg" alt=""><br>简单的说，在极值点处，${ f }$的梯度是一系列等式约束${ h }_{ j }$的梯度和不等式${ g }_{ i }$的梯度的线性组合。在这个线性组合中，等式约束梯度的权值${ \lambda  }_{ j }$没有要求；不等式约束的梯度的权值${ \mu  }_{ i}$是非负的，并且如果某个${ g }_{ i }({ x }^{ </em> })$严格小于0，那这个约束不会出现在加权式中，因为对应的权值${ \mu  }_{ i}$必须为0。换句话说，只有${ x }^{ * }$恰好在边界${ g }_{ i }=0$上的那些${ g }_{ i }$的梯度才会出现在加权式中。如果去掉不等式约束的部分，那么上式就是拉格朗日乘子法的精确描述。</p>
+<p>自变量<script type="math/tex">{ x }</script>是一个<script type="math/tex">{ n }</script>维向量，要最大化一个目标函数<script type="math/tex">{ f }</script>，满足若干等式和不等式约束。KKT条件指，如果有一个点<script type="math/tex">{ x }^{ * }</script>，则<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277379640433.jpg" alt=""><br>简单的说，在极值点处，<script type="math/tex">$${ f }</script>的梯度是一系列等式约束<script type="math/tex">{ h }_{ j }</script>的梯度和不等式<script type="math/tex">{ g }_{ i }</script>的梯度的线性组合。在这个线性组合中，等式约束梯度的权值<script type="math/tex">{ \lambda  }_{ j }</script>没有要求；不等式约束的梯度的权值<script type="math/tex">{ \mu  }_{ i}</script>是非负的，并且如果某个<script type="math/tex">{ g }_{ i }({ x }^{ * })</script>严格小于0，那这个约束不会出现在加权式中，因为对应的权值<script type="math/tex">{ \mu  }_{ i}</script>必须为0。换句话说，只有<script type="math/tex">{ x }^{ * }</script>恰好在边界<script type="math/tex">{ g }_{ i }=0</script>上的那些<script type="math/tex">{ g }_{ i }</script>的梯度才会出现在加权式中。如果去掉不等式约束的部分，那么上式就是拉格朗日乘子法的精确描述。</p>
 <p>KKT条件就是函数的最优值必定满足下面条件：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277490989851.jpg" alt=""></p>
 
       
@@ -455,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/13/逻辑斯蒂回归/" rel="next" title="逻辑斯蒂回归">
-                <i class="fa fa-chevron-left"></i> 逻辑斯蒂回归
+              <a href="/2018/03/13/svm/" rel="next" title="SVM理论及推导">
+                <i class="fa fa-chevron-left"></i> SVM理论及推导
               </a>
             
           </div>
@@ -465,8 +465,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/20/数据库索引原理/" rel="prev" title="数据库索引原理">
-                数据库索引原理 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/13/逻辑斯蒂回归/" rel="prev" title="逻辑斯蒂回归">
+                逻辑斯蒂回归 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
