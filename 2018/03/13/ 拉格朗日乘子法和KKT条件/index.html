@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="算法题," />
+  <meta name="keywords" content="机器学习,SVM,凸优化," />
 
 
 
@@ -79,22 +79,26 @@
 
 
 
-<meta name="description" content="题目描述给你一个能生成1到5随机数的函数，用它写一个函数生成1到7的随机数。 (即，使用函数rand5()来实现函数rand7())。
-思路rand5可以随机生成1,2,3,4,5；rand7可以随机生成1,2,3,4,5,6,7。 rand5并不能直接产生6，7，所以直接用rand5去实现函数rand7似乎不太好入手。 如果反过来呢？给你rand7，让你实现rand5，这个好实现吗？
-一个非常直">
+<meta name="description" content="在求解最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。在有等式约束时使用拉格朗日乘子法，在有不等约束时使用KKT条件。一般情况下，最优化问题会碰到一下三种情况：（1）无约束条件　　这是最简单的情况，解决方法通常是函数对变量求导，令求导函数等于0的点可能是极值点。将结果带回原函数进行验证即可。（2）等式约束">
 <meta property="og:type" content="article">
-<meta property="og:title" content="今日头条面试题生成随机数根据rand5()生成rand7()">
-<meta property="og:url" content="http://yoursite.com/2018/04/01/生成随机数，根据rand5()生成rand7()今日头条面试题/index.html">
+<meta property="og:title" content="拉格朗日乘子法和KKT条件">
+<meta property="og:url" content="http://yoursite.com/2018/03/13/ 拉格朗日乘子法和KKT条件/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="题目描述给你一个能生成1到5随机数的函数，用它写一个函数生成1到7的随机数。 (即，使用函数rand5()来实现函数rand7())。
-思路rand5可以随机生成1,2,3,4,5；rand7可以随机生成1,2,3,4,5,6,7。 rand5并不能直接产生6，7，所以直接用rand5去实现函数rand7似乎不太好入手。 如果反过来呢？给你rand7，让你实现rand5，这个好实现吗？
-一个非常直">
-<meta property="og:updated_time" content="2018-04-01T09:20:04.000Z">
+<meta property="og:description" content="在求解最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。在有等式约束时使用拉格朗日乘子法，在有不等约束时使用KKT条件。一般情况下，最优化问题会碰到一下三种情况：（1）无约束条件　　这是最简单的情况，解决方法通常是函数对变量求导，令求导函数等于0的点可能是极值点。将结果带回原函数进行验证即可。（2）等式约束">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277368181217.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277368647037.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277368902443.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277368842814.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277370679749.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277370872538.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277377523814.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277379640433.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277490989851.jpg">
+<meta property="og:updated_time" content="2018-06-04T13:30:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="今日头条面试题生成随机数根据rand5()生成rand7()">
-<meta name="twitter:description" content="题目描述给你一个能生成1到5随机数的函数，用它写一个函数生成1到7的随机数。 (即，使用函数rand5()来实现函数rand7())。
-思路rand5可以随机生成1,2,3,4,5；rand7可以随机生成1,2,3,4,5,6,7。 rand5并不能直接产生6，7，所以直接用rand5去实现函数rand7似乎不太好入手。 如果反过来呢？给你rand7，让你实现rand5，这个好实现吗？
-一个非常直">
+<meta name="twitter:title" content="拉格朗日乘子法和KKT条件">
+<meta name="twitter:description" content="在求解最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。在有等式约束时使用拉格朗日乘子法，在有不等约束时使用KKT条件。一般情况下，最优化问题会碰到一下三种情况：（1）无约束条件　　这是最简单的情况，解决方法通常是函数对变量求导，令求导函数等于0的点可能是极值点。将结果带回原函数进行验证即可。（2）等式约束">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/15277368181217.jpg">
 
 
 
@@ -124,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/01/生成随机数，根据rand5()生成rand7()今日头条面试题/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/13/ 拉格朗日乘子法和KKT条件/"/>
 
 
 
 
 
-  <title>今日头条面试题生成随机数根据rand5()生成rand7() | McGrady</title>
+  <title>拉格朗日乘子法和KKT条件 | McGrady</title>
   
 
 
@@ -267,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/01/生成随机数，根据rand5()生成rand7()今日头条面试题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/13/ 拉格朗日乘子法和KKT条件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yaphets">
@@ -284,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">今日头条面试题生成随机数根据rand5()生成rand7()</h1>
+          <h1 class="post-title" itemprop="name headline">拉格朗日乘子法和KKT条件</h1>
         
 
         <div class="post-meta">
@@ -296,8 +300,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-01T16:36:35+08:00">
-                2018-04-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-13T11:04:13+08:00">
+                2018-03-13
               </time>
             
 
@@ -319,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Interview/" itemprop="url" rel="index">
-                    <span itemprop="name">Interview</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -337,8 +341,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/01/生成随机数，根据rand5()生成rand7()今日头条面试题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/04/01/生成随机数，根据rand5()生成rand7()今日头条面试题/" itemprop="commentsCount"></span>
+                <a href="/2018/03/13/ 拉格朗日乘子法和KKT条件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/03/13/ 拉格朗日乘子法和KKT条件/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -346,7 +350,7 @@
 
           
           
-             <span id="/2018/04/01/生成随机数，根据rand5()生成rand7()今日头条面试题/" class="leancloud_visitors" data-flag-title="今日头条面试题生成随机数根据rand5()生成rand7()">
+             <span id="/2018/03/13/ 拉格朗日乘子法和KKT条件/" class="leancloud_visitors" data-flag-title="拉格朗日乘子法和KKT条件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -377,44 +381,17 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给你一个能生成1到5随机数的函数，用它写一个函数生成1到7的随机数。 (即，使用函数rand5()来实现函数rand7())。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>rand5可以随机生成1,2,3,4,5；rand7可以随机生成1,2,3,4,5,6,7。 rand5并不能直接产生6，7，所以直接用rand5去实现函数rand7似乎不太好入手。 如果反过来呢？给你rand7，让你实现rand5，这个好实现吗？</p>
-<p>一个非常直观的想法就是不断地调用rand7，直到它产生1到5之间的数，然后返回。 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand5</span><span class="params">()</span>:</span></div><div class="line">    res = <span class="number">6</span></div><div class="line">    <span class="keyword">while</span> res &gt; <span class="number">5</span>:</div><div class="line">        res = rand7()</div><div class="line">    <span class="keyword">return</span> res</div></pre></td></tr></table></figure>
-<p>等等，这个函数可以等概率地产生1到5的数吗？首先，它确确实实只会返回1到5这几个数， 其次，对于这些数，都是由Rand7等概率产生的(1/7)，没有对任何一个数有偏袒， 直觉告诉我们，Rand5就是等概率地产生1到5的。事实呢？让我们来计算一下， 产生1到5中的数的概率是不是1/5就OK了。比如说，让我们来计算一下Rand5生成1 的概率是多少。上面的函数中有个while循环，只要没生成1到5间的数就会一直执行下去。 因此，我们要的1可能是第一次调用Rand7时产生，也可能是第二次，第三次，…第n次。 第1次就生成1，概率是1/7；第2次生成1，说明第1次没生成1到5间的数而生成了6，7， 所以概率是(2/7)*(1/7)，依次类推。生成1的概率计算如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">P(x=<span class="number">1</span>)=<span class="number">1</span>/<span class="number">7</span> + (<span class="number">2</span>/<span class="number">7</span>) * <span class="number">1</span>/<span class="number">7</span> + (<span class="number">2</span>/<span class="number">7</span>)^<span class="number">2</span> * <span class="number">1</span>/<span class="number">7</span> + (<span class="number">2</span>/<span class="number">7</span>)^<span class="number">3</span> * <span class="number">1</span>/<span class="number">7</span> + ...</div><div class="line">      =<span class="number">1</span>/<span class="number">7</span> * (<span class="number">1</span> + <span class="number">2</span>/<span class="number">7</span> + (<span class="number">2</span>/<span class="number">7</span>)^<span class="number">2</span> + ...) // 等比数列</div><div class="line">      =<span class="number">1</span>/<span class="number">7</span> * <span class="number">1</span> / (<span class="number">1</span> - <span class="number">2</span>/<span class="number">7</span>)</div><div class="line">      =<span class="number">1</span>/<span class="number">7</span> * <span class="number">7</span>/<span class="number">5</span></div><div class="line">      =<span class="number">1</span>/<span class="number">5</span></div></pre></td></tr></table></figure>
-<p>上述计算说明Rand5是等概率地生成1,2,3,4,5的(1/5的概率)。从上面的分析中， 我们可以得到一个一般的结论，如果a &gt; b，那么一定可以用Randa去实现Randb。其中， Randa表示等概率生成1到a的函数，Randb表示等概率生成1到b的函数。</p>
-<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><p>先给出rand5()的python代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand5</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> random.randint(<span class="number">1</span>, <span class="number">5</span>)</div></pre></td></tr></table></figure>
-<p>回到正题，现在题目要求我们要用Rand5来实现Rand7，只要我们将Rand5 映射到一个能产生更大随机数的Randa，其中a &gt; 7，就可以套用上面的模板了。 这里要注意一点的是，你映射后的Randa一定是要满足等概率生成1到a的。比如，</p>
-<blockquote>
-<p>Rand5() + Rand5() - 1</p>
-</blockquote>
-<p>上述代码可以生成1到9的数，但它们是等概率生成的吗？不是。生成1只有一种组合： 两个Rand5()都生成1时：(1, 1)；而生成2有两种：(1, 2)和(2, 1)；生成6更多。 它们的生成是不等概率的。那要怎样找到一个等概率生成数的组合呢？</p>
-<p>我们先给出一个组合，再来进行分析。组合如下：</p>
-<blockquote>
-<p>5 * (Rand5() - 1) + Rand5()</p>
-</blockquote>
-<p>Rand5产生1到5的数，减1就产生0到4的数，乘以5后可以产生的数是：0,5,10,15,20。 再加上第二个Rand5()产生的1,2,3,4,5。我们可以得到1到25， 而且每个数都只由一种组合得到，即上述代码可以等概率地生成1到25。OK， 到这基本上也就解决了。</p>
-<p>套用上面的模板，我们可以得到如下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand7</span><span class="params">()</span>:</span></div><div class="line">    res = <span class="number">8</span></div><div class="line">    <span class="keyword">while</span> res &gt; <span class="number">7</span>:</div><div class="line">        res = <span class="number">5</span> * (rand5() - <span class="number">1</span>) + rand5()</div><div class="line">    <span class="keyword">return</span> res</div></pre></td></tr></table></figure>
-<p>上面的代码有什么问题呢？可能while循环要进行很多次才能返回。 因为Rand25会产生1到25的数，而只有1到7时才跳出while循环， 生成大部分的数都舍弃掉了。这样的实现明显不好。我们应该让舍弃的数尽量少， 于是我们可以修改while中的判断条件，让x与最接近25且小于25的7的倍数相比。 于是判断条件可改为x &gt; 21，于是x的取值就是1到21。 我们再通过取模运算把它映射到1-7即可。代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand7</span><span class="params">()</span>:</span></div><div class="line">    res = <span class="number">25</span></div><div class="line">    <span class="keyword">while</span> res &gt; <span class="number">21</span>:</div><div class="line">        res = <span class="number">5</span> * (rand5() - <span class="number">1</span>) + rand5()</div><div class="line">    <span class="keyword">return</span> res % <span class="number">7</span> + <span class="number">1</span></div></pre></td></tr></table></figure>
-<p>这个实现就比上面的实现要好，并且可以保证等概率生成1到7的数。</p>
-<p>让我们把这个问题泛化一下，从特殊到一般。现在我给你两个生成随机数的函数Randa， Randb。Randa和Randb分别产生1到a的随机数和1到b的随机数，a，b不相等 (相等就没必要做转换了)。现在让你用Randa实现Randb。</p>
-<p>通过上文分析，我们可以得到步骤如下：</p>
-<ol>
-<li><p>如果a &gt; b，进入步骤2；否则构造Randa2 = a <em> (Randa – 1) + Randa， 表示生成1到a2 随机数的函数。如果a2 仍小于b，继教构造 Randa3 = a </em> (Randa2 – 1) + Randa…直到ak &gt; b，这时我们得到Randak , 我们记为RandA。</p>
-</li>
-<li><p>步骤1中我们得到了RandA(可能是Randa或Randak )，其中A &gt; b</p>
-</li>
-</ol>
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>一百万次随机生成，查看各个数字出现概率<br>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand5</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> random.randint(<span class="number">1</span>, <span class="number">5</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand7</span><span class="params">()</span>:</span></div><div class="line">    res = <span class="number">25</span></div><div class="line">    <span class="keyword">while</span> res &gt; <span class="number">21</span>:</div><div class="line">        res = <span class="number">5</span> * (rand5() - <span class="number">1</span>) + rand5()</div><div class="line">    <span class="keyword">return</span> res % <span class="number">7</span> + <span class="number">1</span></div><div class="line"></div><div class="line"></div><div class="line">d = &#123;&#125;</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">8</span>):</div><div class="line">    d[i] = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">1000001</span>):</div><div class="line">    d[rand7()] += <span class="number">1</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">8</span>):</div><div class="line">    print(i, <span class="string">'出现的概率是：'</span>, float(d[i] / <span class="number">1000000</span>))</div></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> 出现的概率是： <span class="number">0.142897</span></div><div class="line"><span class="number">2</span> 出现的概率是： <span class="number">0.142651</span></div><div class="line"><span class="number">3</span> 出现的概率是： <span class="number">0.142795</span></div><div class="line"><span class="number">4</span> 出现的概率是： <span class="number">0.142416</span></div><div class="line"><span class="number">5</span> 出现的概率是： <span class="number">0.142414</span></div><div class="line"><span class="number">6</span> 出现的概率是： <span class="number">0.14348</span></div><div class="line"><span class="number">7</span> 出现的概率是： <span class="number">0.143347</span></div></pre></td></tr></table></figure>
-<p>结论：概率相等，实验验证成功</p>
-<p>参考链接：<a href="https://blog.csdn.net/wangruitao1991/article/details/51678815" target="_blank" rel="external">https://blog.csdn.net/wangruitao1991/article/details/51678815</a></p>
+        <p>在求解最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。在有等式约束时使用拉格朗日乘子法，在有不等约束时使用KKT条件。<br>一般情况下，最优化问题会碰到一下三种情况：<br>（1）无约束条件<br>　　这是最简单的情况，解决方法通常是函数对变量求导，令求导函数等于0的点可能是极值点。将结果带回原函数进行验证即可。<br>（2）等式约束条件：拉格朗日乘子法求解<br>（3）不等式约束条件：KKT条件</p>
+<h2 id="为什么求最值问题，要使导数等于0"><a href="#为什么求最值问题，要使导数等于0" class="headerlink" title="为什么求最值问题，要使导数等于0"></a>为什么求最值问题，要使导数等于0</h2><p>导数为0的意义是极值点，以二维空间为例，切线平行于X轴，所以可能是最值点</p>
+<h2 id="拉格朗日乘子法"><a href="#拉格朗日乘子法" class="headerlink" title="拉格朗日乘子法"></a>拉格朗日乘子法</h2><p>形如：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277368181217.jpg" alt=""></p>
+<h3 id="求解过程"><a href="#求解过程" class="headerlink" title="求解过程"></a>求解过程</h3><p>首先定义拉格朗日函数F(x)：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277368647037.jpg" alt=""><br>然后解变量的偏导方程：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277368902443.jpg" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/15277368842814.jpg" alt=""><br>如果有L个约束条件，就应该有L+1个方程。求出的方程组的解就可能是最优化值（高等数学中提到的极值），将结果带回原方程验证就可得到解。</p>
+<h3 id="直观理解"><a href="#直观理解" class="headerlink" title="直观理解"></a>直观理解</h3><p>想象一下，目标函数f(x,y)是一座山的高度，约束g(x,y)=C是镶嵌在山上的一条曲线如下图。<img src="http://oyspcrc3p.bkt.clouddn.com/15277370679749.jpg" alt=""></p>
+<p>你为了找到曲线上的最低点，就从最低的等高线（0那条）开始网上数。数到第三条，等高线终于和曲线有交点了（如上图所示）。因为比这条等高线低的地方都不在约束范围内，所以这肯定是这条约束曲线的最低点了。</p>
+<p>而且约束曲线在这里不可能和等高线相交，一定是相切。因为如果是相交的话，如下图所示，那么曲线一定会有一部分在B区域，但是B区域比等高线低，这是不可能的。<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277370872538.jpg" alt=""></p>
+<p>两条曲线相切，意味着他们在这点的法线平行，<strong>因此可得函数f(x,y)与g(x,y)在切点处的梯度（gradient）成正比</strong>，也就是法向量只差一个任意的常数乘子（取为$-\lambda）：\nabla f(x,y)=-\lambda \nabla g(x,y)$, 我们把这个式子的右边移到左边，并把常数移进微分算子，就得到$\nabla (f(x,y)+\lambda g(x,y))=0$。<br>把这个式子重新解释一下，这个就是函数$f(x,y)+\lambda g(x,y)$无约束情况下极值点的充分条件。</p>
+<h2 id="KKT条件"><a href="#KKT条件" class="headerlink" title="KKT条件"></a>KKT条件</h2><p>给定优化问题：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277377523814.jpg" alt=""></p>
+<p>自变量${ x }$是一个${ n }$维向量，要最大化一个目标函数${ f }$，满足若干等式和不等式约束。KKT条件指，如果有一个点${ x }^{ <em> }$，则<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277379640433.jpg" alt=""><br>简单的说，在极值点处，${ f }$的梯度是一系列等式约束${ h }_{ j }$的梯度和不等式${ g }_{ i }$的梯度的线性组合。在这个线性组合中，等式约束梯度的权值${ \lambda  }_{ j }$没有要求；不等式约束的梯度的权值${ \mu  }_{ i}$是非负的，并且如果某个${ g }_{ i }({ x }^{ </em> })$严格小于0，那这个约束不会出现在加权式中，因为对应的权值${ \mu  }_{ i}$必须为0。换句话说，只有${ x }^{ * }$恰好在边界${ g }_{ i }=0$上的那些${ g }_{ i }$的梯度才会出现在加权式中。如果去掉不等式约束的部分，那么上式就是拉格朗日乘子法的精确描述。</p>
+<p>KKT条件就是函数的最优值必定满足下面条件：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277490989851.jpg" alt=""></p>
 
       
     </div>
@@ -461,7 +438,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法题/" rel="tag"># 算法题</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/SVM/" rel="tag"># SVM</a>
+          
+            <a href="/tags/凸优化/" rel="tag"># 凸优化</a>
           
         </div>
       
@@ -474,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/20/数据库索引原理/" rel="next" title="数据库索引原理">
-                <i class="fa fa-chevron-left"></i> 数据库索引原理
+              <a href="/2018/03/13/逻辑斯蒂回归/" rel="next" title="逻辑斯蒂回归">
+                <i class="fa fa-chevron-left"></i> 逻辑斯蒂回归
               </a>
             
           </div>
@@ -483,6 +464,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/20/数据库索引原理/" rel="prev" title="数据库索引原理">
+                数据库索引原理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -667,7 +652,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答"><span class="nav-number">3.</span> <span class="nav-text">解答</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么求最值问题，要使导数等于0"><span class="nav-number">1.</span> <span class="nav-text">为什么求最值问题，要使导数等于0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉格朗日乘子法"><span class="nav-number">2.</span> <span class="nav-text">拉格朗日乘子法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#求解过程"><span class="nav-number">2.1.</span> <span class="nav-text">求解过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直观理解"><span class="nav-number">2.2.</span> <span class="nav-text">直观理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KKT条件"><span class="nav-number">3.</span> <span class="nav-text">KKT条件</span></a></li></ol></div>
             
 
           </div>
@@ -1025,6 +1010,26 @@ var jiathis_config={
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
