@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据分析,python,pandas," />
+  <meta name="keywords" content="机器学习,SVM," />
 
 
 
@@ -79,28 +79,39 @@
 
 
 
-<meta name="description" content="对于数据科学家，无论是数据分析还是数据挖掘来说，Pandas 是一个非常重要的 Python 包。它不仅提供了很多方法，使得数据处理非常简单，同时在数据处理速度上也做了很多优化，使得和 Python 内置方法相比时有了很大的优势。
-
-关键缩写和包导入在这个速查手册中，我们使用如下缩写：
-12df：任意的Pandas DataFrame对象s：任意的Pandas Series对象
-同时我们需要做如">
+<meta name="description" content="对于二类分类问题，训练集T={(${ x }{ 1 }$,${ y }{ 1 }$),(${ x }{ 2 }$,${ y }{ 2 }$),…,(${ x }{ n }$,${ y }{ n }$)}，其类别${ y }_{ n }\in ${-1，1}，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$f\left( x \right) =sig">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pandas速查手册中文">
-<meta property="og:url" content="http://yoursite.com/2017/05/03/Pandas速查手册中文/index.html">
+<meta property="og:title" content="SVM理论及推导">
+<meta property="og:url" content="http://yoursite.com/2018/03/13/svm/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="对于数据科学家，无论是数据分析还是数据挖掘来说，Pandas 是一个非常重要的 Python 包。它不仅提供了很多方法，使得数据处理非常简单，同时在数据处理速度上也做了很多优化，使得和 Python 内置方法相比时有了很大的优势。
-
-关键缩写和包导入在这个速查手册中，我们使用如下缩写：
-12df：任意的Pandas DataFrame对象s：任意的Pandas Series对象
-同时我们需要做如">
-<meta property="og:updated_time" content="2018-03-25T14:02:39.000Z">
+<meta property="og:description" content="对于二类分类问题，训练集T={(${ x }{ 1 }$,${ y }{ 1 }$),(${ x }{ 2 }$,${ y }{ 2 }$),…,(${ x }{ n }$,${ y }{ n }$)}，其类别${ y }_{ n }\in ${-1，1}，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$f\left( x \right) =sig">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276668807555.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276672551469.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277500811915.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277501088307.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277588656241.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277589056923.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277598729090.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15277608269856.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278182542002.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278186258330.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278188326156.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278190898614.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278192391448.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278193678558.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278197398649.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278214936179.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278215609342.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278215979270.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278216426134.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278215979270.jpg">
+<meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278216835465.jpg">
+<meta property="og:updated_time" content="2018-06-04T03:13:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pandas速查手册中文">
-<meta name="twitter:description" content="对于数据科学家，无论是数据分析还是数据挖掘来说，Pandas 是一个非常重要的 Python 包。它不仅提供了很多方法，使得数据处理非常简单，同时在数据处理速度上也做了很多优化，使得和 Python 内置方法相比时有了很大的优势。
-
-关键缩写和包导入在这个速查手册中，我们使用如下缩写：
-12df：任意的Pandas DataFrame对象s：任意的Pandas Series对象
-同时我们需要做如">
+<meta name="twitter:title" content="SVM理论及推导">
+<meta name="twitter:description" content="对于二类分类问题，训练集T={(${ x }{ 1 }$,${ y }{ 1 }$),(${ x }{ 2 }$,${ y }{ 2 }$),…,(${ x }{ n }$,${ y }{ n }$)}，其类别${ y }_{ n }\in ${-1，1}，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$f\left( x \right) =sig">
+<meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png">
 
 
 
@@ -130,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/03/Pandas速查手册中文/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/13/svm/"/>
 
 
 
 
 
-  <title>Pandas速查手册中文 | McGrady</title>
+  <title>SVM理论及推导 | McGrady</title>
   
 
 
@@ -273,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/03/Pandas速查手册中文/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/13/svm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yaphets">
@@ -290,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Pandas速查手册中文</h1>
+          <h1 class="post-title" itemprop="name headline">SVM理论及推导</h1>
         
 
         <div class="post-meta">
@@ -302,8 +313,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-03T19:02:41+08:00">
-                2017-05-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-13T11:04:13+08:00">
+                2018-03-13
               </time>
             
 
@@ -325,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/pandas/" itemprop="url" rel="index">
-                    <span itemprop="name">pandas</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -343,8 +354,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/03/Pandas速查手册中文/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/05/03/Pandas速查手册中文/" itemprop="commentsCount"></span>
+                <a href="/2018/03/13/svm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/03/13/svm/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -352,7 +363,7 @@
 
           
           
-             <span id="/2017/05/03/Pandas速查手册中文/" class="leancloud_visitors" data-flag-title="Pandas速查手册中文">
+             <span id="/2018/03/13/svm/" class="leancloud_visitors" data-flag-title="SVM理论及推导">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -383,95 +394,38 @@
       
 
       
-        <blockquote>
-<p>对于数据科学家，无论是数据分析还是数据挖掘来说，Pandas 是一个非常重要的 Python 包。它不仅提供了很多方法，使得数据处理非常简单，同时在数据处理速度上也做了很多优化，使得和 Python 内置方法相比时有了很大的优势。</p>
-</blockquote>
-<h2 id="关键缩写和包导入"><a href="#关键缩写和包导入" class="headerlink" title="关键缩写和包导入"></a>关键缩写和包导入</h2><p>在这个速查手册中，我们使用如下缩写：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">df：任意的Pandas DataFrame对象</div><div class="line">s：任意的Pandas Series对象</div></pre></td></tr></table></figure>
-<p>同时我们需要做如下的引入：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div></pre></td></tr></table></figure>
-<h2 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h2><ul>
-<li>pd.read_csv(filename)：从CSV文件导入数据</li>
-<li>pd.read_table(filename)：从限定分隔符的文本文件导入数据</li>
-<li>pd.read_excel(filename)：从Excel文件导入数据</li>
-<li>pd.read_sql(query, connection_object)：从SQL表/库导入数据</li>
-<li>pd.read_json(json_string)：从JSON格式的字符串导入数据</li>
-<li>pd.read_html(url)：解析URL、字符串或者HTML文件，抽取其中的tables表格</li>
-<li>pd.read_clipboard()：从你的粘贴板获取内容，并传给read_table()</li>
-<li>pd.DataFrame(dict)：从字典对象导入数据，Key是列名，Value是数据</li>
+        <p>对于二类分类问题，训练集T={(${ x }<em>{ 1 }$,${ y }</em>{ 1 }$),(${ x }<em>{ 2 }$,${ y }</em>{ 2 }$),…,(${ x }<em>{ n }$,${ y }</em>{ n }$)}，其类别${ y }_{ n }\in ${-1，1}，线性SVM通过学习得到分离超平面：<br>$$w\bullet x+b=0$$<br>以及相应的分类决策函数：<br>$$f\left( x \right) =sign(w\bullet x+b)$$</p>
+<p>有如下图所示的分离超平面，哪一个超平面的分类效果更好呢？</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png" alt=""></p>
+<h2 id="Margin"><a href="#Margin" class="headerlink" title="Margin"></a>Margin</h2><p>直观上，超平面B1的分类效果更好一些。将距离分离超平面最近的两个不同类别的样本点称为支持向量（support vector）的，构成了两条平行于分离超平面的长带，二者之间的距离称之为margin。显然，margin更大，则分类正确的确信度更高（与超平面的距离表示分类的确信度，距离越远则分类正确的确信度越高）。</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15276668807555.jpg" alt=""></p>
+<p>直线距离可知</p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15276672551469.jpg" alt=""><br>所以<br>$$Margin=\frac { 2 }{ \parallel w\parallel  } $$</p>
+<h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>对于所有点，还要求分类正确，即：<br>$$w\bullet x+b\ge 1\quad \quad \quad if\quad { y }<em>{ i }=+1$$$$ w\bullet x+b\ge -1\quad \quad \quad if\quad { y }</em>{ i }=-1$$$${ y }_{ i }(w\bullet x+b)-1\ge 0$$</p>
+<h3 id="最大化Margin"><a href="#最大化Margin" class="headerlink" title="最大化Margin"></a>最大化Margin</h3><p>$$\max { M } =\frac { 2 }{ \parallel w\parallel  } \Rightarrow \min { \frac { 1 }{ 2 } { w }^{ T }w } $$</p>
+<h3 id="最优化问题"><a href="#最优化问题" class="headerlink" title="最优化问题"></a>最优化问题</h3><ul>
+<li>Minimize             $\Phi (w)=\frac { 1 }{ 2 } { w }^{ T }w$</li>
+<li>Subject to ${ y }_{ i }(w\bullet x+b)-1\ge 0$</li>
 </ul>
-<h2 id="导出数据"><a href="#导出数据" class="headerlink" title="导出数据"></a>导出数据</h2><ul>
-<li>df.to_csv(filename)：导出数据到CSV文件</li>
-<li>df.to_excel(filename)：导出数据到Excel文件</li>
-<li>df.to_sql(table_name, connection_object)：导出数据到SQL表</li>
-<li>df.to_json(filename)：以Json格式导出数据到文本文件</li>
-</ul>
-<h2 id="创建测试对象"><a href="#创建测试对象" class="headerlink" title="创建测试对象"></a>创建测试对象</h2><ul>
-<li>pd.DataFrame(np.random.rand(20,5))：创建20行5列的随机数组成的DataFrame对象</li>
-<li>pd.Series(my_list)：从可迭代对象my_list创建一个Series对象</li>
-<li>df.index = pd.date_range(‘1900/1/30’, periods=df.shape[0])：增加一个日期索引</li>
-</ul>
-<h2 id="查看、检查数据"><a href="#查看、检查数据" class="headerlink" title="查看、检查数据"></a>查看、检查数据</h2><ul>
-<li><code>df.head(n)</code>：查看DataFrame对象的前n行</li>
-<li>df.tail(n)：查看DataFrame对象的最后n行</li>
-<li>df.shape()：查看行数和列数</li>
-<li>df.info()：查看索引、数据类型和内存信息</li>
-<li>df.describe()：查看数值型列的汇总统计</li>
-<li>s.value_counts(dropna=False)：查看Series对象的唯一值和计数</li>
-<li>df.apply(pd.Series.value_counts)：查看DataFrame对象中每一列的唯一值和计数</li>
-</ul>
-<h2 id="数据选取"><a href="#数据选取" class="headerlink" title="数据选取"></a>数据选取</h2><ul>
-<li>df[col]：根据列名，并以Series的形式返回列</li>
-<li>df[[col1, col2]]：以DataFrame形式返回多列</li>
-<li>s.iloc[0]：按位置选取数据</li>
-<li>s.loc[‘index_one’]：按索引选取数据</li>
-<li>df.iloc[0,:]：返回第一行</li>
-<li>df.iloc[0,0]：返回第一列的第一个元素</li>
-</ul>
-<h2 id="数据清理"><a href="#数据清理" class="headerlink" title="数据清理"></a>数据清理</h2><ul>
-<li>df.columns = [‘a’,’b’,’c’]：重命名列名</li>
-<li>pd.isnull()：检查DataFrame对象中的空值，并返回一个Boolean数组</li>
-<li>pd.notnull()：检查DataFrame对象中的非空值，并返回一个Boolean数组</li>
-<li>df.dropna()：删除所有包含空值的行</li>
-<li>df.dropna(axis=1)：删除所有包含空值的列</li>
-<li>df.dropna(axis=1,thresh=n)：删除所有小于n个非空值的行</li>
-<li>df.fillna(x)：用x替换DataFrame对象中所有的空值</li>
-<li>s.astype(float)：将Series中的数据类型更改为float类型</li>
-<li>s.replace(1,’one’)：用‘one’代替所有等于1的值</li>
-<li>s.replace([1,3],[‘one’,’three’])：用’one’代替1，用’three’代替3</li>
-<li>df.rename(columns=lambda x: x + 1)：批量更改列名</li>
-<li>df.rename(columns={‘old<em>name’: ‘new</em> name’})：选择性更改列名</li>
-<li>df.set_index(‘column_one’)：更改索引列</li>
-<li>df.rename(index=lambda x: x + 1)：批量重命名索引</li>
-</ul>
-<h2 id="数据处理：Filter-、Sort-和-GroupBy"><a href="#数据处理：Filter-、Sort-和-GroupBy" class="headerlink" title="数据处理：Filter 、Sort 和 GroupBy"></a>数据处理：Filter 、Sort 和 GroupBy</h2><ul>
-<li>df[df[col] &gt; 0.5]：选择col列的值大于0.5的行</li>
-<li>df.sort_values(col1)：按照列col1排序数据，默认升序排列</li>
-<li>df.sort_values(col2, ascending=False)：按照列col1降序排列数据</li>
-<li>df.sort_values([col1,col2], ascending=[True,False])：先按列col1升序排列，后按col2降序排列数据</li>
-<li>df.groupby(col)：返回一个按列col进行分组的Groupby对象</li>
-<li>df.groupby([col1,col2])：返回一个按多列进行分组的Groupby对象</li>
-<li>df.groupby(col1)[col2]：返回按列col1进行分组后，列col2的均值</li>
-<li>df.pivot_table(index=col1, values=[col2,col3], aggfunc=max)：创建一个按列col1进行分组，并计算col2和col3的最大值的数据透视表</li>
-<li>df.groupby(col1).agg(np.mean)：返回按列col1分组的所有列的均值</li>
-<li>data.apply(np.mean)：对DataFrame中的每一列应用函数np.mean</li>
-<li>data.apply(np.max,axis=1)：对DataFrame中的每一行应用函数np.max</li>
-</ul>
-<h2 id="数据合并"><a href="#数据合并" class="headerlink" title="数据合并"></a>数据合并</h2><ul>
-<li>df1.append(df2)：将df2中的行添加到df1的尾部</li>
-<li>df.concat([df1, df2],axis=1)：将df2中的列添加到df1的尾部</li>
-<li>df1.join(df2,on=col1,how=’inner’)：对df1的列和df2的列执行SQL形式的join</li>
-</ul>
-<h2 id="数据统计"><a href="#数据统计" class="headerlink" title="数据统计"></a>数据统计</h2><ul>
-<li>df.describe()：查看数据值列的汇总统计</li>
-<li>df.mean()：返回所有列的均值</li>
-<li>df.corr()：返回列与列之间的相关系数</li>
-<li>df.count()：返回每一列中的非空值的个数</li>
-<li>df.max()：返回每一列的最大值</li>
-<li>df.min()：返回每一列的最小值</li>
-<li>df.median()：返回每一列的中位数</li>
-<li>df.std()：返回每一列的标准差</li>
-</ul>
+<p>引入拉格朗日乘子法了，优化的目标变为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277500811915.jpg" alt=""><br>求导：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277501088307.jpg" alt=""></p>
+<p>带入拉格朗日函数，对偶问题转为<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277588656241.jpg" alt=""></p>
+<p>等价于最优化问题：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277589056923.jpg" alt=""></p>
+<p>(1)求得${ \alpha  }^{ <em> }={ ({ \alpha  }_{ 1 }^{ </em> },{ \alpha  }<em>{ 2 }^{ * },…,{ \alpha  }</em>{ N }^{ <em> }) }^{ T }$<br>(2)计算<br>${ \omega  }^{ </em> }=\sum <em>{ i=1 }^{ N }{ { \alpha  }</em>{ i }^{ <em> } } { y }<em>{ i }{ x }</em>{ i }$<br>并选择${ \alpha }_{ </em> }$的一个正分量 ${ \alpha  }_{ j }^{ * }$&gt;0，计算<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277598729090.jpg" alt=""></p>
+<p>(3)求得分离超平面<br>${ \omega  }^{ <em> }\bullet x+b=0$<br>分类决策函数：<br>$$f\left( x \right) =sign({ \omega  }^{ </em> }\bullet x+b)$$<br>在线性可分SVM中，${ \omega  }^{ <em> }$和${ b }^{ </em> }$只依赖于训练数据中对应于${ \alpha  }<em>{ i }^{ * }$&gt;0的样本点$({ x  }</em>{ i },{ y }<em>{ i })$，其他样本点对${ \omega  }^{ <em> }$和${ b }^{ </em> }$没有影响。我们将训练数据中对应${ \alpha  }</em>{ i }^{ * }$&gt;0的样本点称为支持向量</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/15277608269856.jpg" alt=""></p>
+<h2 id="Soft-Margin"><a href="#Soft-Margin" class="headerlink" title="Soft Margin"></a>Soft Margin</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/15278182542002.jpg" alt=""><br>求解<br><img src="http://oyspcrc3p.bkt.clouddn.com/15278186258330.jpg" alt=""></p>
+<h2 id="Non-linear-SVMs"><a href="#Non-linear-SVMs" class="headerlink" title="Non-linear SVMs"></a>Non-linear SVMs</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/15278188326156.jpg" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/15278190898614.jpg" alt=""></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15278192391448.jpg" alt=""></p>
+<p><img src="http://oyspcrc3p.bkt.clouddn.com/15278193678558.jpg" alt=""></p>
+<p>利用高维空间，数据更好的可分（优点），又避免了高维空间计算复杂（缺点）<br><img src="http://oyspcrc3p.bkt.clouddn.com/15278197398649.jpg" alt=""></p>
+<ol>
+<li>Linear核：主要用于线性可分的情形。参数少，速度快，对于一般数据，分类效果已经很理想了。</li>
+<li>RBF核：主要用于线性不可分的情形。参数多，分类结果非常依赖于参数。有很多人是通过训练数据的交叉验证来寻找合适的参数，不过这个过程比较耗时。个人体会是：使用libsvm，默认参数，RBF核比Linear核效果稍差。通过进行大量参数的尝试，一般能找到比linear核更好的效果</li>
+<li>多项式核函函数</li>
+<li>字符串核函数</li>
+</ol>
+<h2 id="序列最小最优化算法SMO"><a href="#序列最小最优化算法SMO" class="headerlink" title="序列最小最优化算法SMO"></a>序列最小最优化算法SMO</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/15278214936179.jpg" alt=""><br>　上面这个优化式子比较复杂，里面有m个变量组成的向量α需要在目标函数极小化的时候求出。直接优化时很难的。SMO算法则采用了一种启发式的方法。它每次只优化两个变量，将其他的变量都视为常数。由于<img src="http://oyspcrc3p.bkt.clouddn.com/15278215609342.jpg" alt=""><br>假如将<img src="http://oyspcrc3p.bkt.clouddn.com/15278215979270.jpg" alt=""><br>固定。那么a1,a2的之间的关系也确定了。这样SMO算法将一个复杂的优化算法转化为一个比较简单的两变量优化问题。</p>
+<p>　为了后面表示方便，我们定义<img src="http://oyspcrc3p.bkt.clouddn.com/15278216426134.jpg" alt=""><br>　由于<img src="http://oyspcrc3p.bkt.clouddn.com/15278215979270.jpg" alt="">成了常量，所有的常量我们都从目标函数去除，这样我们上一节的目标优化函数变成下式：<br>　<img src="http://oyspcrc3p.bkt.clouddn.com/15278216835465.jpg" alt=""></p>
 
       
     </div>
@@ -518,11 +472,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据分析/" rel="tag"># 数据分析</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-            <a href="/tags/pandas/" rel="tag"># pandas</a>
+            <a href="/tags/SVM/" rel="tag"># SVM</a>
           
         </div>
       
@@ -535,8 +487,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/24/携程比赛：出行产品未来14个月销量预测/" rel="next" title="携程比赛：出行产品未来14个月销量预测">
-                <i class="fa fa-chevron-left"></i> 携程比赛：出行产品未来14个月销量预测
+              <a href="/2018/03/11/排序算法总结/" rel="next" title="排序算法总结">
+                <i class="fa fa-chevron-left"></i> 排序算法总结
               </a>
             
           </div>
@@ -545,8 +497,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/02/Bagging/" rel="prev" title="Bagging原理与实践">
-                Bagging原理与实践 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/13/逻辑斯蒂回归/" rel="prev" title="逻辑斯蒂回归">
+                逻辑斯蒂回归 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -732,7 +684,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关键缩写和包导入"><span class="nav-number">1.</span> <span class="nav-text">关键缩写和包导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入数据"><span class="nav-number">2.</span> <span class="nav-text">导入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导出数据"><span class="nav-number">3.</span> <span class="nav-text">导出数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建测试对象"><span class="nav-number">4.</span> <span class="nav-text">创建测试对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看、检查数据"><span class="nav-number">5.</span> <span class="nav-text">查看、检查数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据选取"><span class="nav-number">6.</span> <span class="nav-text">数据选取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据清理"><span class="nav-number">7.</span> <span class="nav-text">数据清理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据处理：Filter-、Sort-和-GroupBy"><span class="nav-number">8.</span> <span class="nav-text">数据处理：Filter 、Sort 和 GroupBy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据合并"><span class="nav-number">9.</span> <span class="nav-text">数据合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据统计"><span class="nav-number">10.</span> <span class="nav-text">数据统计</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Margin"><span class="nav-number">1.</span> <span class="nav-text">Margin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标函数"><span class="nav-number">2.</span> <span class="nav-text">目标函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#约束条件"><span class="nav-number">2.1.</span> <span class="nav-text">约束条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最大化Margin"><span class="nav-number">2.2.</span> <span class="nav-text">最大化Margin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最优化问题"><span class="nav-number">2.3.</span> <span class="nav-text">最优化问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">3.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Soft-Margin"><span class="nav-number">4.</span> <span class="nav-text">Soft Margin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Non-linear-SVMs"><span class="nav-number">5.</span> <span class="nav-text">Non-linear SVMs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列最小最优化算法SMO"><span class="nav-number">6.</span> <span class="nav-text">序列最小最优化算法SMO</span></a></li></ol></div>
             
 
           </div>
