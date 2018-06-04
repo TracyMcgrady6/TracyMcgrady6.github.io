@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="对于二类分类问题，训练集T={($ { x }{ 1 } $,$ { y }{ 1 } $),($ { x }{ 2 } $,$ { y }{ 2 }$),…,($ { x }{ n } $ , $ { y }{ n } $)}，其类别$ { y }_{ n }\in $ {-1，1}，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$f\left(">
+<meta name="description" content="对于二类分类问题，训练集T=$$ {({x}{1} , { y }{ 1 } ),( { x }{ 2 } ,{ y }{ 2 }),…,( { x }{ n }  , { y }{ n } )}$$，其类别$$ { y }_{ n }\in {-1，1} $$ ，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$ f\left( x \right)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVM理论及推导">
 <meta property="og:url" content="http://yoursite.com/2018/03/13/svm/index.html">
 <meta property="og:site_name" content="McGrady">
-<meta property="og:description" content="对于二类分类问题，训练集T={($ { x }{ 1 } $,$ { y }{ 1 } $),($ { x }{ 2 } $,$ { y }{ 2 }$),…,($ { x }{ n } $ , $ { y }{ n } $)}，其类别$ { y }_{ n }\in $ {-1，1}，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$f\left(">
+<meta property="og:description" content="对于二类分类问题，训练集T=$$ {({x}{1} , { y }{ 1 } ),( { x }{ 2 } ,{ y }{ 2 }),…,( { x }{ n }  , { y }{ n } )}$$，其类别$$ { y }_{ n }\in {-1，1} $$ ，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$ f\left( x \right)">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276668807555.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15276672551469.jpg">
@@ -107,10 +107,10 @@
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278216426134.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278215979270.jpg">
 <meta property="og:image" content="http://oyspcrc3p.bkt.clouddn.com/15278216835465.jpg">
-<meta property="og:updated_time" content="2018-06-04T03:20:46.000Z">
+<meta property="og:updated_time" content="2018-06-04T03:36:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVM理论及推导">
-<meta name="twitter:description" content="对于二类分类问题，训练集T={($ { x }{ 1 } $,$ { y }{ 1 } $),($ { x }{ 2 } $,$ { y }{ 2 }$),…,($ { x }{ n } $ , $ { y }{ n } $)}，其类别$ { y }_{ n }\in $ {-1，1}，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$f\left(">
+<meta name="twitter:description" content="对于二类分类问题，训练集T=$$ {({x}{1} , { y }{ 1 } ),( { x }{ 2 } ,{ y }{ 2 }),…,( { x }{ n }  , { y }{ n } )}$$，其类别$$ { y }_{ n }\in {-1，1} $$ ，线性SVM通过学习得到分离超平面：$$w\bullet x+b=0$$以及相应的分类决策函数：$$ f\left( x \right)">
 <meta name="twitter:image" content="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png">
 
 
@@ -394,14 +394,16 @@
       
 
       
-        <p>对于二类分类问题，训练集T={($ { x }<em>{ 1 } $,$ { y }</em>{ 1 } $),($ { x }<em>{ 2 } $,$ { y }</em>{ 2 }$),…,($ { x }<em>{ n } $ , $ { y }</em>{ n } $)}，其类别$ { y }_{ n }\in $ {-1，1}，线性SVM通过学习得到分离超平面：<br>$$w\bullet x+b=0$$<br>以及相应的分类决策函数：<br>$$f\left( x \right) =sign(w\bullet x+b)$$</p>
+        <p>对于二类分类问题，训练集T=<br>$$ {({x}<em>{1} , { y }</em>{ 1 } ),( { x }<em>{ 2 } ,{ y }</em>{ 2 }),…,( { x }<em>{ n }  , { y }</em>{ n } )}$$<br>，其类别<br>$$ { y }_{ n }\in {-1，1} $$ ，线性SVM通过学习得到分离超平面：<br>$$w\bullet x+b=0$$<br>以及相应的分类决策函数：<br>$$ f\left( x \right) =sign(w\bullet x+b)$$</p>
 <p>有如下图所示的分离超平面，哪一个超平面的分类效果更好呢？</p>
 <p><img src="http://oyspcrc3p.bkt.clouddn.com/15276627793425.png" alt=""></p>
 <h2 id="Margin"><a href="#Margin" class="headerlink" title="Margin"></a>Margin</h2><p>直观上，超平面B1的分类效果更好一些。将距离分离超平面最近的两个不同类别的样本点称为支持向量（support vector）的，构成了两条平行于分离超平面的长带，二者之间的距离称之为margin。显然，margin更大，则分类正确的确信度更高（与超平面的距离表示分类的确信度，距离越远则分类正确的确信度越高）。</p>
 <p><img src="http://oyspcrc3p.bkt.clouddn.com/15276668807555.jpg" alt=""></p>
 <p>直线距离可知</p>
 <p><img src="http://oyspcrc3p.bkt.clouddn.com/15276672551469.jpg" alt=""><br>所以<br>$$Margin=\frac { 2 }{ \parallel w\parallel  } $$</p>
-<h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>对于所有点，还要求分类正确，即：<br>$$w\bullet x+b\ge 1\quad \quad \quad if\quad { y }<em>{ i }=+1$$$$ w\bullet x+b\ge -1\quad \quad \quad if\quad { y }</em>{ i }=-1$$$${ y }_{ i }(w\bullet x+b)-1\ge 0$$</p>
+<h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>对于所有点，还要求分类正确，即：<br>$$ w\bullet x+b\ge 1\quad \quad \quad if\quad { y }_{ i }=+1 $$</p>
+<p>$$w\bullet x+b\ge -1\quad \quad \quad if\quad { y }_{ i }=-1 $$</p>
+<p>$${ y }_{ i }(w\bullet x+b)-1\ge 0 $$</p>
 <h3 id="最大化Margin"><a href="#最大化Margin" class="headerlink" title="最大化Margin"></a>最大化Margin</h3><p>$$\max { M } =\frac { 2 }{ \parallel w\parallel  } \Rightarrow \min { \frac { 1 }{ 2 } { w }^{ T }w } $$</p>
 <h3 id="最优化问题"><a href="#最优化问题" class="headerlink" title="最优化问题"></a>最优化问题</h3><ul>
 <li>Minimize             $\Phi (w)=\frac { 1 }{ 2 } { w }^{ T }w$</li>
@@ -410,8 +412,8 @@
 <p>引入拉格朗日乘子法了，优化的目标变为：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277500811915.jpg" alt=""><br>求导：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277501088307.jpg" alt=""></p>
 <p>带入拉格朗日函数，对偶问题转为<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277588656241.jpg" alt=""></p>
 <p>等价于最优化问题：<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277589056923.jpg" alt=""></p>
-<p>(1)求得${ \alpha  }^{ <em> }={ ({ \alpha  }_{ 1 }^{ </em> },{ \alpha  }<em>{ 2 }^{ * },…,{ \alpha  }</em>{ N }^{ <em> }) }^{ T }$<br>(2)计算<br>${ \omega  }^{ </em> }=\sum <em>{ i=1 }^{ N }{ { \alpha  }</em>{ i }^{ <em> } } { y }<em>{ i }{ x }</em>{ i }$<br>并选择${ \alpha }_{ </em> }$的一个正分量 ${ \alpha  }_{ j }^{ * }$&gt;0，计算<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277598729090.jpg" alt=""></p>
-<p>(3)求得分离超平面<br>${ \omega  }^{ <em> }\bullet x+b=0$<br>分类决策函数：<br>$$f\left( x \right) =sign({ \omega  }^{ </em> }\bullet x+b)$$<br>在线性可分SVM中，${ \omega  }^{ <em> }$和${ b }^{ </em> }$只依赖于训练数据中对应于${ \alpha  }<em>{ i }^{ * }$&gt;0的样本点$({ x  }</em>{ i },{ y }<em>{ i })$，其他样本点对${ \omega  }^{ <em> }$和${ b }^{ </em> }$没有影响。我们将训练数据中对应${ \alpha  }</em>{ i }^{ * }$&gt;0的样本点称为支持向量</p>
+<p>(1)求得$${ \alpha  }^{ <em> }={ ({ \alpha  }_{ 1 }^{ </em> },{ \alpha  }<em>{ 2 }^{ * },…,{ \alpha  }</em>{ N }^{ <em> }) }^{ T } $$<br>(2)计算<br>$${ \omega  }^{ </em> }=\sum <em>{ i=1 }^{ N }{ { \alpha  }</em>{ i }^{ <em> } } { y }<em>{ i }{ x }</em>{ i } $$<br>并选择$${ \alpha }_{ </em> } $$的一个正分量 $${ \alpha  }_{ j }^{ * }&gt;0$$，计算<br><img src="http://oyspcrc3p.bkt.clouddn.com/15277598729090.jpg" alt=""></p>
+<p>(3)求得分离超平面<br>$${ \omega  }^{ <em> }\bullet x+b=0 $$<br>分类决策函数：<br>$$f\left( x \right) =sign({ \omega  }^{ </em> }\bullet x+b)$$<br>在线性可分SVM中，$${ \omega  }^{ <em> } $$和 $${ b }^{ </em> } $$只依赖于训练数据中对应于$${ \alpha  }<em>{ i }^{ * }$$&gt;0的样本点$$({ x  }</em>{ i },{ y }<em>{ i })$$，其他样本点对$${ \omega  }^{ <em> }$$和$${ b }^{ </em> }$$没有影响。我们将训练数据中对应$${ \alpha  }</em>{ i }^{ * }$$&gt;0的样本点称为支持向量</p>
 <h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/15277608269856.jpg" alt=""></p>
 <h2 id="Soft-Margin"><a href="#Soft-Margin" class="headerlink" title="Soft Margin"></a>Soft Margin</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/15278182542002.jpg" alt=""><br>求解<br><img src="http://oyspcrc3p.bkt.clouddn.com/15278186258330.jpg" alt=""></p>
 <h2 id="Non-linear-SVMs"><a href="#Non-linear-SVMs" class="headerlink" title="Non-linear SVMs"></a>Non-linear SVMs</h2><p><img src="http://oyspcrc3p.bkt.clouddn.com/15278188326156.jpg" alt=""><br><img src="http://oyspcrc3p.bkt.clouddn.com/15278190898614.jpg" alt=""></p>
